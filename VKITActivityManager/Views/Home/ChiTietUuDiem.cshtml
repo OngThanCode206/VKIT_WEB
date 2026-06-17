@@ -1,0 +1,55 @@
+﻿@model VKITActivityManager.Models.UuDiem
+@{
+    ViewData["Title"] = Model.TenUuDiem;
+}
+
+<div class="container my-5 pt-4">
+    <!-- Header của Chi tiết -->
+    <div class="text-center mb-5">
+        <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 shadow-sm"
+             style="width: 80px; height: 80px; background-color: @(Model.MauNen ?? "#c62828"); color: white; font-size: 35px;">
+            <i class="@(Model.Icon ?? "fas fa-star")"></i>
+        </div>
+        <h1 class="fw-bold" style="color: #1a237e;">@Model.TenUuDiem</h1>
+        <p class="text-muted mx-auto mt-3 fs-5" style="max-width: 800px;">@Model.NoiDung</p>
+    </div>
+
+    <hr class="mb-5" />
+
+    <!-- Khu vực hiển thị lưới Ảnh -->
+    <h3 class="fw-bold mb-4" style="color: #c62828;"><i class="fas fa-images"></i> Hình ảnh hoạt động thực tế</h3>
+
+    <div class="row g-4 mb-5">
+        @if (Model.DanhSachHinhAnh != null && Model.DanhSachHinhAnh.Any())
+        {
+            foreach (var anh in Model.DanhSachHinhAnh.OrderByDescending(a => a.NgayTao))
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                        <!-- Click vào ảnh sẽ mở to lên (Tích hợp Bootstrap Modal nếu muốn, hoặc mở tab mới) -->
+                        <a href="@anh.DuongDanAnh" target="_blank">
+                            <img src="@anh.DuongDanAnh" class="card-img-top w-100" style="height: 250px; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+                        </a>
+                        @if (!string.IsNullOrEmpty(anh.MoTaNgan))
+                        {
+                            <div class="card-body bg-light text-center py-2">
+                                <p class="card-text mb-0 fw-bold text-dark">@anh.MoTaNgan</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center py-5">
+                <img src="/images/no-data.png" style="width: 150px; opacity: 0.5" />
+                <h5 class="text-muted mt-3">Chưa có hình ảnh nào cho hoạt động này.</h5>
+            </div>
+        }
+    </div>
+
+    <div class="text-center">
+        <a asp-action="Index" class="btn btn-outline-danger fw-bold px-4 rounded-pill"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
+    </div>
+</div>

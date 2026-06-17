@@ -1,0 +1,47 @@
+﻿@model VKITActivityManager.Models.SinhVienHocBong
+@{
+    ViewData["Title"] = "Sửa Sinh Viên Học Bổng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-4">
+    <h4 class="fw-bold text-warning mb-4"><i class="fas fa-edit"></i> CẬP NHẬT SINH VIÊN NHẬN HỌC BỔNG</h4>
+
+    <form asp-action="EditSVHB" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="NgayNhan" />
+        <input type="hidden" asp-for="HinhAnh" /> <div class="row mb-3">
+            <div class="col-md-12 mb-3">
+                <label class="fw-bold">Thuộc Loại Học Bổng Nào? <span class="text-danger">*</span></label>
+                <select asp-for="LoaiHocBongId" class="form-select border-warning fw-bold" asp-items="ViewBag.LoaiHocBongId"></select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="fw-bold">Mã Sinh Viên</label>
+                <input asp-for="MaSV" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label class="fw-bold">Họ và Tên <span class="text-danger">*</span></label>
+                <input asp-for="TenSinhVien" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <label class="fw-bold">Lớp</label>
+                <input asp-for="Lop" class="form-control" />
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="fw-bold">Đổi Ảnh Avatar Mới</label>
+            <input type="file" name="fileAnh" class="form-control mb-2" accept="images/*" />
+            @if (!string.IsNullOrEmpty(Model.HinhAnh))
+            {
+                <img src="@Model.HinhAnh" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" />
+            }
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-warning fw-bold text-dark"><i class="fas fa-save"></i> Cập nhật</button>
+            <a href="/Admin" class="btn btn-secondary">Hủy</a>
+        </div>
+    </form>
+</div>

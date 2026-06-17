@@ -1,0 +1,97 @@
+﻿@model IEnumerable<VKITActivityManager.Models.HoatDongChuyenNganh>
+@using System.Text.RegularExpressions
+@using System.Net
+
+@{
+    ViewData["Title"] = "Quản lý hoạt động theo ngành";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Thay bằng Layout admin của bạn nếu có
+    string CleanText(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return "";
+        return Regex.Replace(WebUtility.HtmlDecode(input), "<.*?>", String.Empty).Trim();
+    }
+}
+
+<div class="container-fluid my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold text-dark"><i class="fas fa-tasks text-danger me-2"></i>QUẢN LÝ HOẠT ĐỘNG TỪNG NGÀNH</h4>
+
+        <form method="get" id="filterForm" action="@Url.Action("IndexHDCN", "Admin")" class="d-flex w-50">
+            <span class="input-group-text bg-light fw-bold text-muted">Lọc theo ngành:</span>
+            <select name="nganhId" class="form-select fw-bold text-primary" asp-items="ViewBag.NganhList" onchange="document.getElementById('filterForm').submit();">
+                <option value="">--- Tất cả chuyên ngành ---</option>
+            </select>
+        </form>
+
+        <a asp-action="CreateHDCN" asp-route-nganhId="@ViewBag.SelectedNganhId" class="btn btn-success fw-bold">
+            <i class="fas fa-plus"></i> Thêm Bài Mới
+        </a>
+    </div>
+    <h5 class="text-danger">
+        Tổng bài viết: @Model.Count()
+    </h5>
+    <table class="table table-bordered table-hover bg-white">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Ảnh</th>
+                <th>Chuyên Ngành</th>
+                <th>Tiêu đề chính</th>
+                <th>Ngày tạo</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            <img src="@Url.Content(item.DuongDanAnh)"
+                                 style="width:80px; height:50px; object-fit:cover;"
+                                 class="rounded shadow-sm" />
+                        </td>
+
+                        <td class="text-center">
+                            <span class="badge bg-primary">
+                                @(item.ChuyenNganh?.TenNganh)
+                            </span>
+                        </td>
+
+                        <td class="fw-bold">
+                            @CleanText(item.TieuDe)
+                        </td>
+
+                        <td class="text-center">
+                            @item.NgayTao.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td class="text-center">
+                            <a asp-action="EditHDCN"
+                               asp-route-id="@item.Id"
+                               class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <form asp-action="DeleteHDCN"
+                                  asp-route-id="@item.Id"
+                                  method="post"
+                                  class="d-inline"
+                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">
+
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="5" class="text-center py-4">Chưa có dữ liệu. Hãy chọn ngành và thêm bài viết.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

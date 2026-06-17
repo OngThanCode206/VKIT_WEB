@@ -1,0 +1,67 @@
+﻿@model VKITActivityManager.Models.HoatDongChuyenNganh
+@using System.Text.RegularExpressions
+@using System.Net
+@{
+    ViewData["Title"] = "Chi tiết bài viết";
+    string Clean(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return "";
+        return Regex.Replace(WebUtility.HtmlDecode(input), "<.*?>", String.Empty).Trim();
+    }
+}
+
+<div class="container my-5 pt-3">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb" style="font-size: 0.95rem;">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none" style="color: #1976d2;"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li class="breadcrumb-item text-muted">Tin tức & Sự kiện</li>
+        </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
+
+            <div class="d-flex align-items-center mb-4">
+                <span class="text-danger fw-bold me-3">
+                    <i class="far fa-calendar-alt me-1"></i> @Model.NgayTao.ToString("dd/MM/yyyy")
+                </span>
+                @if (!string.IsNullOrEmpty(Model.TieuDePhu))
+                {
+                    <span class="badge rounded-pill" style="background-color: #6c757d; font-size: 0.85rem; padding: 8px 15px; font-weight: normal;">
+                        @Clean(Model.TieuDePhu)
+                    </span>
+                }
+            </div>
+
+            <h1 class="fw-bold mb-4 text-uppercase" style="color: #1a237e; line-height: 1.4; font-size: 2.2rem;">
+                @Clean(Model.TieuDe)
+            </h1>
+
+            @if (!string.IsNullOrEmpty(Model.DuongDanAnh))
+            {
+                <div class="text-center mb-5 bg-light p-3 border rounded">
+                    <img src="@Model.DuongDanAnh" class="img-fluid rounded shadow-sm" style="max-height: 600px; width: 100%; object-fit: contain;">
+                </div>
+            }
+
+            <div class="article-content pb-5" style="line-height: 1.8; font-size: 1.15rem; color: #333; text-align: justify;">
+                @Html.Raw(Model.NoiDung)
+            </div>
+
+            <div class="mt-4 pt-3 border-top text-center">
+                <button onclick="history.back()" class="btn fw-bold px-4 py-2 rounded-pill" style="background-color: #f1f1f1; border: 1px solid #ccc; color: #333;">
+                    <i class="fas fa-arrow-left me-2"></i> Trở về danh sách
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .article-content img {
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 20px 0;
+        border-radius: 8px;
+    }
+</style>

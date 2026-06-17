@@ -1,0 +1,53 @@
+﻿@model VKITActivityManager.Models.HocPhi
+@{
+    ViewData["Title"] = "Thêm Mức Học Phí";
+}
+
+<h2 class="fw-bold text-dark mb-4 text-center text-md-start"><i class="fas fa-plus-circle text-success"></i> Thêm Học Phí Mới</h2>
+<div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+        <form asp-action="CreateHocPhi" method="post" class="card shadow-sm border-0 p-4">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="NganhDaoTao" class="fw-bold text-dark">Ngành đào tạo <span class="text-danger">*</span></label>
+                    <input asp-for="NganhDaoTao" class="form-control" placeholder="Vd: Cử nhân" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Hệ Đào Tạo</label>
+                    <select asp-for="HeDaoTao" class="form-select border-primary text-primary fw-bold">
+                        <option value="CN">Cử Nhân</option>
+                        <option value="KS">Kỹ Sư</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ThoiGian" class="fw-bold text-dark">Thời gian đào tạo</label>
+                    <input asp-for="ThoiGian" class="form-control" placeholder="Vd: 3.5 năm, 14 HK" />
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label asp-for="DonViApDung" class="fw-bold text-dark">Đơn vị áp dụng <span class="text-danger">*</span></label>
+                    <input asp-for="DonViApDung" class="form-control" placeholder="Vd: Khóa học / 1 Học kỳ" required />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="MucHocPhi" class="fw-bold text-primary">Học phí gốc (VNĐ)</label>
+                    <input asp-for="MucHocPhi" class="form-control" placeholder="Vd: 205.000.000" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="HocPhiGiam25" class="fw-bold text-warning">Sau học bổng 25%</label>
+                    <input asp-for="HocPhiGiam25" class="form-control" placeholder="Vd: 154.000.000" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="HocPhiGiam50" class="fw-bold text-danger">Sau học bổng 50%</label>
+                    <input asp-for="HocPhiGiam50" class="form-control" placeholder="Vd: 102.000.000" />
+                </div>
+                <div class="col-md-12 mb-3 form-check ms-2">
+                    <input asp-for="LaDongPhu" class="form-check-input" type="checkbox">
+                    <label asp-for="LaDongPhu" class="form-check-label fw-bold text-muted">Là dòng phụ (Có nền màu xám nhạt để dễ phân biệt)</label>
+                </div>
+            </div>
+            <div class="d-grid d-md-block mt-3 gap-2">
+                <button type="submit" class="btn btn-success fw-bold px-4"><i class="fas fa-save"></i> LƯU DỮ LIỆU</button>
+                <a asp-action="Index" class="btn btn-secondary fw-bold px-4"><i class="fas fa-arrow-left"></i> Hủy bỏ</a>
+            </div>
+        </form>
+    </div>
+</div>

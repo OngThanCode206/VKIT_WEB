@@ -1,0 +1,131 @@
+﻿@model VKITActivityManager.Models.HoatDong
+@{
+    ViewData["Title"] = "Thêm Nội Dung";
+}
+
+<h2 class="fw-bold text-dark mb-4 text-center text-md-start"><i class="fas fa-plus-circle text-success"></i> Thêm Nội Dung Mới</h2>
+
+<div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+
+            <div class="form-group mb-4 p-4 bg-light rounded border shadow-sm">
+                <label asp-for="PhanLoai" class="control-label fw-bold text-danger fs-5 mb-2">Bước 1: Chọn đúng phân loại nội dung quản lý:</label>
+                <select asp-for="PhanLoai" id="selectPhanLoai" class="form-select form-select-lg fw-bold border-danger" onchange="toggleInputs()">
+                    <option value="3">🖼️ Ảnh Banner Slider</option>
+                    <option value="4">🎓 Học Bổng & Ưu Đãi</option>
+                    <option value="5">🗣️ Cảm Nhận Sinh Viên</option>
+                    <option value="6">🗞️ Báo Chí (Có đính kèm Link)</option>
+                </select>
+            </div>
+
+            <div id="boxTextInputs" class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-dark text-white fw-bold py-2">Bước 2: Nhập Nội dung chữ văn bản</div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label asp-for="TieuDe" class="fw-bold text-dark">Tiêu đề chính <span class="text-danger">*</span></label>
+                        <textarea asp-for="TieuDe" id="editor_TieuDe" class="form-control" rows="2"></textarea>
+                    </div>
+
+                    <div id="boxSubTitle" class="form-group mb-3">
+                        <label asp-for="TieuDe2" class="fw-bold text-muted">Tiêu đề phụ</label>
+                        <textarea asp-for="TieuDe2" id="editor_TieuDe2" class="form-control" rows="2"></textarea>
+                    </div>
+
+                    <div id="boxShortDesc" class="form-group mb-3">
+                        <label asp-for="MoTaNgan" class="fw-bold text-muted">Mô tả tóm tắt ngắn</label>
+                        <textarea asp-for="MoTaNgan" class="form-control" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group mb-3" id="boxContent">
+                        <label asp-for="NoiDung" class="fw-bold text-dark">Nội dung chi tiết <span class="text-danger">*</span></label>
+                        <textarea asp-for="NoiDung" id="editor_NoiDung" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-danger text-white fw-bold py-2">Bước 3: Tải Tập Tin Đính Kèm</div>
+                <div class="card-body">
+                    <div id="boxUploadAnh" class="form-group mb-3">
+                        <label class="fw-bold text-primary"><i class="fas fa-image"></i> Tải Hình Ảnh Lên</label>
+                        <input type="file" name="fileAnh" class="form-control mt-2" accept="image/*" />
+                    </div>
+
+                    <div id="boxUploadVideo" class="form-group mb-3" style="display:none;">
+                        <label asp-for="DuongDanVideo" class="fw-bold text-danger"><i class="fab fa-youtube"></i> Đường link YouTube</label>
+                        <input type="text" asp-for="DuongDanVideo" class="form-control mt-2" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid d-md-block mt-4 gap-2 mb-5">
+                <button type="submit" class="btn btn-success btn-lg fw-bold px-4 shadow-sm"><i class="fas fa-save"></i> TIẾN HÀNH LƯU DỮ LIỆU</button>
+                <a asp-action="Index" class="btn btn-secondary btn-lg fw-bold px-4"><i class="fas fa-arrow-left"></i> Hủy bỏ</a>
+            </div>
+
+        </form>
+        <div asp-validation-summary="All" class="text-danger fw-bold mb-3"></div>
+    </div>
+</div>
+
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script>
+    CKEDITOR.config.versionCheck = false;
+    CKEDITOR.replace('editor_TieuDe');
+    CKEDITOR.replace('editor_TieuDe2');
+    CKEDITOR.replace('editor_NoiDung');
+
+    function toggleInputs() {
+        var loai = document.getElementById("selectPhanLoai").value;
+
+        // Ẩn hiện Video/Ảnh
+        if (loai === "2") {
+            document.getElementById("boxUploadAnh").style.display = "none";
+            document.getElementById("boxUploadVideo").style.display = "block";
+        } else {
+            document.getElementById("boxUploadAnh").style.display = "block";
+            document.getElementById("boxUploadVideo").style.display = "none";
+        }
+
+        var boxText = document.getElementById("boxTextInputs");
+        var boxSub = document.getElementById("boxSubTitle");
+        var boxDesc = document.getElementById("boxShortDesc");
+        var lblTieuDe = document.querySelector('label[for="TieuDe"]');
+        var lblTieuDe2 = document.querySelector('label[for="TieuDe2"]');
+        var lblNoiDung = document.querySelector('label[for="NoiDung"]');
+
+        if (loai === "3") {
+            if(boxText) boxText.style.display = "none";
+        } else {
+            if(boxText) boxText.style.display = "block";
+
+            // TỰ ĐỘNG ĐỔI TÊN NHÃN ĐỂ DỄ NHẬP LIỆU
+            if(loai === "6") {
+                if(lblTieuDe) lblTieuDe.innerHTML = 'Tên tờ báo (VD: Dân Trí) <span class="text-danger">*</span>';
+                if(lblTieuDe2) lblTieuDe2.innerHTML = 'LINK BÀI BÁO (Dán đường link http vào đây)';
+                if(lblNoiDung) lblNoiDung.innerHTML = 'Trích dẫn 1 câu trong bài báo (Nếu có) <span class="text-danger">*</span>';
+            } else if(loai === "5") {
+                if(lblTieuDe) lblTieuDe.innerHTML = 'Tên sinh viên <span class="text-danger">*</span>';
+                if(lblTieuDe2) lblTieuDe2.innerHTML = 'Chức vụ / Khóa học';
+                if(lblNoiDung) lblNoiDung.innerHTML = 'Lời cảm nhận <span class="text-danger">*</span>';
+            } else {
+                if(lblTieuDe) lblTieuDe.innerHTML = 'Tiêu đề chính <span class="text-danger">*</span>';
+                if(lblTieuDe2) lblTieuDe2.innerHTML = 'Tiêu đề phụ';
+                if(lblNoiDung) lblNoiDung.innerHTML = 'Nội dung chi tiết <span class="text-danger">*</span>';
+            }
+
+            if(loai === "2" || loai === "5" || loai === "6") {
+                if(boxSub) boxSub.style.display = "block";
+                if(boxDesc) boxDesc.style.display = "none";
+            } else {
+                if(boxSub) boxSub.style.display = "block";
+                if(boxDesc) boxDesc.style.display = "block";
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        toggleInputs();
+    });
+</script>

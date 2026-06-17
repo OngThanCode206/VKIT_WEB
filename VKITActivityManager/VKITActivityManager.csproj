@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\images\sinhvienhocbong\**" />
+    <Compile Remove="wwwroot\videos\**" />
+    <Content Remove="wwwroot\images\sinhvienhocbong\**" />
+    <Content Remove="wwwroot\videos\**" />
+    <EmbeddedResource Remove="wwwroot\images\sinhvienhocbong\**" />
+    <EmbeddedResource Remove="wwwroot\videos\**" />
+    <None Remove="wwwroot\images\sinhvienhocbong\**" />
+    <None Remove="wwwroot\videos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.27">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\phongnen\" />
+  </ItemGroup>
+
+</Project>

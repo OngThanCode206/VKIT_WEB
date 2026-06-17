@@ -1,0 +1,64 @@
+﻿@model IEnumerable<VKITActivityManager.Models.HoatDongChuyenNganh>
+@using System.Text.RegularExpressions
+@using System.Net
+@{
+    ViewData["Title"] = "Hoạt động ngành " + ViewBag.TenNganh;
+    string Clean(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return "";
+        return Regex.Replace(WebUtility.HtmlDecode(input), "<.*?>", String.Empty).Trim();
+    }
+}
+
+<div class="container my-5 pt-4">
+    <div class="d-flex align-items-center mb-4 border-bottom pb-3">
+        <h2 class="fw-bold m-0" style="color: #1a237e; border-left: 5px solid #c62828; padding-left: 15px;">
+            Hoạt Động Nổi Bật Của Ngành
+        </h2>
+    </div>
+
+    <div class="row g-4 mb-5">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a asp-controller="Home" asp-action="ChiTietHoatDongNganh" asp-route-id="@item.Id" class="text-decoration-none text-dark d-block h-100">
+                        <div class="card h-100 border-1 shadow-sm custom-card-nganh">
+                            <img src="@item.DuongDanAnh" class="card-img-top" style="height: 230px; object-fit: cover;">
+                            <div class="card-body p-4 text-center d-flex align-items-center justify-content-center">
+                                <h6 class="fw-bold text-uppercase m-0" style="color: #c62828; line-height: 1.5; font-size: 1.05rem;">
+                                    @Clean(item.TieuDe)
+                                </h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center text-muted fst-italic py-5">Chưa có bài viết nào cho ngành này.</div>
+        }
+    </div>
+    <div class="mt-4 pt-3 border-top">
+        <a href="/" class="btn btn-outline-danger fw-bold px-4 py-2 rounded-pill">
+            <i class="fas fa-arrow-left me-2"></i> Quay lại trang chủ
+        </a>
+    </div>
+</div>
+
+<style>
+    .custom-card-nganh {
+        border: 1px solid #e0e0e0;
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+        .custom-card-nganh:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #c62828;
+        }
+</style>

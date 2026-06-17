@@ -1,0 +1,55 @@
+﻿@model VKITActivityManager.Models.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Đăng nhập Hệ thống - VKIT";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center align-items-center" style="min-height: 55vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+                <div class="p-4 bg-dark text-white text-center" style="border-bottom: 4px solid var(--vlu-red);">
+                    <i class="fas fa-user-shield fa-2x mb-2 text-warning"></i>
+                    <h4 class="fw-bold m-0" style="letter-spacing: 0.5px;">HỆ THỐNG QUẢN TRỊ</h4>
+                    <small class="text-white-50">Vui lòng kiểm tra quyền truy cập</small>
+                </div>
+
+                <div class="card-body p-4">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger text-center small py-2 rounded-3" role="alert">
+                            <i class="fas fa-exclamation-circle me-1"></i>
+                            @Html.ValidationSummary(true, "")
+                        </div>
+                    }
+
+                    <form asp-action="Login" method="post">
+                        <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label fw-bold small text-muted">Tên đăng nhập</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fas fa-user"></i></span>
+                                <input asp-for="Username" class="form-control bg-light border-start-0 shadow-none" placeholder="Tài khoản admin..." required autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label fw-bold small text-muted">Mật khẩu bảo mật</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fas fa-lock"></i></span>
+                                <input asp-for="Password" type="password" class="form-control bg-light border-start-0 shadow-none" placeholder="Mật khẩu bảo mật..." required />
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100 fw-bold py-2 shadow-sm rounded-3" style="background-color: var(--vlu-red); border: none;">
+                            <i class="fas fa-sign-in-alt me-1"></i> ĐĂNG NHẬP NGAY
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

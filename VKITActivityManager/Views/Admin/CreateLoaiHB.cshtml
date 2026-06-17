@@ -1,0 +1,37 @@
+﻿@model VKITActivityManager.Models.LoaiHocBong
+@{
+    ViewData["Title"] = "Thêm Loại Học Bổng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-4">
+    <h4 class="fw-bold text-primary mb-4"><i class="fas fa-list-ul"></i> THÊM LOẠI HỌC BỔNG MỚI</h4>
+    <form asp-action="CreateLoaiHB" method="post" class="card p-4 shadow-sm border-0 rounded-4">
+        <div asp-validation-summary="All" class="text-danger fw-bold mb-3"></div>
+
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <label class="fw-bold mb-2">Tên Học Bổng (Ví dụ: HỌC BỔNG "SINH VIÊN TÀI NĂNG") <span class="text-danger">*</span></label>
+                <input asp-for="TenHocBong" class="form-control text-uppercase fw-bold" required />
+            </div>
+            <div class="col-md-2">
+                <label class="fw-bold mb-2">Số Suất <span class="text-danger">*</span></label>
+                <input asp-for="SoSuat" type="number" min="1" class="form-control fw-bold text-center text-danger" required />
+            </div>
+            <div class="col-md-2">
+                <label class="fw-bold mb-2">Màu Nền</label>
+                <input asp-for="MauNen" type="color" class="form-control form-control-color w-100" value="#4a72d4" title="Chọn màu cho thanh học bổng" />
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="fw-bold mb-2">Mô tả ngắn (Ví dụ: Miễn 100% học phí...)</label>
+            <input asp-for="MoTa" class="form-control fst-italic" />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary fw-bold px-4 rounded-pill"><i class="fas fa-save"></i> Lưu thông tin</button>
+            <a href="/Admin" class="btn btn-light border px-4 rounded-pill ms-2">Hủy</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+﻿@model VKITActivityManager.Models.CauHoiThuongGap
+@{
+    ViewData["Title"] = "Thêm Câu Hỏi Chatbox";
+}
+
+<div class="container mt-4 mb-5" style="max-width: 1000px;">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-primary text-white py-3 rounded-top-4">
+            <h4 class="m-0 fw-bold"><i class="fas fa-robot"></i> Thêm Câu Hỏi Mới Cho Trợ Lý Ảo</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="CreateCauHoi" method="post" onsubmit="tinymce.triggerSave();">
+
+                <div asp-validation-summary="All" class="text-danger fw-bold mb-3"></div>
+                <div class="mb-4">
+                    <label asp-for="PhanLoai" class="form-label fw-bold text-dark">Vị trí hiển thị / Ngành đào tạo <span class="text-danger">*</span></label>
+                    <select asp-for="PhanLoai" class="form-select form-select-lg">
+                        <option value="0">Chủ đề chung / Câu hỏi thường gặp</option>
+                        <option value="1">Ngành 1: Công nghệ thông tin</option>
+                        <option value="2">Ngành 2: Công nghệ kỹ thuật ô tô</option>
+                        <option value="3">Ngành 3: Quản trị kinh doanh</option>
+                        <option value="4">Ngành 4: Thiết kế đồ họa</option>
+                        <option value="5">Ngành 5: Ngôn ngữ Anh</option>
+                        <option value="6">Ngành 6: Ngôn ngữ Nhật</option>
+                        <option value="7">Ngành 7: Ngôn ngữ Hàn Quốc</option>
+                        <option value="8">Ngành 8: Logistics & Quản lý chuỗi cung ứng</option>
+                        <option value="9">Ngành 9: Công nghệ kỹ thuật điện, điện tử</option>
+                    </select>
+                    <small class="text-muted">Lựa chọn đúng nhóm để Chatbox phân phối chính xác luồng câu hỏi tự động.</small>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="CauHoi" class="form-label fw-bold text-primary">Câu Hỏi của Người dùng <span class="text-danger">*</span></label>
+                    <input asp-for="CauHoi" class="form-control form-control-lg" placeholder="VD: Trường có ký túc xá không?" required />
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="TraLoi" class="form-label fw-bold text-success">Nội dung Bot trả lời <span class="text-danger">*</span></label>
+                    <textarea asp-for="TraLoi" id="TraLoiEditor" class="form-control"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a asp-action="Index" class="btn btn-light border fw-bold px-4 py-2">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-primary fw-bold px-5 py-2">Lưu Dữ Liệu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#TraLoiEditor',
+        height: 500, // Tăng chiều cao lên 500px cho rộng rãi
+        menubar: 'file edit view insert format tools table help', // Thanh menu thả xuống như Word
+        branding: false,
+        promotion: false,
+        // Kích hoạt TẤT CẢ các plugin mạnh nhất
+        plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap emoticons',
+        // Hiển thị 2 dòng thanh công cụ (Toolbar)
+        toolbar1: 'undo redo | fontfamily fontsize blocks | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify',
+        toolbar2: 'bullist numlist outdent indent | forecolor backcolor | table image media emoticons charmap link | code fullscreen preview removeformat',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:15px; line-height: 1.6; }',
+        setup: function (editor) {
+            // Lắng nghe sự kiện: Gõ tới đâu, lưu ngầm tới đó
+            editor.on('change input keyup', function () {
+                editor.save();
+            });
+        }
+    });
+</script>

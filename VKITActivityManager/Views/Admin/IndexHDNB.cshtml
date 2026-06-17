@@ -1,0 +1,103 @@
+﻿@model IEnumerable<VKITActivityManager.Models.HoatDongNoiBat>
+@{
+    ViewData["Title"] = "Quản lý Hoạt Động Nổi Bật";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Thay đổi nếu Admin có Layout riêng
+}
+<!-- Thư viện SweetAlert2 (Nếu bạn chưa có trong _Layout thì dán dòng này vào) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Kiểm tra xem có thông báo từ Server gửi về không
+    @if (TempData["SuccessMsg"] != null)
+    {
+            <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: '@TempData["SuccessMsg"]',
+                    confirmButtonColor: '#0A2540',
+                    confirmButtonText: 'Đóng'
+                });
+            </text>
+    }
+
+    // Hàm xác nhận xóa (Giữ nguyên hoặc dán đè cái này vào)
+    function confirmDelete(event, formElement) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Dữ liệu này sẽ bị xóa vĩnh viễn!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Đồng ý xóa!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                formElement.submit();
+            }
+        });
+    }
+</script>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold" style="color: #0A2540;">
+            <i class="fas fa-fire text-danger me-2"></i>Quản lý Hoạt Động Nổi Bật
+        </h3>
+        <a asp-action="CreateHDNB" class="btn fw-bold shadow-sm" style="background-color: #00D4B2; color: #0A2540;">
+            <i class="fas fa-plus me-1"></i> Thêm Hoạt Động
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead style="background-color: #0A2540; color: #ffffff;">
+                    <tr>
+                        <th width="10%" class="py-3 text-center">Hình Ảnh</th>
+                        <th width="50%" class="py-3">Mô Tả / Tiêu đề</th>
+                        <th width="20%" class="py-3 text-center">Ngày Tạo</th>
+                        <th width="20%" class="py-3 text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    @if (Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center p-3">
+                                    <div class="rounded-3 overflow-hidden shadow-sm d-inline-block" style="width: 80px; height: 60px;">
+                                        <img src="@item.DuongDanAnh" alt="Image" class="w-100 h-100" style="object-fit: cover;" />
+                                    </div>
+                                </td>
+                                <td class="fw-bold" style="color: #475569;">@item.MoTa</td>
+                                <td class="text-center">
+                                    <span class="badge bg-light text-dark border"><i class="far fa-calendar-alt me-1"></i> @item.NgayTao.ToString("dd/MM/yyyy HH:mm")</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-action="EditHDNB" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form asp-action="DeleteHDNB" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hoạt động này không?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-muted fst-italic">Chưa có dữ liệu. Hãy thêm hoạt động mới!</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

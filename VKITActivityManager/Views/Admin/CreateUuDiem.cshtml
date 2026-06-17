@@ -1,0 +1,37 @@
+﻿@model VKITActivityManager.Models.UuDiem
+@{
+    ViewData["Title"] = "Thêm Ưu Điểm Chương Trình";
+}
+
+<div class="container mt-4 mb-5" style="max-width: 800px;">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-warning text-dark py-3 rounded-top-4">
+            <h4 class="m-0 fw-bold"><i class="fas fa-star"></i> Thêm Ưu Điểm Mới</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="CreateUuDiem" method="post">
+                <div class="mb-3">
+                    <label asp-for="TenUuDiem" class="form-label fw-bold">Tên Ưu Điểm <span class="text-danger">*</span></label>
+                    <input asp-for="TenUuDiem" class="form-control" placeholder="VD: Mô hình chuẩn Hàn Quốc" required />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Icon" class="form-label fw-bold">Mã Icon (FontAwesome)</label>
+                    <input asp-for="Icon" class="form-control" placeholder="VD: fas fa-users, fas fa-building..." />
+                    <small class="text-muted">Lấy mã icon tại <a href="https://fontawesome.com/icons" target="_blank">FontAwesome</a></small>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MauNen" class="form-label fw-bold">Mã Màu (Tùy chọn)</label>
+                    <input asp-for="MauNen" type="color" class="form-control form-control-color w-100" value="#c62828" title="Chọn màu cho icon" />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="NoiDung" class="form-label fw-bold">Mô tả ngắn <span class="text-danger">*</span></label>
+                    <textarea asp-for="NoiDung" class="form-control" rows="3" placeholder="Nhập mô tả ngắn gọn..." required></textarea>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-light border fw-bold px-4">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-warning fw-bold px-4">Lưu Ưu Điểm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

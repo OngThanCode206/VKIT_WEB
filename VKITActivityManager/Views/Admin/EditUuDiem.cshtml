@@ -1,0 +1,37 @@
+﻿@model VKITActivityManager.Models.UuDiem
+@{
+    ViewData["Title"] = "Cập nhật Ưu Điểm";
+}
+
+<div class="container mt-4 mb-5" style="max-width: 800px;">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-warning text-dark py-3 rounded-top-4">
+            <h4 class="m-0 fw-bold"><i class="fas fa-edit"></i> Cập nhật Ưu Điểm</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="EditUuDiem" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="mb-3">
+                    <label asp-for="TenUuDiem" class="form-label fw-bold">Tên Ưu Điểm <span class="text-danger">*</span></label>
+                    <input asp-for="TenUuDiem" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Icon" class="form-label fw-bold">Mã Icon (FontAwesome)</label>
+                    <input asp-for="Icon" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MauNen" class="form-label fw-bold">Mã Màu</label>
+                    <input asp-for="MauNen" type="color" class="form-control form-control-color w-100" />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="NoiDung" class="form-label fw-bold">Mô tả ngắn <span class="text-danger">*</span></label>
+                    <textarea asp-for="NoiDung" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-light border fw-bold px-4">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-warning fw-bold px-4">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

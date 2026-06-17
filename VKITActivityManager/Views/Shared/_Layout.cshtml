@@ -1,0 +1,575 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>@ViewData["Title"] - VKIT University</title>
+    <link rel="icon" type="images/*" href="~/images/logovkit.ico" />
+    <link rel="shortcut icon" type="images/*" href="~/images/logovkit.ico" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+ <style>
+    :root {
+        --vlu-red: #c62828;
+        --vlu-dark: #1a237e;
+    }
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        overflow-x: hidden;
+    }
+
+    /* KHUNG MENU CHÍNH - KHÓA CỨNG BỐ CỤC */
+    .main-nav {
+        background: #fff;
+        border-bottom: 3px solid var(--vlu-red);
+        padding: 10px 0;
+        width: 100%;
+        display: block;
+    }
+
+    .main-nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* KHÓA CỨNG KÍCH THƯỚC 2 LOGO */
+    .hutech-logo, .vkit-logo {
+        height: 60px; /* Chiều cao cố định trên Desktop */
+        width: auto;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+        transition: all 0.3s ease;
+    }
+
+    /* KHÓA TIÊU ĐỀ Ở GIỮA */
+    .title-container {
+        flex-grow: 1;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .title-text {
+        color: var(--vlu-dark);
+        font-size: 22px;
+        font-weight: 700;
+        white-space: nowrap; /* Không bao giờ xuống dòng */
+        margin: 0;
+    }
+
+    /* DẢI BANNER ĐỎ BÊN DƯỚI */
+    .vlu-sub-header {
+        background: var(--vlu-red);
+        color: white;
+        padding: 8px 0;
+        font-weight: bold;
+        text-align: center;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    /* RESPONSIVE CHO ĐIỆN THOẠI */
+    @@media (max-width: 991px) {
+        .hutech-logo, .vkit-logo {
+            height: 40px; /* Thu nhỏ logo trên mobile */
+        }
+        .title-text {
+            font-size: 13px; /* Thu nhỏ chữ trên mobile */
+        }
+        .main-nav {
+            padding: 5px 0;
+        }
+    }
+
+    .qr-hover-effect {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .qr-hover-effect:hover {
+        transform: scale(1.05);
+    }
+</style>
+</head>
+<body>
+
+   <nav class="main-nav">
+    <div class="container d-flex align-items-center justify-content-between">
+        
+        <a href="/" class="brand-link">
+            <img src="/images/hoatdong/logoht.jpg" class="hutech-logo" alt="HUTECH" />
+        </a>
+
+        <div class="title-container text-center">
+            <h3 class="m-0 fw-bold title-text">
+                VIỆN CÔNG NGHỆ <span style="color: var(--vlu-red);">VIỆT HÀN</span>
+            </h3>
+        </div>
+
+        <a href="/" class="brand-link">
+            <img src="/images/hoatdong/logoviethan.jpg" class="vkit-logo" alt="VIỆT HÀN" />
+        </a>
+
+    </div>
+</nav>
+
+    <div class="vlu-sub-header shadow-sm">
+        <div class="container text-truncate">
+            NĂNG ĐỘNG SÁNG TẠO <i class="fas fa-star mx-1 text-warning"></i> BỨT PHÁ TƯƠNG LAI
+        </div>
+    </div>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="text-white pt-4 pb-3 mt-auto" style="background-color: #1a1a1a; font-size: 0.95rem;">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-12 mx-auto">
+                    <h5 class="fw-bold mb-3" style="color: #ffff; letter-spacing: 1px;">
+                        VIỆN CÔNG NGHỆ VIỆT HÀN (VKIT) | TRƯỜNG ĐẠI HỌC CÔNG NGHỆ TP.HCM (HUTECH)
+                    </h5>
+
+                    <p class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2 text-danger"></i>
+                        Trụ sở Điện Biên Phủ: 475A Điện Biên Phủ, Phường Thạnh Mỹ Tây, TP.HCM
+                    </p>
+
+                    <p class="mb-2 d-flex flex-wrap justify-content-center align-items-center gap-2 gap-md-3">
+                        <span><i class="fas fa-phone-alt me-2" style="color: #4caf50;"></i>Điện thoại: (028) 3556 6109</span>
+                        <span class="d-none d-md-inline text-secondary">|</span>
+                        <span><i class="fas fa-comment-dots me-2" style="color: #0088cc;"></i>Zalo: 0397 953 837 (Thầy Thanh Vang)</span>
+                        <span class="d-none d-md-inline text-secondary">|</span>
+                        <span><i class="fas fa-envelope me-2" style="color: #ff9800;"></i>Email: vkit@hutech.edu.vn</span>
+                    </p>
+
+                    <p class="mb-3">
+                        <i class="fas fa-globe me-2 text-primary"></i>Website:
+                        <a href="https://www.hutech.edu.vn/chuong-trinh-viet-han-vkit" target="_blank" class="text-white text-decoration-none custom-link">
+                            hutech.edu.vn/VKIT
+                        </a>
+                    </p>
+
+                    <hr class="mb-3 mx-auto" style="border-color: #444; width: 80%;">
+
+                    <div class="small" style="color: #aaa;">
+                        &copy; @DateTime.Now.Year - Bản quyền thuộc về Viện Công Nghệ Việt Hàn (VKIT)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .custom-link {
+            transition: color 0.3s ease;
+        }
+
+            .custom-link:hover {
+                color: #f8ca00 !important;
+                text-decoration: underline !important;
+            }
+    </style>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <!-- NÚT ĐĂNG KÝ XÉT TUYỂN (NẰM TRÊN NÚT CHAT) -->
+    <a href="https://www.hutech.edu.vn/chuong-trinh-viet-han-vkit#dangky" target="_blank" 
+       id="vkit-register-btn" 
+       class="position-fixed d-flex align-items-center justify-content-center shadow-lg text-decoration-none btn-register-pulse"
+       style="bottom: 110px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(135deg, #e53935, #c62828); z-index: 9998;">
+        
+        <!-- Icon cái bút/đăng ký -->
+        <i class="fas fa-file-signature text-white fs-3"></i>
+        
+        <!-- Bong bóng text trỏ ra bên trái -->
+        <div class="position-absolute bg-white shadow-sm rounded p-2 text-center" style="right: 80px; width: 140px; font-size: 13px; font-weight: 600; border: 1px solid #e0e0e0;">
+            <span class="text-primary">Tuyển sinh 2026</span><br />
+            <span class="text-danger">ĐĂNG KÝ NGAY</span>
+            <!-- Hình tam giác chỉ vào nút -->
+            <div class="position-absolute" style="top: 50%; right: -6px; width: 12px; height: 12px; background: white; transform: translateY(-50%) rotate(45deg); border-right: 1px solid #e0e0e0; border-top: 1px solid #e0e0e0;"></div>
+        </div>
+    </a>
+    <div id="vkit-chat-btn" class="position-fixed shadow-lg"
+         style="bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; z-index: 9999; cursor: pointer; border: 3px solid #fff; overflow: hidden;">
+        <img src="/images/hoatdong/logochibiVKIT.png" alt="VKIT Chibi" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <div class="position-fixed bg-white shadow-sm rounded p-2 text-center"
+         style="bottom: 40px; right: 110px; width: 140px; font-size: 13px; font-weight: 600; border: 1px solid #e0e0e0; z-index: 9998; pointer-events: none;">
+        <span class="text-primary">VKIT - Trợ lý ảo</span><br />
+        <span class="text-danger">Tư vấn tuyển sinh</span>
+        <div class="position-absolute" style="top: 50%; right: -6px; width: 12px; height: 12px; background: white; transform: translateY(-50%) rotate(45deg); border-right: 1px solid #e0e0e0; border-top: 1px solid #e0e0e0;"></div>
+    </div>
+
+    <div id="vkit-chat-window" class="position-fixed d-none flex-column bg-white">
+        <!-- Header --> <div class="vkit-header text-white p-3 d-flex justify-content-between align-items-center"> 
+            <div class="d-flex align-items-center"> <div class="vkit-avatar me-3"> <i class="fas fa-robot"></i> </div>
+            <div> <h6 class="m-0 fw-bold"> 🤖 VKIT AI Assistant </h6> <small class="vkit-status"> <i class="fas fa-circle"></i> Đồng hành cùng tân sinh viên </small>
+            </div> </div> <i class="fas fa-times fs-5" id="close-chat"></i> </div>
+            <!-- Chat History -->
+            <div id="chat-history" class="p-3 flex-grow-1">
+            <!-- Message mặc định --> 
+            <div class="d-flex justify-content-start mb-3"> 
+            <div class="vkit-bot-message"> 👋 Xin chào! <br>
+            <br> Mình là <b>VKIT AI Assistant</b> 🎓 <br>
+            <br> Mình có thể hỗ trợ bạn: <br> ✨ Các câu hỏi tuyển sinh thường gặp <br> 🎓 Các ngành đào tạo <br> 💰 Học phí và học bổng <br> 📅 Thông tin nhập học <br>
+            <br> Bạn muốn tìm hiểu điều gì hôm nay? </div>
+            </div> 
+            <div id="chatbox-options-area" class="d-flex flex-column gap-2 mb-3"> </div>
+            </div> <!-- Input --> <div class="vkit-input-area"> 
+            <div class="input-group"> <input type="text" id="chat-user-input" class="form-control border-0 px-3" placeholder="Hỏi VKIT AI điều gì đó..." />
+            <button class="btn" id="btn-send-chat" type="button"> <i class="fas fa-paper-plane"></i> 
+                </button> 
+           </div> 
+       </div> 
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chatBtn = document.getElementById('vkit-chat-btn');
+            const chatWindow = document.getElementById('vkit-chat-window');
+            const closeBtn = document.getElementById('close-chat');
+            const optionsArea = document.getElementById('chatbox-options-area');
+            const chatInput = document.getElementById('chat-user-input');
+            const sendBtn = document.getElementById('btn-send-chat');
+
+            let localDbData = [];
+            let dataLoaded = false;
+
+            // Định nghĩa danh sách 9 ngành đào tạo cố định
+            const danhSachNganh = [
+                { id: 1, name: "Công nghệ thông tin" },
+                { id: 2, name: "Công nghệ kỹ thuật ô tô" },
+                { id: 3, name: "Quản trị kinh doanh" },
+                { id: 4, name: "Thiết kế đồ họa" },
+                { id: 5, name: "Ngôn ngữ Anh" },
+                { id: 6, name: "Ngôn ngữ Nhật" },
+                { id: 7, name: "Ngôn ngữ Hàn Quốc" },
+                { id: 8, name: "Logistics & Quản lý chuỗi cung ứng" },
+                { id: 9, name: "Công nghệ kỹ thuật điện, điện tử" }
+            ];
+
+            // Mở/đóng cửa sổ chat
+                chatBtn.addEventListener('click', function () {
+                chatWindow.classList.toggle('d-none');
+                chatWindow.classList.toggle('d-flex');
+                if (!chatWindow.classList.contains('d-none') && !dataLoaded) {
+                    loadDatabaseQuestions();
+                }
+            });
+
+            closeBtn.addEventListener('click', function () {
+                chatWindow.classList.add('d-none');
+                chatWindow.classList.remove('d-flex');
+            });
+
+          // 1. TẢI DỮ LIỆU CHỐNG CACHE (Ép trình duyệt luôn lấy câu hỏi mới nhất từ SQL)
+            function loadDatabaseQuestions() {
+                // Thêm đuôi thời gian vào link để chống cache
+                fetch('/Home/GetChatboxData?t=' + new Date().getTime())
+                    .then(res => res.json())
+                    .then(data => {
+                        localDbData = data;
+                        dataLoaded = true;
+                        showInitialMenu();
+                    })
+                    .catch(err => {
+                        console.error("Lỗi kết nối dữ liệu Chatbox:", err);
+                        showInitialMenu();
+                    });
+            }
+
+            // BƯỚC 4.1: Hiển thị 2 lựa chọn mặc định ban đầu
+  
+            function showInitialMenu() {
+            optionsArea.innerHTML = '';
+            // Menu 1
+            createOptionButton(
+            "✨ <b>Các câu hỏi tuyển sinh thường gặp</b><br><small class='text-muted'>Học phí, học bổng, nhập học, cơ hội việc làm...</small>",
+            function () {
+            appendMessage("Các câu hỏi tuyển sinh thường gặp", "user");
+            renderGeneralQuestions();
+               }
+            );
+            // Menu 2
+            createOptionButton(
+            "🎓 <b>Các ngành đào tạo</b><br><small class='text-muted'>Khám phá các ngành học tại VKIT</small>",
+            function () {
+            appendMessage("Các ngành đào tạo", "user");
+            renderMajorsList();
+                  }
+                  );
+            }
+
+        // 2. CHUẨN HÓA TIẾNG VIỆT TUYỆT ĐỐI (Xử lý mọi loại bảng mã và dấu câu)
+             function removeVietnameseTones(str) {
+                 if (!str) return "";
+                 str = str.toLowerCase().trim();
+                 // Sử dụng hàm normalize NFD để bóc tách toàn bộ dấu ra khỏi chữ cái gốc
+                 str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                 str = str.replace(/đ/g, "d").replace(/Đ/g, "d");
+                 // Xóa mọi ký tự đặc biệt (!, ?, ., dấu phẩy) chỉ giữ lại chữ cái và khoảng trắng
+                 str = str.replace(/[^a-z0-9\s]/g, "");
+                 // Gộp các khoảng trắng thừa thành 1
+                 return str.replace(/\s+/g, ' ');
+             }
+
+            // BƯỚC 4.2: Hiển thị danh sách 9 ngành đào tạo
+                function renderMajorsList() {
+                optionsArea.innerHTML =
+                '<div class="text-muted small mb-2 fw-bold">' +
+                '<i class="fas fa-graduation-cap"></i> Chọn ngành bạn muốn tìm hiểu' +
+                '</div>';
+                danhSachNganh.forEach(nganh => {
+                createOptionButton(
+                "🎓 <b>" + nganh.name + "</b><br><small class='text-muted'>Xem thông tin chi tiết ngành học</small>",
+                function () {
+                appendMessage("Tìm hiểu ngành " + nganh.name, "user");
+                const foundAnswer = localDbData.find(x => x.phanLoai === nganh.id);
+                setTimeout(() => {
+                if (foundAnswer) {
+                appendMessage(foundAnswer.traLoi, "bot");
+                showBackToMenuOption();
+                } else {
+                appendMessage(
+                "Hiện tại thông tin chi tiết của ngành này đang được cập nhật. Bạn có thể liên hệ trực tiếp với VKIT qua Fanpage hoặc Zalo dưới đây để được tư vấn chi tiết hơn nhé 😊",
+                "bot"
+                );
+                appendQRCodeBox();
+                }
+                }, 400);
+                }
+                );
+                });
+                }
+            // Hiển thị danh sách câu hỏi chung (PhanLoai == 0)
+            function renderGeneralQuestions() {
+    optionsArea.innerHTML = '<div class="text-muted small mb-2 fw-bold">' + '<i class="fas fa-lightbulb"></i> Những thắc mắc mà tân sinh viên thường quan tâm' + '</div>';
+                const generalItems = localDbData.filter(x => x.phanLoai === 0);
+
+                if (generalItems.length > 0) {
+                    generalItems.forEach(item => {
+                        createOptionButton("❓ " + item.cauHoi, function() {
+                            appendMessage(item.cauHoi, "user");
+                            setTimeout(() => {
+                                appendMessage(item.traLoi, "bot");
+                                showBackToMenuOption();
+                            }, 400);
+                        });
+                    });
+                } else {
+                    appendMessage("Hệ thống chưa cập nhật câu hỏi thường gặp. Bạn vui lòng sử dụng ô nhập tin nhắn ở dưới nhé!", "bot");
+                    showBackToMenuOption();
+                }
+            }
+
+            // 3. THUẬT TOÁN TÌM KIẾM TỪ KHÓA (CHẤM ĐIỂM THÔNG MINH)
+            function handleUserTextInput() {
+                const query = chatInput.value.trim();
+                if (!query) return;
+
+                // In câu hỏi của user lên màn hình
+                appendMessage(query, "user");
+                chatInput.value = '';
+
+                setTimeout(() => {
+                    const normalizedQuery = removeVietnameseTones(query);
+                    const queryWords = normalizedQuery.split(' '); // Tách câu user thành từng từ
+
+                    let bestMatch = null;
+                    let highestScore = 0;
+
+                    for (let item of localDbData) {
+                        let normalizedDbQuestion = removeVietnameseTones(item.cauHoi);
+
+                        // ƯU TIÊN 1: Khớp chính xác 100% y hệt nhau
+                        if (normalizedQuery === normalizedDbQuestion) {
+                            bestMatch = item;
+                            break;
+                        }
+
+                        // ƯU TIÊN 2: Câu hỏi của User CÓ CHỨA trọn vẹn từ khóa trong Database
+                        // VD: User gõ "học phí tất cả các ngành như thế nào" chứa trọn cụm "học phí tất cả các ngành"
+                        if (normalizedQuery.includes(normalizedDbQuestion)) {
+                            let score = normalizedDbQuestion.length * 100; // Thưởng điểm tuyệt đối
+                            if (score > highestScore) {
+                                highestScore = score;
+                                bestMatch = item;
+                            }
+                            continue;
+                        }
+
+                        // ƯU TIÊN 3: Tìm kiếm theo cụm từ rời rạc (Bỏ qua từ thừa)
+                        // VD: User gõ "học phí CỦA tất cả các ngành" (dư chữ CỦA)
+                        let dbWords = normalizedDbQuestion.split(' ');
+                        let matchCount = 0;
+
+                        for (let word of dbWords) {
+                            // Cứ mỗi từ trong Database xuất hiện trong câu của User thì cộng 1 điểm
+                            if (queryWords.includes(word)) {
+                                matchCount++;
+                            }
+                        }
+
+                        // Nếu khớp từ 70% số từ khóa trở lên thì coi như tìm thấy
+                        let matchRatio = matchCount / dbWords.length;
+                        if (matchRatio >= 0.7) {
+                            let score = matchCount * 10;
+                            if (score > highestScore) {
+                                highestScore = score;
+                                bestMatch = item;
+                            }
+                        }
+                    }
+
+                    // Trả về kết quả có điểm số khớp cao nhất
+                    if (bestMatch) {
+                        appendMessage(bestMatch.traLoi, "bot");
+                        showBackToMenuOption();
+                    } else {
+                        appendMessage("Hệ thống chưa tìm thấy dữ liệu phù hợp với cụm từ khóa của bạn. Bạn hãy quét mã QR dưới đây để kết nối trực tiếp với thầy cô Ban tư vấn tuyển sinh nhé:", "bot");
+                        appendQRCodeBox();
+                    }
+                }, 500);
+            }
+
+        // BƯỚC 4.4: Hàm sinh khối hiển thị QR Facebook và QR Zalo (ĐÃ NÂNG CẤP CLICK LINK)
+    
+                function appendQRCodeBox() {
+                const history = document.getElementById('chat-history');
+                const qrDiv = document.createElement('div');
+                qrDiv.className =
+                'd-flex justify-content-start align-items-start gap-2 mb-3 animate__animated animate__fadeIn';
+                qrDiv.innerHTML = `
+                <div class="vkit-bot-avatar">
+                🤖
+            </div>
+                <div class="bg-white p-3 shadow-sm border w-100"
+                style="max-width:85%; border-radius:0 18px 18px 18px; border:1px solid #ececec;">
+                <div class="row text-center g-2">
+                <div class="col-6 border-end">
+                <a href="https://www.facebook.com/VKITHUTECH"
+                target="_blank"
+                class="text-decoration-none d-block qr-hover-effect">
+                <img src="/images/hoatdong/qr_facebook.png"
+                class="img-fluid rounded mb-2 border p-1"
+                alt="QR Facebook"
+                onerror="this.src='https://placehold.co/120x120?text=QR+Facebook'" />
+                <div class="small fw-bold text-primary">
+                <i class="fab fa-facebook-messenger"></i>
+                Facebook VKIT
+             </div>
+
+             </a>
+
+           </div>
+
+         <div class="col-6">
+
+                <a href="https://zalo.me/170235255220670253%7C"
+                target="_blank"
+                class="text-decoration-none d-block qr-hover-effect">
+
+                <img src="/images/hoatdong/qr_zalo.png"
+                class="img-fluid rounded mb-2 border p-1"
+                alt="QR Zalo"
+                onerror="this.src='https://placehold.co/120x120?text=QR+Zalo'" />
+
+                <div class="small fw-bold text-success">
+                <i class="fas fa-phone-alt"></i>
+                Zalo Tư vấn
+               </div>
+             </a>
+           </div>
+       </div>
+   </div>
+
+                `;
+                history.insertBefore(qrDiv, optionsArea);
+
+                showBackToMenuOption();
+
+                history.scrollTo({
+                top: history.scrollHeight,
+                behavior: 'smooth'
+                });
+
+                }
+
+            // Helper: Hàm tạo nút bấm tùy chọn kịch bản
+            function createOptionButton(text, clickEvent) {
+                let btn = document.createElement('button');
+                btn.className = 'btn btn-outline-primary text-start shadow-sm py-2 px-3 fw-bold bg-white';
+                btn.style.fontSize = '13px';
+                btn.style.borderRadius = '12px';
+                btn.style.borderWidth = '1.5px';
+                btn.style.whiteSpace = 'normal';
+                btn.innerHTML = text;
+                btn.onclick = clickEvent;
+                optionsArea.appendChild(btn);
+            }
+
+            // Helper: Nút quay lại menu chính
+            function showBackToMenuOption() {
+                optionsArea.innerHTML = '';
+                createOptionButton("<i class='fas fa-home'></i> Quay lại Danh mục chính", function() {
+                    showInitialMenu();
+                });
+            }
+
+            // Helper: Đẩy bong bóng thoại lên màn hình chat
+    
+      function appendMessage(text, sender) {
+
+        const history = document.getElementById('chat-history');
+        const msgDiv = document.createElement('div');
+        msgDiv.className =
+            sender === 'user'
+                ? 'd-flex justify-content-end align-items-end gap-2 mb-3'
+                : 'd-flex justify-content-start align-items-start gap-2 mb-3';
+        if (sender === 'user') {
+            msgDiv.innerHTML = `
+                <div class="vkit-user-message">
+                    ${text}
+                </div>
+                <div class="vkit-user-avatar">
+                    👨‍🎓
+                </div>
+            `;
+        } else {
+            msgDiv.innerHTML = `
+                <div class="vkit-bot-avatar">
+                    🤖
+                </div>
+                <div class="vkit-answer-message">
+                    ${text}
+                </div>
+            `;
+        }
+
+        history.insertBefore(msgDiv, optionsArea);
+
+        history.scrollTo({
+            top: history.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+    
+            // Bắt sự kiện gửi từ ô nhắn tin (Click chuột hoặc gõ nút Enter)
+            sendBtn.addEventListener('click', handleUserTextInput);
+            chatInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') handleUserTextInput();
+            });
+        });
+    </script>
+</body>
+</html>

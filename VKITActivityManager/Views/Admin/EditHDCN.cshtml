@@ -1,0 +1,47 @@
+﻿@model VKITActivityManager.Models.HoatDongChuyenNganh
+@{
+    ViewData["Title"] = "Sửa hoạt động ngành";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-4">
+    <h4 class="fw-bold text-warning mb-4"><i class="fas fa-edit"></i> SỬA HOẠT ĐỘNG CHUYÊN NGÀNH</h4>
+
+    <form asp-action="EditHDCN" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="NgayTao" />
+        <input type="hidden" asp-for="DuongDanAnh" />
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="fw-bold">Thuộc Chuyên Ngành</label>
+                <select asp-for="ChuyenNganhId" class="form-select border-warning fw-bold" asp-items="ViewBag.ChuyenNganhId"></select>
+            </div>
+            <div class="col-md-6">
+                <label class="fw-bold">Thay Đổi Ảnh Bìa Mới (Để trống nếu giữ ảnh cũ)</label>
+                <input type="file" name="hinhAnh" class="form-control mb-2" accept="image/*" />
+                @if (!string.IsNullOrEmpty(Model.DuongDanAnh))
+                {
+                    <small class="text-muted">Ảnh hiện tại:</small>
+                    <img src="@Model.DuongDanAnh" style="height: 50px; border-radius: 5px; margin-left: 10px;" />
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="fw-bold">Tiêu đề chính</label>
+            <input asp-for="TieuDe" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="fw-bold">Tiêu đề phụ (Badge)</label>
+            <input asp-for="TieuDePhu" class="form-control" />
+        </div>
+        <div class="mb-4">
+            <label class="fw-bold">Nội dung chi tiết</label>
+            <textarea asp-for="NoiDung" class="form-control" id="editorNoiDung" rows="6"></textarea>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-warning fw-bold text-dark"><i class="fas fa-save"></i> Cập nhật</button>
+            <a href="/Admin" class="btn btn-secondary">Hủy</a>
+        </div>
+    </form>
+</div>

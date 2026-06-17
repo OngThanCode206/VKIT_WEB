@@ -1,0 +1,33 @@
+﻿@model IEnumerable<VKITActivityManager.Models.SinhVienHocBong>
+@{
+    ViewData["Title"] = "Danh sách Sinh viên nhận học bổng";
+}
+
+<div class="container my-5 pt-3">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold" style="color: @ViewBag.LoaiHocBong.MauNen;">DANH SÁCH VINH DANH</h2>
+        <h4 class="text-muted">@ViewBag.LoaiHocBong.TenHocBong</h4>
+    </div>
+
+    <div class="row g-4">
+        @if (Model.Any())
+        {
+            foreach (var sv in Model)
+            {
+                <div class="col-md-6 col-lg-3">
+                    <div class="card text-center border-0 shadow-sm h-100 py-4 rounded-4" style="border-bottom: 5px solid @ViewBag.LoaiHocBong.MauNen !important;">
+                        <img src="@(string.IsNullOrEmpty(sv.HinhAnh) ? "/images/default-avatar.png" : sv.HinhAnh)" class="rounded-circle mx-auto mb-3 border shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+                        <h5 class="fw-bold m-0">@sv.TenSinhVien</h5>
+                        <p class="text-muted small mb-1">MSSV: @sv.MaSV</p>
+                        <span class="badge bg-light text-dark border">@sv.Lop</span>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center py-5 text-muted fst-italic">Đang cập nhật danh sách sinh viên...</div>
+        }
+    </div>
+    <div class="text-center mt-5"><a href="/" class="btn btn-outline-secondary px-4 rounded-pill">Quay lại trang chủ</a></div>
+</div>

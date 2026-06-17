@@ -1,0 +1,32 @@
+﻿@model VKITActivityManager.Models.Video
+@{
+    ViewData["Title"] = "Thêm Video mới";
+}
+
+<div class="container mt-4 mb-5" style="max-width: 700px;">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-primary text-white py-3 rounded-top-4">
+            <h4 class="m-0 fw-bold"><i class="fas fa-video"></i> Thêm Video Mới</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="CreateVideo" method="post">
+                <div class="mb-3">
+                    <label asp-for="PhanLoaiVideoId" class="form-label fw-bold">Chọn vị trí hiển thị <span class="text-danger">*</span></label>
+                    <select asp-for="PhanLoaiVideoId" class="form-select" asp-items="ViewBag.PhanLoaiVideoId"></select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MoTaNgan" class="form-label fw-bold">Tiêu đề / Mô tả ngắn <span class="text-danger">*</span></label>
+                    <input asp-for="MoTaNgan" class="form-control" placeholder="Nhập tiêu đề video..." required />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="DuongDanVideo" class="form-label fw-bold">Link Youtube <span class="text-danger">*</span></label>
+                    <input asp-for="DuongDanVideo" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=..." required />
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-light border fw-bold px-4">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-primary fw-bold px-4">Lưu Video</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

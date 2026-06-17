@@ -1,0 +1,151 @@
+﻿@model VKITActivityManager.Models.HoatDong
+@{
+    ViewData["Title"] = "Chỉnh sửa nội dung";
+}
+
+<h2 class="mb-4 d-flex align-items-center gap-3 justify-content-center justify-content-md-start">
+    <i class="fas fa-edit text-warning"></i> Chỉnh Sửa Dữ Liệu
+</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="NgayTao" />
+
+            <div class="form-group mb-4 p-4 bg-light rounded border shadow-sm">
+                <label asp-for="PhanLoai" class="control-label fw-bold text-danger fs-5 mb-2">Thay đổi vị trí hiển thị:</label>
+                <select asp-for="PhanLoai" id="selectPhanLoai" class="form-select form-select-lg fw-bold border-danger" onchange="toggleInputs()">
+                    <option value="3">🖼️ Ảnh Banner Slider</option>
+                    <option value="4">🎓 Học Bổng & Ưu Đãi</option>
+                    <option value="5">🗣️ Cảm Nhận Sinh Viên</option>
+                    <option value="6">🗞️ Báo Chí (Có đính kèm Link)</option>
+                </select>
+            </div>
+
+            <div id="boxTextInputs">
+                <div class="form-group mb-3">
+                    <label asp-for="TieuDe" class="control-label fw-bold text-dark">Tiêu đề chính <i class="fas fa-asterisk fs-8 text-danger"></i></label>
+                    <textarea asp-for="TieuDe" id="editor_TieuDe" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div id="boxSubTitle" class="form-group mb-3">
+                    <label asp-for="TieuDe2" class="control-label fw-bold text-muted">Tiêu đề phụ</label>
+                    <textarea asp-for="TieuDe2" id="editor_TieuDe2" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div id="boxShortDesc" class="form-group mb-3">
+                    <label asp-for="MoTaNgan" class="control-label fw-bold text-muted">Mô tả ngắn gọn</label>
+                    <textarea asp-for="MoTaNgan" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div class="form-group mb-4" id="boxContent">
+                    <label asp-for="NoiDung" class="control-label fw-bold text-dark">Nội dung chi tiết <i class="fas fa-asterisk fs-8 text-danger"></i></label>
+                    <textarea asp-for="NoiDung" id="editor_NoiDung" class="form-control" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div id="boxUploadAnh" class="col-12">
+                    <div class="p-3 bg-white rounded border border-primary shadow-sm">
+                        <label class="control-label fw-bold text-primary mb-2"><i class="fas fa-image"></i> Quản lý Hình Ảnh</label>
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3 mb-3">
+                            @if (!string.IsNullOrEmpty(Model.DuongDanAnh))
+                            {
+                                <img src="@Model.DuongDanAnh" alt="Ảnh hiện tại" style="height: 100px; width: auto; max-width: 100%; object-fit: cover; border-radius: 6px; border: 1px solid #ccc;" />
+                                <span class="text-muted fs-7">Đây là ảnh hiện tại đang dùng.</span>
+                            }
+                        </div>
+                        <label class="fw-bold fs-7">Tải hình ảnh mới lên (Bỏ trống nếu muốn giữ nguyên ảnh cũ):</label>
+                        <input type="file" name="fileAnh" class="form-control" accept="image/*" />
+                    </div>
+                </div>
+
+                <div id="boxUploadVideo" class="col-12" style="display:none;">
+                    <div class="p-3 bg-white rounded border border-danger shadow-sm">
+                        <label class="control-label fw-bold text-danger mb-2"><i class="fab fa-youtube"></i> Quản lý Video (Link YouTube)</label>
+                        <div class="mb-3">
+                            @if (!string.IsNullOrEmpty(Model.DuongDanVideo))
+                            {
+                                <div class="alert alert-success py-2 mb-0 text-break" style="font-size: 14px;">
+                                    <i class="fas fa-check-circle"></i> <strong>Đang sử dụng link:</strong> <br />
+                                    <a href="@Model.DuongDanVideo" target="_blank" class="text-success text-decoration-underline">@Model.DuongDanVideo</a>
+                                </div>
+                            }
+                        </div>
+                        <label asp-for="DuongDanVideo" class="fw-bold fs-7">Cập nhật đường link YouTube mới:</label>
+                        <input type="text" asp-for="DuongDanVideo" class="form-control mt-1" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid d-md-block mt-4 gap-2 mb-5">
+                <button type="submit" class="btn btn-warning btn-lg fw-bold px-4 shadow-sm"><i class="fas fa-save"></i> LƯU THAY ĐỔI</button>
+                <a asp-action="Index" class="btn btn-secondary btn-lg fw-bold px-4"><i class="fas fa-arrow-left"></i> Hủy & Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script>
+    CKEDITOR.config.versionCheck = false;
+    CKEDITOR.replace('editor_TieuDe');
+    CKEDITOR.replace('editor_TieuDe2');
+    CKEDITOR.replace('editor_NoiDung');
+
+    function toggleInputs() {
+        var loai = document.getElementById("selectPhanLoai").value;
+
+        if (loai === "2") {
+            document.getElementById("boxUploadAnh").style.display = "none";
+            document.getElementById("boxUploadVideo").style.display = "block";
+        } else {
+            document.getElementById("boxUploadAnh").style.display = "block";
+            document.getElementById("boxUploadVideo").style.display = "none";
+        }
+
+        var boxText = document.getElementById("boxTextInputs");
+        var boxSub = document.getElementById("boxSubTitle");
+        var boxDesc = document.getElementById("boxShortDesc");
+        var boxContent = document.getElementById("boxContent");
+
+        var lblTieuDe = document.querySelector('label[for="TieuDe"]');
+        var lblTieuDe2 = document.querySelector('label[for="TieuDe2"]');
+        var lblNoiDung = document.querySelector('label[for="NoiDung"]');
+
+        if (loai === "3") {
+            if(boxText) boxText.style.display = "none";
+        } else {
+            if(boxText) boxText.style.display = "block";
+            if(boxContent) boxContent.style.display = "block";
+
+            if(loai === "6") {
+                if(lblTieuDe) lblTieuDe.innerHTML = 'Tên tờ báo (VD: Dân Trí) <span class="text-danger">*</span>';
+                if(lblTieuDe2) lblTieuDe2.innerHTML = 'LINK BÀI BÁO (Dán đường link http vào đây)';
+                if(lblNoiDung) lblNoiDung.innerHTML = 'Trích dẫn 1 câu trong bài báo (Nếu có) <span class="text-danger">*</span>';
+            } else if(loai === "5") {
+                if(lblTieuDe) lblTieuDe.innerHTML = 'Tên sinh viên <span class="text-danger">*</span>';
+                if(lblTieuDe2) lblTieuDe2.innerHTML = 'Chức vụ / Khóa học';
+                if(lblNoiDung) lblNoiDung.innerHTML = 'Lời cảm nhận <span class="text-danger">*</span>';
+            } else {
+                if(lblTieuDe) lblTieuDe.innerHTML = 'Tiêu đề chính <span class="text-danger">*</span>';
+                if(lblTieuDe2) lblTieuDe2.innerHTML = 'Tiêu đề phụ';
+                if(lblNoiDung) lblNoiDung.innerHTML = 'Nội dung chi tiết <span class="text-danger">*</span>';
+            }
+
+            if(loai === "2" || loai === "5" || loai === "6") {
+                if(boxSub) boxSub.style.display = "block";
+                if(boxDesc) boxDesc.style.display = "none";
+            } else {
+                if(boxSub) boxSub.style.display = "block";
+                if(boxDesc) boxDesc.style.display = "block";
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        toggleInputs();
+    });
+</script>

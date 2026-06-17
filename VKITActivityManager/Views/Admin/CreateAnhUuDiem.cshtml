@@ -1,0 +1,32 @@
+﻿@model VKITActivityManager.Models.AnhUuDiem
+@{
+    ViewData["Title"] = "Thêm Ảnh cho Ưu Điểm";
+}
+
+<div class="container mt-4 mb-5" style="max-width: 600px;">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-secondary text-white py-3 rounded-top-4">
+            <h4 class="m-0 fw-bold"><i class="fas fa-image"></i> Thêm Ảnh Mô Tả Chi Tiết</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="CreateAnhUuDiem" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="UuDiemId" value="@ViewBag.UuDiemId" />
+
+                <div class="mb-3">
+                    <label asp-for="MoTaNgan" class="form-label fw-bold">Tiêu đề / Mô tả ảnh</label>
+                    <input asp-for="MoTaNgan" class="form-control" placeholder="Tùy chọn..." />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Chọn Hình Ảnh <span class="text-danger">*</span></label>
+                    <input type="file" name="fileAnh" class="form-control" accept="image/*" required />
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-light border fw-bold px-4">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-dark fw-bold px-4">Upload Ảnh</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

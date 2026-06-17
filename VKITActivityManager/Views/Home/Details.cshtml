@@ -1,0 +1,163 @@
+﻿@model VKITActivityManager.Models.HoatDong
+@using System.Text.RegularExpressions
+@using System.Net
+@{
+    ViewData["Title"] = HtmlDecodeAndClean(Model.TieuDe);
+
+    string HtmlDecodeAndClean(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return "";
+
+        // Decode HTML entities nhiều lần nếu cần
+        string decoded = input;
+
+        for (int i = 0; i < 3; i++)
+        {
+            decoded = WebUtility.HtmlDecode(decoded);
+        }
+
+        // Xóa toàn bộ thẻ HTML
+        decoded = Regex.Replace(decoded, "<.*?>", String.Empty);
+
+        // Xóa khoảng trắng dư
+        decoded = Regex.Replace(decoded, @"\s+", " ").Trim();
+
+        return decoded;
+    }
+}
+@functions {
+    public string HtmlDecodeAndClean(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return "";
+
+        string decoded = input;
+
+        // Decode nhiều lần
+        for (int i = 0; i < 5; i++)
+        {
+            decoded = WebUtility.HtmlDecode(decoded);
+        }
+
+        // Xóa HTML tag
+        decoded = Regex.Replace(decoded, "<[^>]*>", "");
+
+        // Xóa khoảng trắng thừa
+        decoded = Regex.Replace(decoded, @"\s+", " ").Trim();
+
+        return decoded;
+    }
+}
+
+<div class="container my-5 pt-3">
+
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-primary"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tin tức & Sự kiện</li>
+        </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
+
+            <div class="d-flex align-items-center text-muted mb-3 pb-3 border-bottom">
+                <span class="text-danger fw-bold me-3">
+                    <i class="far fa-calendar-alt me-1"></i> @Model.NgayTao.ToString("dd/MM/yyyy")
+                </span>
+                @if (!string.IsNullOrEmpty(Model.TieuDe2))
+                {
+                    <span class="badge bg-secondary fs-6 px-3 py-2 rounded-pill">
+                        @HtmlDecodeAndClean(Model.TieuDe2)
+                    </span>
+                }
+            </div>
+
+            <h1 class="fw-bold mb-4" style="color: #1a237e; line-height: 1.4;">
+                @HtmlDecodeAndClean(Model.TieuDe)
+            </h1>
+
+            @if (!string.IsNullOrEmpty(Model.MoTaNgan))
+            {
+                <p class="lead fw-normal mb-4"
+                   style="color: #444; line-height: 1.8; text-align: justify;">
+                    @HtmlDecodeAndClean(Model.MoTaNgan)
+                </p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.DuongDanAnh))
+            {
+                <div class="text-center mb-5">
+                    <img src="@Model.DuongDanAnh"
+                         class="img-fluid rounded-3 shadow full-width-img"
+                         alt="Ảnh bài viết"
+                         style="max-height: 550px; width: 100%; object-fit: contain; cursor: pointer;"
+                         onclick="showFullImage(this.src)">
+                </div>
+            }
+
+            <div class="article-content pb-5" style="line-height: 1.8; font-size: 1.15rem; color: #333; text-align: justify;">
+                @Html.Raw(Model.NoiDung)
+            </div>
+
+            <div class="mt-4 pt-3 border-top">
+                <a href="/" class="btn btn-outline-danger fw-bold px-4 py-2 rounded-pill">
+                    <i class="fas fa-arrow-left me-2"></i> Quay lại trang chủ
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="imageModal" class="lightbox-modal" onclick="this.style.display='none'">
+    <span class="close-btn">&times;</span>
+    <img class="lightbox-content" id="fullImage">
+</div>
+
+<style>
+    .article-content img, .article-content iframe {
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+
+    /* STYLE CHO LIGHTBOX */
+    .lightbox-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.9);
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .lightbox-content {
+        max-width: 90%;
+        max-height: 90%;
+        margin-top: 5%;
+        border-radius: 5px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+    function showFullImage(src) {
+        document.getElementById('fullImage').src = src;
+        document.getElementById('imageModal').style.display = 'block';
+    }
+</script>

@@ -1,0 +1,523 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+/*Thêm*/
+/* Thêm font chữ Inter hiện đại cho tiêu đề và dải băng thông báo */
+.main-nav, .vlu-sub-header, .position-absolute h3 {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Khu vực Ưu điểm chương trình chứa hoa anh đào */
+.advantages-section {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+    /* Hiển thị cành hoa anh đào ẩn góc trái trên cùng */
+    .advantages-section::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 400px;
+        height: 400px;
+        background-image: url('/images/phongnen/hoa_anh_dao.png');
+        background-size: contain;
+        background-position: left top;
+        background-repeat: no-repeat;
+        opacity: 0.85;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+/* Vách ngăn bông hoa xinh xắn ở Tiêu đề phụ */
+.section-subtitle {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+    .section-subtitle::after {
+        content: "✿";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        color: #93C5FD;
+    }
+
+    .section-subtitle::before {
+        content: "";
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 1px;
+        background-color: #ffffff;
+        z-index: -1;
+    }
+
+@media (max-width: 767.98px) {
+    /* Thu nhỏ tiêu đề chính cho vừa màn hình điện thoại */
+    .section-title {
+        font-size: 24px; /* Giảm xuống 24px để chữ không bị tràn/xuống dòng xấu */
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+    /* Tiêu đề phụ (mô tả) */
+    .section-subtitle {
+        font-size: 14px;
+        line-height: 1.5;
+        padding-bottom: 25px; /* Khoảng cách vừa phải tới vách ngăn hoa đào */
+    }
+    /* Thu nhỏ cành hoa anh đào trên điện thoại để không che mất chữ */
+    .advantages-section::before {
+        width: 200px; /* Trên mobile chỉ để hoa hiện nhỏ nhỏ ở góc thôi */
+        height: 200px;
+        opacity: 0.6; /* Làm mờ hơn một chút trên màn hình nhỏ */
+    }
+    /* Tối ưu các ô nội dung (Card) trên điện thoại */
+    .advantage-card {
+        padding: 24px 18px;
+        margin-bottom: 15px; /* Tạo khoảng cách giữa các card khi xếp chồng lên nhau */
+        border-radius: 16px; /* Bo góc mịn màng chuẩn UI hiện đại */
+    }
+    /* Thu nhỏ vòng tròn chứa Icon */
+    .advantage-icon {
+        width: 65px;
+        height: 65px;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+}
+/* Css của các loại học bổng*/
+/* Tổng thể vùng học bổng nền xám cực nhẹ để làm nổi bật Card trắng */
+.vkit-scholarship-section {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Thiết kế Thẻ học bổng kiểu Hàn Quốc */
+.kor-scholarship-card {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03) !important; /* Đổ bóng siêu mờ nhẹ */
+    transition: all 0.4s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
+    overflow: hidden;
+    border: 1px solid #e2e8f0 !important; /* Viền mảnh sắc nét */
+}
+
+/* Thanh màu trang trí góc xiên thông minh */
+.card-color-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    transition: height 0.4s ease;
+}
+
+/* Badge Suất nổi bật, bo tròn tinh tế */
+.kor-badge {
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề card */
+.kor-card-title {
+    font-size: 1.2rem !important;
+    color: #1e293b !important;
+    line-height: 1.5;
+    font-weight: 700 !important;
+    min-height: 54px;
+}
+
+/* Mô tả */
+.kor-card-desc {
+    color: #64748b !important;
+    line-height: 1.6;
+    font-size: 0.875rem !important;
+}
+
+/* Thiết kế nút bấm chuẩn Corporate cứng cáp và tinh tế */
+.kor-btn-submit {
+    background-color: #ffffff  !important;
+    color: #334155 !important;
+    border: none !important;
+    padding: 11px 20px !important;
+    border-radius: 12px !important;
+    font-size: 0.85rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.kor-scholarship-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(15, 23, 42, 0.08) !important; /* Bóng đổ sâu hơn khi hover */
+    border-color: var(--hb-color) !important; /* Viền thẻ tự đổi thành màu chủ đạo */
+}
+
+    /* Khi di chuột vào card, nút bấm tự động lấp đầy màu rực rỡ */
+    .kor-scholarship-card:hover .kor-btn-submit {
+        background-color: var(--btn-color) !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Mũi tên dịch chuyển nhẹ phóng khoáng */
+    .kor-scholarship-card:hover .kor-arrow {
+        transform: translateX(4px);
+        transition: transform 0.3s ease;
+    }
+
+.kor-arrow {
+    transition: transform 0.3s ease;
+}
+/* Hiệu ứng nhịp đập thu hút sự chú ý cho nút Đăng ký */
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(198, 40, 40, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px rgba(198, 40, 40, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(198, 40, 40, 0);
+    }
+}
+
+.btn-register-pulse {
+    animation: pulse-red 2s infinite;
+    transition: all 0.3s ease;
+}
+
+    .btn-register-pulse:hover {
+        animation: none;
+        transform: scale(1.08) !important;
+    }
+    /*Css Chat Box*/
+/* ================= CHAT WINDOW ================= */
+
+#vkit-chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    width: 400px;
+    height: 580px;
+    background: #fff;
+    border: none;
+    border-radius: 28px;
+    overflow: hidden;
+    z-index: 9999;
+    box-shadow: 0 15px 45px rgba(0,0,0,.15);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ================= HEADER ================= */
+
+.vkit-header {
+    background: linear-gradient(135deg,#5f4bff,#8972ff);
+    padding: 16px 20px !important;
+}
+
+.vkit-avatar {
+    width: 42px;
+    height: 42px;
+    background: white;
+    color: #5f4bff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+}
+
+.vkit-status {
+    font-size: 11px;
+    opacity: .95;
+}
+
+    .vkit-status i {
+        color: #32d74b;
+    }
+
+#close-chat {
+    cursor: pointer;
+    transition: .3s;
+}
+
+    #close-chat:hover {
+        transform: rotate(90deg);
+    }
+
+/* ================= CHAT HISTORY ================= */
+
+#chat-history {
+    background: #f6f7fb;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+    #chat-history::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #chat-history::-webkit-scrollbar-thumb {
+        background: #d4d4d4;
+        border-radius: 30px;
+    }
+
+/* ================= MESSAGE MẶC ĐỊNH ================= */
+
+.vkit-bot-message {
+    max-width: 85%;
+    background: white;
+    padding: 16px;
+    border-radius: 0 18px 18px 18px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #222;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+/* ================= MENU BUTTON ================= */
+
+#chatbox-options-area .btn {
+    background: white !important;
+    border: 1.5px solid #e5e7f0 !important;
+    color: #5f4bff !important;
+    border-radius: 18px !important;
+    padding: 15px 18px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    transition: .25s;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
+
+    #chatbox-options-area .btn:hover {
+        background: #faf9ff !important;
+        border-color: #5f4bff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(95,75,255,.15);
+    }
+
+/* ================= BOT ================= */
+
+.vkit-bot-avatar {
+    width: 38px;
+    height: 38px;
+    background: white;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    box-shadow: 0 3px 12px rgba(0,0,0,.12);
+}
+
+.vkit-answer-message {
+    max-width: 82%;
+    background: white;
+    padding: 15px 18px;
+    border-radius: 0 18px 18px 18px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #222;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+/* ================= USER ================= */
+
+.vkit-user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #ebe8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.vkit-user-message {
+    max-width: 80%;
+    padding: 14px 18px;
+    color: white;
+    font-size: 13px;
+    line-height: 1.7;
+    border-radius: 18px 18px 0 18px;
+    background: linear-gradient(135deg,#5f4bff,#8972ff);
+    box-shadow: 0 5px 15px rgba(95,75,255,.25);
+}
+
+/* ================= INPUT ================= */
+
+.vkit-input-area {
+    background: white;
+    padding: 15px;
+    border-top: 1px solid #ececec;
+}
+
+#chat-user-input {
+    height: 48px;
+    font-size: 16px !important; /* fix zoom mobile */
+    background: #f4f5fb;
+    border-radius: 25px !important;
+    box-shadow: none !important;
+}
+
+    #chat-user-input:focus {
+        background: white;
+        box-shadow: none !important;
+    }
+
+#btn-send-chat {
+    width: 48px;
+    height: 48px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    background: linear-gradient(135deg,#5f4bff,#8972ff);
+    transition: .3s;
+}
+
+    #btn-send-chat:hover {
+        transform: scale(1.08);
+    }
+
+/* ================= QR ================= */
+
+.qr-hover-effect {
+    transition: .3s;
+}
+
+    .qr-hover-effect:hover {
+        transform: scale(1.05);
+    }
+
+/* ================= MOBILE FIX ================= */
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+}
+
+#vkit-chat-window {
+    transform: none !important;
+    zoom: 1 !important;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px) {
+
+    #vkit-chat-window {
+        width: 100vw !important;
+        height: 100dvh !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        max-width: none !important;
+        border-radius: 0 !important;
+    }
+}
+/* ================= CHIBI CHAT BUTTON ================= */
+#vkit-chat-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden; /* Cắt ảnh tròn theo khung */
+    padding: 0 !important;
+    border: 3px solid white !important;
+    box-shadow: 0 10px 25px rgba(95, 75, 255, 0.3) !important;
+    transition: transform 0.3s ease;
+}
+
+    #vkit-chat-btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* Ảnh chibi trong nút tròn */
+    #vkit-chat-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+/* Tùy chỉnh khung chữ thông báo cạnh nút chat */
+.chat-tooltip {
+    position: absolute;
+    right: 80px;
+    bottom: 10px;
+    width: 140px;
+    /* Giữ nguyên style bạn đã có ở HTML */
+}
+/* Container giữ cả caption và nút chat */
+#vkit-chat-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Ẩn caption mặc định nếu muốn hoặc để hiển thị luôn */
+#vkit-chat-caption {
+    transition: opacity 0.3s ease;
+    opacity: 1; /* Để 1 nếu muốn hiện luôn, hoặc 0 nếu muốn hover mới hiện */
+}
+
+/* Fix lỗi hover: Khi lia chuột vào container thì giữ nguyên trạng thái */
+#vkit-chat-container:hover #vkit-chat-btn {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* Đảm bảo ảnh luôn hiển thị */
+#vkit-chat-btn img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
