@@ -1,0 +1,39 @@
+/* CHỐNG GIẬT LAYOUT CHO BANNER */
+    .vlu-hero-carousel {
+        width: 100%;
+        position: relative;
+        background-color: #f8fafc; /* Nền xám nhạt lấp đầy các khoảng trống nếu ảnh không cùng tỷ lệ */
+        overflow: hidden;
+    }
+
+    /* KHÓA CỨNG CHIỀU CAO KHUNG CHỨA */
+    .vlu-hero-carousel .carousel-inner {
+        height: 85vh; /* Chiều cao cố định trên Desktop */
+    }
+
+    .vlu-hero-carousel .carousel-item {
+        height: 100%;
+    }
+
+    .vlu-banner-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Giữ nguyên tỷ lệ, không cắt xén, phần dư sẽ hiển thị màu nền */
+        margin: 0 auto;
+        display: block;
+        filter: brightness(0.98) contrast(1.02);
+    }
+
+    /* MOBILE: TINH CHỈNH CHIỀU CAO CỐ ĐỊNH */
+    @@media (max-width: 991px) {
+        .vlu-hero-carousel .carousel-inner {
+            height: 60vh; /* Khóa cứng chiều cao trên điện thoại (Khoảng 60% màn hình) */
+            /* Hoặc bạn có thể dùng height: 450px; nếu muốn 1 con số chính xác */
+        }
+        
+        .vlu-banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Bạn có thể đổi thành 'cover' nếu muốn ảnh luôn lấp đầy toàn bộ khung và chấp nhận bị cắt viền */
+        }
+    }

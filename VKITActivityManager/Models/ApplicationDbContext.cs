@@ -26,6 +26,7 @@ namespace VKITActivityManager.Models
         public DbSet<CauHoiThuongGap> CauHoiThuongGaps { get; set; }
         // Ghi đè hàm này để tự động tạo 2 loại Video mặc định cho Admin chọn
         public DbSet<HoatDongNoiBat> HoatDongNoiBats { get; set; }
+        public DbSet<DangKyTuVan> DangKyTuVans { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

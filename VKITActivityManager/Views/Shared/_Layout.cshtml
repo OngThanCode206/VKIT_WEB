@@ -3,121 +3,122 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>@ViewData["Title"] - VKIT University</title>
+    <title>@ViewData["Title"] - VIỆN CÔNG NGHỆ VIỆT HÀN</title>
+    <meta name="google-site-verification" content="m99YE123Z6hpJqUBLHkOlvAY_sFUeaD9KVk9qyLQB-I" />
     <link rel="icon" type="images/*" href="~/images/logovkit.ico" />
     <link rel="shortcut icon" type="images/*" href="~/images/logovkit.ico" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
- <style>
-    :root {
-        --vlu-red: #c62828;
-        --vlu-dark: #1a237e;
-    }
-    body {
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        overflow-x: hidden;
-    }
+    <style>
+            :root {
+                --vlu-red: #c62828;
+                --vlu-dark: #1a237e;
+            }
 
-    /* KHUNG MENU CHÍNH - KHÓA CỨNG BỐ CỤC */
-    .main-nav {
-        background: #fff;
-        border-bottom: 3px solid var(--vlu-red);
-        padding: 10px 0;
-        width: 100%;
-        display: block;
-    }
+            html, body {
+                font-family: 'Segoe UI', Tahoma, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
 
-    .main-nav .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
+            .main-nav {
+                background: #fff;
+                border-bottom: 3px solid var(--vlu-red);
+                padding: 10px 0;
+                width: 100%;
+                display: block;
+            }
 
-    /* KHÓA CỨNG KÍCH THƯỚC 2 LOGO */
-    .hutech-logo, .vkit-logo {
-        height: 60px; /* Chiều cao cố định trên Desktop */
-        width: auto;
-        object-fit: contain;
-        mix-blend-mode: multiply;
-        transition: all 0.3s ease;
-    }
+                .main-nav .container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0 15px;
+                }
 
-    /* KHÓA TIÊU ĐỀ Ở GIỮA */
-    .title-container {
-        flex-grow: 1;
-        text-align: center;
-        padding: 0 15px;
-    }
+            .hutech-logo, .vkit-logo {
+                height: 60px;
+                width: auto;
+                object-fit: contain;
+                mix-blend-mode: multiply;
+                transition: all 0.3s ease;
+            }
 
-    .title-text {
-        color: var(--vlu-dark);
-        font-size: 22px;
-        font-weight: 700;
-        white-space: nowrap; /* Không bao giờ xuống dòng */
-        margin: 0;
-    }
+            .title-container {
+                flex-grow: 1;
+                text-align: center;
+                padding: 0 15px;
+            }
 
-    /* DẢI BANNER ĐỎ BÊN DƯỚI */
-    .vlu-sub-header {
-        background: var(--vlu-red);
-        color: white;
-        padding: 8px 0;
-        font-weight: bold;
-        text-align: center;
-        font-size: 14px;
-        width: 100%;
-    }
+            .title-text {
+                color: var(--vlu-dark);
+                font-size: 22px;
+                font-weight: 700;
+                white-space: nowrap;
+                margin: 0;
+            }
 
-    /* RESPONSIVE CHO ĐIỆN THOẠI */
-    @@media (max-width: 991px) {
-        .hutech-logo, .vkit-logo {
-            height: 40px; /* Thu nhỏ logo trên mobile */
-        }
-        .title-text {
-            font-size: 13px; /* Thu nhỏ chữ trên mobile */
-        }
-        .main-nav {
-            padding: 5px 0;
-        }
-    }
+            .vlu-sub-header {
+                background: var(--vlu-red);
+                color: white;
+                padding: 8px 0;
+                font-weight: bold;
+                text-align: center;
+                font-size: 14px;
+                width: 100%;
+            }
 
-    .qr-hover-effect {
-        transition: transform 0.2s ease-in-out;
-    }
+            @@media (max-width: 991px) {
+                .hutech-logo, .vkit-logo {
+                    height: 40px;
+                }
 
-    .qr-hover-effect:hover {
-        transform: scale(1.05);
-    }
-</style>
+                .title-text {
+                    font-size: 13px;
+                }
+
+                .main-nav {
+                    padding: 5px 0;
+                }
+            }
+
+            .qr-hover-effect {
+                transition: transform 0.2s ease-in-out;
+            }
+
+                .qr-hover-effect:hover {
+                    transform: scale(1.05);
+                }
+    </style>
 </head>
 <body>
 
-   <nav class="main-nav">
-    <div class="container d-flex align-items-center justify-content-between">
-        
-        <a href="/" class="brand-link">
-            <img src="/images/hoatdong/logoht.jpg" class="hutech-logo" alt="HUTECH" />
-        </a>
+    <nav class="main-nav">
+        <div class="container d-flex align-items-center justify-content-between">
 
-        <div class="title-container text-center">
-            <h3 class="m-0 fw-bold title-text">
-                VIỆN CÔNG NGHỆ <span style="color: var(--vlu-red);">VIỆT HÀN</span>
-            </h3>
+            <a href="/" class="brand-link">
+                <img src="/images/hoatdong/logoht.jpg" class="hutech-logo" alt="HUTECH" />
+            </a>
+
+            <div class="title-container text-center">
+                <h3 class="m-0 fw-bold title-text">
+                    VIỆN CÔNG NGHỆ <span style="color: var(--vlu-red);">VIỆT HÀN</span>
+                </h3>
+            </div>
+
+            <a href="/" class="brand-link">
+                <img src="/images/hoatdong/logoviethan.jpg" class="vkit-logo" alt="VIỆT HÀN" />
+            </a>
+
         </div>
-
-        <a href="/" class="brand-link">
-            <img src="/images/hoatdong/logoviethan.jpg" class="vkit-logo" alt="VIỆT HÀN" />
-        </a>
-
-    </div>
-</nav>
+    </nav>
 
     <div class="vlu-sub-header shadow-sm">
         <div class="container text-truncate">
@@ -168,70 +169,284 @@
     </footer>
 
     <style>
-        .custom-link {
-            transition: color 0.3s ease;
-        }
-
-            .custom-link:hover {
-                color: #f8ca00 !important;
-                text-decoration: underline !important;
+            .dk-modal-content {
+                background-color: #D34343;
+                border-radius: 20px;
+                overflow: hidden;
+                position: relative;
             }
+
+            .dk-form-wrapper {
+                background-color: #D9E4E8;
+                border-radius: 12px;
+                position: relative;
+            }
+
+                .dk-form-wrapper input, .dk-form-wrapper select {
+                    border-radius: 6px;
+                    border: 1px solid #ced4da;
+                    color: #495057;
+                    padding: 0.7rem 0.75rem;
+                    font-size: 0.95rem;
+                    box-shadow: none;
+                }
+
+                .dk-form-wrapper select {
+                    color: #6c757d;
+                }
+
+            .dk-btn-submit {
+                background-color: #E87A31;
+                border-radius: 6px;
+                font-size: 1.1rem;
+                transition: all 0.3s;
+                border: none;
+            }
+
+                .dk-btn-submit:hover {
+                    background-color: #d86920;
+                }
+
+            .dk-expert-circle {
+                width: 260px;
+                height: 260px;
+                border: 6px solid #EDA5A7;
+                border-radius: 50%;
+                overflow: hidden;
+                background-color: #fff;
+                margin: 0 auto;
+            }
+
+                .dk-expert-circle img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+            .dk-badge-hocbong {
+                position: absolute;
+                bottom: -20px;
+                left: -30px;
+                width: 180px;
+                z-index: 10;
+                pointer-events: none;
+            }
+
+            @@media (max-width: 767.98px) {
+                .dk-modal-content {
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                .dk-image-section {
+                    margin-top: 30px;
+                    padding-top: 0 !important;
+                }
+
+                .dk-expert-circle {
+                    width: 220px;
+                    height: 220px;
+                }
+
+                .dk-form-wrapper {
+                    border-radius: 0;
+                    margin: 0 !important;
+                    padding: 30px 20px 40px 20px !important;
+                }
+
+                    .dk-form-wrapper .mb-3, .dk-form-wrapper .mb-4 {
+                        margin-bottom: 1rem !important;
+                    }
+
+                .dk-badge-hocbong {
+                    bottom: 20px;
+                    left: -10px;
+                    width: 150px;
+                }
+            }
+
+            .custom-link {
+                transition: color 0.3s ease;
+            }
+
+                .custom-link:hover {
+                    color: #f8ca00 !important;
+                    text-decoration: underline !important;
+                }
     </style>
+
+    <!-- MODAL GIAO DIỆN ĐĂNG KÝ TƯ VẤN -->
+    <div class="modal fade" id="dangKyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 dk-modal-content shadow-lg">
+
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 shadow-none" data-bs-dismiss="modal" aria-label="Close" style="z-index: 20;"></button>
+
+                <div class="row g-0">
+
+                    <div class="col-12 col-md-7 order-2 order-md-1 d-flex flex-column justify-content-center">
+
+                        <div class="text-center text-white pt-4 pb-2 d-none d-md-block">
+                            <h4 class="fw-bold mb-1" style="font-size: 1.4rem;">ĐĂNG KÝ TƯ VẤN 1-1 CÙNG CHUYÊN GIA</h4>
+                            <p class="mb-0" style="font-size: 0.95rem; color: #f8e1e1;">Cùng chuyên gia chọn ngành nghề phù hợp!</p>
+                        </div>
+
+                        <div class="dk-form-wrapper p-4 m-md-4 mt-md-0 shadow-sm">
+                            <form id="formDangKyTuVan">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control border-0" name="HoTen" placeholder="Nhập họ tên" required>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-12 col-md-6">
+                                        <input type="text" onfocus="(this.type='date')" onblur="(this.value==''?this.type='text':this.type='date')" class="form-control border-0" name="NgaySinh" placeholder="DD/MM/YYYY" required>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input type="email" class="form-control border-0" name="Email" placeholder="Nhập email" required>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-12 col-md-6">
+                                        <select class="form-select border-0" name="TinhThanh" required>
+                                            <option value="">-Chọn Tỉnh/TP-</option>
+                                            <option value="TP.HCM">TP.Hồ Chí Minh</option>
+                                            <option value="Hà Nội">Hà Nội</option>
+                                            <option value="Đà Nẵng">Đà Nẵng</option>
+                                            <option value="Khác">Tỉnh thành khác</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <select class="form-select border-0" name="NganhQuanTam" required>
+                                            <option value="">-Chọn ngành quan tâm-</option>
+                                            <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                                            <option value="Công nghệ kỹ thuật ô tô">Công nghệ kỹ thuật ô tô</option>
+                                            <option value="Công nghệ ô tô điện">Công nghệ ô tô điện</option>
+                                            <option value="Quản trị kinh doanh">Quản trị kinh doanh</option>
+                                            <option value="Digital Marketing">Digital Marketing</option>
+                                            <option value="Logistics">Logistics & QLCCU</option>
+                                            <option value="Tài chính Ngân hàng">Tài chính - Ngân hàng</option>
+                                            <option value="Quan hệ công chúng">Quan hệ công chúng</option>
+                                            <option value="Thiết kế đồ họa">Thiết kế đồ họa</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input type="tel" class="form-control border-0" name="SoDienThoai" placeholder="Nhập số điện thoại"
+                                           required pattern="[0-9]{10}" maxlength="10" title="Vui lòng nhập đúng 10 chữ số"
+                                           oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                </div>
+                                <div class="mb-4">
+                                    <input type="tel" class="form-control border-0" name="SoDienThoaiPhuHuynh" placeholder="Số điện thoại phụ huynh (Không bắt buộc)"
+                                           pattern="[0-9]{10}" maxlength="10" title="Vui lòng nhập đúng 10 chữ số nếu có"
+                                           oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                </div>
+
+                                <button type="submit" class="btn text-white w-100 fw-bold py-3 shadow-sm dk-btn-submit">
+                                    ĐĂNG KÝ
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="dk-image-section col-12 col-md-5 order-1 order-md-2 position-relative d-flex flex-column align-items-center justify-content-center">
+                        <div class="dk-expert-circle shadow-lg mt-md-0">
+                            <img src="/images/hoatdong/hanbok_girl1.jpg" alt="Chuyên gia">
+                        </div>
+
+                        <div class="text-center text-white pt-4 pb-4 d-block d-md-none px-3 w-100" style="z-index: 2;">
+                            <h4 class="fw-bold mb-2" style="font-size: 1.3rem;">ĐĂNG KÝ TƯ VẤN 1-1 CÙNG CHUYÊN GIA</h4>
+                            <p class="mb-0" style="font-size: 0.95rem; color: #f8e1e1;">Cùng chuyên gia chọn ngành nghề phù hợp!</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <!-- NÚT ĐĂNG KÝ XÉT TUYỂN (NẰM TRÊN NÚT CHAT) -->
-    <a href="https://www.hutech.edu.vn/chuong-trinh-viet-han-vkit#dangky" target="_blank" 
-       id="vkit-register-btn" 
-       class="position-fixed d-flex align-items-center justify-content-center shadow-lg text-decoration-none btn-register-pulse"
-       style="bottom: 110px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(135deg, #e53935, #c62828); z-index: 9998;">
-        
-        <!-- Icon cái bút/đăng ký -->
-        <i class="fas fa-file-signature text-white fs-3"></i>
-        
-        <!-- Bong bóng text trỏ ra bên trái -->
-        <div class="position-absolute bg-white shadow-sm rounded p-2 text-center" style="right: 80px; width: 140px; font-size: 13px; font-weight: 600; border: 1px solid #e0e0e0;">
-            <span class="text-primary">Tuyển sinh 2026</span><br />
-            <span class="text-danger">ĐĂNG KÝ NGAY</span>
-            <!-- Hình tam giác chỉ vào nút -->
-            <div class="position-absolute" style="top: 50%; right: -6px; width: 12px; height: 12px; background: white; transform: translateY(-50%) rotate(45deg); border-right: 1px solid #e0e0e0; border-top: 1px solid #e0e0e0;"></div>
+
+    <!-- KHỐI CHỨA CÁC NÚT NỔI ĐƯỢC GOM NHÓM -->
+    <div id="vkit-floating-group" class="position-fixed d-flex flex-column align-items-end vkit-floating-widget" style="bottom: 30px; right: 30px; z-index: 9998; transition: opacity 0.3s;">
+
+        <!-- KHỐI WRAPPER: Khoảng cách lề dưới đẩy toàn bộ nhóm lên cao -->
+        <div id="vkit-action-wrapper" class="d-flex flex-column align-items-end gap-3" style="margin-bottom: 20px;">
+
+            <!-- HÀNG 1: NÚT ĐĂNG KÝ XÉT TUYỂN & BONG BÓNG -->
+            <div class="d-flex align-items-center justify-content-end w-100 vkit-action-item">
+                <div class="bg-white shadow-sm rounded p-2 text-center position-relative vkit-balloon" style="width: 160px; font-size: 13px; font-weight: 600; border: 1px solid #e0e0e0; margin-right: 15px;">
+                    <i class="fas fa-times position-absolute text-muted btn-close-balloon" style="top: 4px; right: 6px; font-size: 12px; cursor: pointer;" title="Tắt chữ"></i>
+                    <span class="text-primary">Điền thông tin để<br />được tư vấn 1-1</span><br />
+                    <span class="text-danger">ĐĂNG KÝ NGAY</span>
+                    <div class="position-absolute" style="top: 50%; right: -6px; width: 12px; height: 12px; background: white; transform: translateY(-50%) rotate(45deg); border-right: 1px solid #e0e0e0; border-top: 1px solid #e0e0e0;"></div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 70px; height: 70px;">
+                    <!-- ĐÃ SỬA: Thêm position: relative !important để vô hiệu hóa CSS cũ đang ghim nút -->
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#dangKyModal" id="vkit-register-btn" class="d-flex align-items-center justify-content-center shadow-lg text-decoration-none btn-register-pulse" style="position: relative !important; bottom: auto !important; right: auto !important; width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(135deg, #e53935, #c62828);">
+                        <i class="fas fa-file-signature text-white fs-3"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- HÀNG 2: NÚT CHAT & BONG BÓNG -->
+            <div class="d-flex align-items-center justify-content-end w-100 vkit-action-item">
+                <div class="bg-white shadow-sm rounded p-2 text-center position-relative vkit-balloon" style="width: 160px; font-size: 13px; font-weight: 600; border: 1px solid #e0e0e0; margin-right: 15px;">
+                    <i class="fas fa-times position-absolute text-muted btn-close-balloon" style="top: 4px; right: 6px; font-size: 12px; cursor: pointer;" title="Tắt chữ"></i>
+                    <span class="text-primary">VKIT - Trợ lý ảo</span><br />
+                    <span class="text-danger">Tư vấn tuyển sinh</span>
+                    <div class="position-absolute" style="top: 50%; right: -6px; width: 12px; height: 12px; background: white; transform: translateY(-50%) rotate(45deg); border-right: 1px solid #e0e0e0; border-top: 1px solid #e0e0e0;"></div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 70px; height: 70px;">
+                    <!-- ĐÃ SỬA: Thêm position: relative !important để vô hiệu hóa CSS cũ đang ghim nút -->
+                    <div id="vkit-chat-btn" class="shadow-lg" style="position: relative !important; bottom: auto !important; right: auto !important; width: 65px; height: 65px; border-radius: 50%; cursor: pointer; border: 3px solid #fff; overflow: hidden; background-color: #fff;">
+                        <img src="/images/hoatdong/logochibiVKIT.png" alt="VKIT Chibi" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </a>
-    <div id="vkit-chat-btn" class="position-fixed shadow-lg"
-         style="bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; z-index: 9999; cursor: pointer; border: 3px solid #fff; overflow: hidden;">
-        <img src="/images/hoatdong/logochibiVKIT.png" alt="VKIT Chibi" style="width: 100%; height: 100%; object-fit: cover;">
+
+        <!-- NÚT THU GỌN TOÀN BỘ -->
+        <div class="w-100 d-flex justify-content-end position-relative" style="z-index: 9999; padding-right: 2px;">
+            <button id="vkit-toggle-actions-btn" class="btn shadow-sm rounded-pill d-flex align-items-center justify-content-center" style="background-color: #ffffff; font-size: 13px; color: #475569; border: 1px solid #cbd5e1; font-weight: 600; padding: 6px 16px; min-height: 36px; transition: all 0.3s ease;">
+                <i class="fas fa-chevron-down"></i> <span class="ms-1">Thu gọn</span>
+            </button>
+        </div>
+
     </div>
 
-    <div class="position-fixed bg-white shadow-sm rounded p-2 text-center"
-         style="bottom: 40px; right: 110px; width: 140px; font-size: 13px; font-weight: 600; border: 1px solid #e0e0e0; z-index: 9998; pointer-events: none;">
-        <span class="text-primary">VKIT - Trợ lý ảo</span><br />
-        <span class="text-danger">Tư vấn tuyển sinh</span>
-        <div class="position-absolute" style="top: 50%; right: -6px; width: 12px; height: 12px; background: white; transform: translateY(-50%) rotate(45deg); border-right: 1px solid #e0e0e0; border-top: 1px solid #e0e0e0;"></div>
-    </div>
-
+    <!-- KHUNG CỬA SỔ CHAT AI -->
     <div id="vkit-chat-window" class="position-fixed d-none flex-column bg-white">
-        <!-- Header --> <div class="vkit-header text-white p-3 d-flex justify-content-between align-items-center"> 
-            <div class="d-flex align-items-center"> <div class="vkit-avatar me-3"> <i class="fas fa-robot"></i> </div>
-            <div> <h6 class="m-0 fw-bold"> 🤖 VKIT AI Assistant </h6> <small class="vkit-status"> <i class="fas fa-circle"></i> Đồng hành cùng tân sinh viên </small>
-            </div> </div> <i class="fas fa-times fs-5" id="close-chat"></i> </div>
-            <!-- Chat History -->
-            <div id="chat-history" class="p-3 flex-grow-1">
-            <!-- Message mặc định --> 
-            <div class="d-flex justify-content-start mb-3"> 
-            <div class="vkit-bot-message"> 👋 Xin chào! <br>
-            <br> Mình là <b>VKIT AI Assistant</b> 🎓 <br>
-            <br> Mình có thể hỗ trợ bạn: <br> ✨ Các câu hỏi tuyển sinh thường gặp <br> 🎓 Các ngành đào tạo <br> 💰 Học phí và học bổng <br> 📅 Thông tin nhập học <br>
-            <br> Bạn muốn tìm hiểu điều gì hôm nay? </div>
-            </div> 
-            <div id="chatbox-options-area" class="d-flex flex-column gap-2 mb-3"> </div>
-            </div> <!-- Input --> <div class="vkit-input-area"> 
-            <div class="input-group"> <input type="text" id="chat-user-input" class="form-control border-0 px-3" placeholder="Hỏi VKIT AI điều gì đó..." />
-            <button class="btn" id="btn-send-chat" type="button"> <i class="fas fa-paper-plane"></i> 
-                </button> 
-           </div> 
-       </div> 
+        <!-- Header --> <div class="vkit-header text-white p-3 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <div class="vkit-avatar me-3"> <i class="fas fa-robot"></i> </div>
+            <div>
+                <h6 class="m-0 fw-bold"> 🤖 VKIT AI Assistant </h6> <small class="vkit-status"> <i class="fas fa-circle"></i> Đồng hành cùng tân sinh viên </small>
+            </div>
+        </div> <i class="fas fa-times fs-5" id="close-chat" style="cursor: pointer;"></i>
     </div>
+    <!-- Chat History -->
+    <div id="chat-history" class="p-3 flex-grow-1">
+        <!-- Message mặc định -->
+        <div class="d-flex justify-content-start mb-3">
+            <div class="vkit-bot-message">
+                👋 Xin chào! <br><br> Mình là <b>VKIT AI Assistant</b> 🎓 <br><br> Mình có thể hỗ trợ bạn: <br> ✨ Các câu hỏi tuyển sinh thường gặp <br> 🎓 Các ngành đào tạo <br> 💰 Học phí và học bổng <br> 📅 Thông tin nhập học <br><br> Bạn muốn tìm hiểu điều gì hôm nay?
+            </div>
+        </div>
+        <div id="chatbox-options-area" class="d-flex flex-column gap-2 mb-3"> </div>
+    </div> <!-- Input --> <div class="vkit-input-area">
+    <div class="input-group">
+        <input type="text" id="chat-user-input" class="form-control border-0 px-3" placeholder="Hỏi VKIT AI điều gì đó..." />
+        <button class="btn" id="btn-send-chat" type="button">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -248,12 +463,11 @@
     const danhSachNganh = [
     { id: 1, name: "Công nghệ thông tin" }, { id: 2, name: "Công nghệ kỹ thuật ô tô" },
     { id: 3, name: "Quản trị kinh doanh" }, { id: 4, name: "Thiết kế đồ họa" },
-    { id: 5, name: " CÔNG NGHỆ Ô TÔ ĐIỆN" }, { id: 6, name: "Tài chính – Ngân hàng" },
+    { id: 5, name: "CÔNG NGHỆ Ô TÔ ĐIỆN" }, { id: 6, name: "Tài chính – Ngân hàng" },
     { id: 7, name: "Ngôn ngữ Hàn Quốc" }, { id: 8, name: "Logistics & Quản lý chuỗi cung ứng" },
-    { id: 9, name: " DIGITAL MARKETING" }
+    { id: 9, name: "DIGITAL MARKETING" }
     ];
 
-    // --- CÁC HÀM GIAO DIỆN (GIỮ NGUYÊN) ---
     chatBtn.addEventListener('click', function () {
     chatWindow.classList.toggle('d-none');
     chatWindow.classList.toggle('d-flex');
@@ -286,7 +500,6 @@
     const found = localDbData.find(x => x.phanLoai === nganh.id);
     setTimeout(() => {
     appendMessage(found ? found.traLoi : "Thông tin ngành này đang cập nhật.", "bot");
-    if (!found) appendQRCodeBox();
     showBackToMenuOption();
     }, 400);
     });
@@ -303,7 +516,6 @@
     });
     }
 
-    // --- HÀM CHAT AI MỚI (THAY THẾ LOGIC CŨ) ---
     function handleUserTextInput() {
     const query = chatInput.value.trim();
     if (!query) return;
@@ -322,11 +534,7 @@
     .then(res => res.json())
     .then(data => {
     document.getElementById(typingId).parentElement.parentElement.remove();
-    if (data.success) {
     appendMessage(data.answer, "bot");
-    } else {
-    appendMessage(data.answer, "bot");
-    }
     showBackToMenuOption();
     })
     .catch(() => {
@@ -335,18 +543,18 @@
     });
     }
 
-    // --- CÁC HÀM TIỆN ÍCH (GIỮ NGUYÊN) ---
-    function appendQRCodeBox() { /* ... Giữ nguyên nội dung hàm cũ ... */ }
     function createOptionButton(text, clickEvent) {
     let btn = document.createElement('button');
     btn.className = 'btn btn-outline-primary text-start shadow-sm py-2 px-3 fw-bold bg-white mb-2';
     btn.style.borderRadius = '12px'; btn.innerHTML = text; btn.onclick = clickEvent;
     optionsArea.appendChild(btn);
     }
+
     function showBackToMenuOption() {
     optionsArea.innerHTML = '';
     createOptionButton("🏠 Quay lại menu chính", showInitialMenu);
     }
+
     function appendMessage(text, sender) {
     const history = document.getElementById('chat-history');
     const msgDiv = document.createElement('div');
@@ -359,6 +567,114 @@
 
     sendBtn.addEventListener('click', handleUserTextInput);
     chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleUserTextInput(); });
+    });
+</script>
+
+<!-- JS XỬ LÝ ẨN/HIỆN NÚT VÀ SUBMIT FORM ĐĂNG KÝ -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+    // ==========================================
+    // 1. CHỨC NĂNG ĐÓNG/MỞ TÙY Ý CÁC NÚT NỔI
+    // ==========================================
+
+    // Tính năng 1: Đóng tắt các bong bóng chữ (Tooltip)
+    document.querySelectorAll('.btn-close-balloon').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+    e.stopPropagation(); // Ngăn click lan ra ngoài làm mở Modal
+    this.closest('.vkit-balloon').classList.add('d-none');
+    });
+    });
+
+    // Tính năng 2: Thu gọn / Mở rộng toàn bộ nút
+    const toggleActionsBtn = document.getElementById('vkit-toggle-actions-btn');
+    const actionWrapper = document.getElementById('vkit-action-wrapper');
+    let isActionsCollapsed = false;
+
+    if (toggleActionsBtn && actionWrapper) {
+    toggleActionsBtn.addEventListener('click', function() {
+    isActionsCollapsed = !isActionsCollapsed;
+
+    if (isActionsCollapsed) {
+    // Thu gọn: Ẩn nguyên khối Wrapper chứa nút, đổi text thành "Hỗ trợ"
+    actionWrapper.classList.add('d-none');
+    actionWrapper.classList.remove('d-flex');
+
+    this.innerHTML = '<i class="fas fa-headset text-danger fs-5"></i> <span class="fw-bold text-dark ms-1">Hỗ trợ</span>';
+    this.style.padding = '8px 20px';
+    this.style.fontSize = '14px';
+    this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+    } else {
+    // Mở ra: Hiện lại Wrapper, trả nút về mặc định
+    actionWrapper.classList.remove('d-none');
+    actionWrapper.classList.add('d-flex');
+
+    this.innerHTML = '<i class="fas fa-chevron-down"></i> <span class="ms-1">Thu gọn</span>';
+    this.style.padding = '6px 16px';
+    this.style.fontSize = '13px';
+    this.style.boxShadow = '';
+    }
+    });
+    }
+    // ==========================================
+    // 2. Logic ẩn toàn bộ khi Mở Modal Đăng ký
+    // ==========================================
+    const dangKyModalEl = document.getElementById('dangKyModal');
+    const floatingGroup = document.querySelector('.vkit-floating-widget');
+
+    if (dangKyModalEl && floatingGroup) {
+    dangKyModalEl.addEventListener('show.bs.modal', function () {
+    floatingGroup.classList.add('d-none');
+    });
+    dangKyModalEl.addEventListener('hidden.bs.modal', function () {
+    floatingGroup.classList.remove('d-none');
+    });
+    }
+
+    // ==========================================
+    // 3. Logic Submit Form Đăng Ký
+    // ==========================================
+    const formDangKy = document.getElementById('formDangKyTuVan');
+    if (formDangKy) {
+    formDangKy.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const btnSubmit = this.querySelector('button[type="submit"]');
+    const originalBtnHtml = btnSubmit.innerHTML;
+
+    btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ĐANG XỬ LÝ...';
+    btnSubmit.disabled = true;
+
+    const formData = new FormData(this);
+
+    fetch('/Home/SubmitDangKy', {
+    method: 'POST',
+    body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+    if (data.success) {
+    alert(data.message);
+    formDangKy.reset();
+
+    var modal = bootstrap.Modal.getInstance(dangKyModalEl);
+    if(modal) {
+    modal.hide();
+    }
+    } else {
+    alert("Lỗi: " + data.message);
+    }
+    })
+    .catch(error => {
+    console.error('Error:', error);
+    alert("Không thể kết nối đến máy chủ hoặc lỗi hệ thống: " + error.message);
+    })
+    .finally(() => {
+    btnSubmit.innerHTML = originalBtnHtml;
+    btnSubmit.disabled = false;
+    });
+    });
+    }
     });
 </script>
 </body>

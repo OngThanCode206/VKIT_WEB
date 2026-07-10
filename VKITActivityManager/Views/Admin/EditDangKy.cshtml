@@ -1,0 +1,66 @@
+﻿@model VKITActivityManager.Models.DangKyTuVan
+@{
+    ViewData["Title"] = "Sửa thông tin đăng ký";
+}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-danger m-0"><i class="fas fa-user-edit"></i> Chỉnh sửa Đăng ký Tư vấn</h3>
+        <a asp-action="Index" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+    </div>
+
+    <div class="card border-0 shadow-sm p-4" style="border-radius: 16px;">
+        <form asp-action="EditDangKy" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="NgayDangKy" />
+            <input type="hidden" asp-for="TrangThai" />
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Họ và tên</label>
+                    <input asp-for="HoTen" class="form-control" required />
+                    <span asp-validation-for="HoTen" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Số điện thoại</label>
+                    <input asp-for="SoDienThoai" class="form-control" required />
+                    <span asp-validation-for="SoDienThoai" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Email</label>
+                    <input asp-for="Email" class="form-control" required />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Ngày sinh</label>
+                    <input asp-for="NgaySinh" type="date" class="form-control" required />
+                    <span asp-validation-for="NgaySinh" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Tỉnh/Thành phố</label>
+                    <input asp-for="TinhThanh" class="form-control" required />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Ngành quan tâm</label>
+                    <input asp-for="NganhQuanTam" class="form-control" required />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">SĐT Phụ huynh</label>
+                    <input asp-for="SoDienThoaiPhuHuynh" class="form-control" />
+                </div>
+            </div>
+
+            <hr class="my-4 text-muted">
+
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-warning fw-bold px-4"><i class="fas fa-save"></i> Lưu Thay Đổi</button>
+            </div>
+        </form>
+    </div>
+</div>

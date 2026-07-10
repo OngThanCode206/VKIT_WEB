@@ -1,0 +1,70 @@
+﻿@model IEnumerable<VKITActivityManager.Models.DangKyTuVan>
+@{
+    ViewData["Title"] = "Danh sách đăng ký tư vấn";
+}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-2"><i class="fas fa-arrow-left"></i> Quay lại Dashboard</a>
+            <h3 class="fw-bold text-danger"><i class="fas fa-file-signature"></i> Danh sách Sinh viên Đăng ký Tư vấn</h3>
+        </div>
+        <a asp-action="ExportToExcel" class="btn btn-success fw-bold shadow-sm"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+    </div>
+
+    <div class="table-responsive border rounded bg-white shadow-sm">
+        <table class="table table-bordered table-hover mb-0">
+            <thead class="table-light text-center">
+                <tr>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th>Ngành quan tâm</th>
+                    <th>Ngày đăng ký</th>
+                    <th>Địa chỉ</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody class="align-middle">
+                @{
+                    int i = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@(i++)</td>
+                        <td class="fw-bold">@item.HoTen</td>
+                        <td>@item.SoDienThoai</td>
+                        <td>@item.Email</td>
+                        <td><span class="badge bg-info">@item.NganhQuanTam</span></td>
+                        <td class="text-muted small">@item.NgayDangKy.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@item.DiaChi</td>
+                        <td class="text-center">
+                            <form asp-action="DeleteDangKy" asp-route-id="@item.Id" method="post" onsubmit="confirmDelete(event, this);">
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(event, formElement) {
+    event.preventDefault();
+    Swal.fire({
+    title: 'Xác nhận xóa?',
+    text: "Dữ liệu này sẽ không thể khôi phục!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    confirmButtonText: 'Đồng ý xóa'
+    }).then((result) => {
+    if (result.isConfirmed) { formElement.submit(); }
+    });
+    }
+</script>

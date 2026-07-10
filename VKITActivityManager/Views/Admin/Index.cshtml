@@ -27,15 +27,9 @@
             <i class="fas fa-star text-warning"></i> Ưu Điểm
         </button>
     </li>
-    <div class="d-flex flex-column flex-md-row gap-2 w-100 w-md-auto">
-
-        <a asp-action="IndexHDNB" class="btn fw-bold px-4 py-2 shadow-sm w-100 w-md-auto text-center text-white" style="background-color: #0A2540;">
-            <i class="fas fa-fire text-danger me-1"></i> QL Hoạt Động Nổi Bật
-        </a>
-
-    
-
-    </div>
+    <a asp-action="IndexHDNB" class="btn fw-bold px-4 py-2 shadow-sm w-100 w-md-auto text-center text-white" style="background-color: #0A2540;">
+        <i class="fas fa-fire text-danger me-1"></i> QL Hoạt Động Nổi Bật
+    </a>
     <li class="nav-item flex-sm-fill text-center" role="presentation">
         <button class="nav-link fw-bold w-100 py-2 text-dark" data-bs-toggle="tab" data-bs-target="#tabSVHB" type="button" style="background-color: #f1f3f5; border: 1px solid #dee2e6;">
             <i class="fas fa-award text-success"></i> SV Học Bổng
@@ -57,6 +51,17 @@
     <li class="nav-item flex-sm-fill text-center" role="presentation">
         <button class="nav-link fw-bold w-100 py-2 text-dark" data-bs-toggle="tab" data-bs-target="#tabChatbox" type="button" style="background-color: #f1f3f5; border: 1px solid #dee2e6;">
             <i class="fas fa-robot text-primary"></i> Trợ Lý Chatbox
+        </button>
+    </li>
+   @* <!-- NÚT MỚI: ĐĂNG KÝ TƯ VẤN -->
+    <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold text-danger" data-bs-toggle="tab" data-bs-target="#tabDKTV" type="button" style="background-color: #fff3cd;">
+            <i class="fas fa-file-signature"></i> Đăng ký TV
+        </button>
+    </li>*@
+    <li class="nav-item flex-sm-fill text-center" role="presentation">
+        <button class="nav-link fw-bold w-100 py-2" data-bs-toggle="tab" data-bs-target="#tabDKTV" type="button">
+            <i class="fas fa-file-signature"></i> Danh sách ĐKTV
         </button>
     </li>
 </ul>
@@ -444,6 +449,47 @@
                                 </tr>
                             }
                         }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Tab Đăng ký tư vấn -->
+    <div class="tab-pane fade" id="tabDKTV" role="tabpanel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="text-danger fw-bold m-0"><i class="fas fa-file-signature"></i> Danh sách Đăng ký Tư vấn</h5>
+            <a asp-controller="Admin" asp-action="ExportToExcel" class="btn btn-success fw-bold"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+        </div>
+        <div class="table-responsive border rounded">
+            <table class="table table-bordered table-hover mb-0">
+                <thead class="table-light text-center">
+                    <tr><th>Họ tên</th><th>SĐT</th><th>Email</th><th>Ngành</th><th>Ngày ĐK</th><th>Thao Tác</th></tr>
+                </thead>
+                <tbody class="align-middle text-center">
+                    @if (ViewBag.DanhSachDangKy != null)
+                    {
+                        var listDK = (List<VKITActivityManager.Models.DangKyTuVan>)ViewBag.DanhSachDangKy;
+                        foreach (var item in listDK)
+                        {
+                            <tr>
+                                <td class="fw-bold text-start">@item.HoTen</td>
+                                <td>@item.SoDienThoai</td>
+                                <td>@item.Email</td>
+                                <td>@item.NganhQuanTam</td>
+                                <td class="text-muted small">@item.NgayDangKy.ToString("dd/MM/yyyy HH:mm")</td>
+                                <!-- Bỏ td Địa Chỉ, Thay bằng 2 nút Sửa và Xóa -->
+                                <td>
+                                    <a asp-action="EditDangKy" asp-route-id="@item.Id" class="btn btn-warning btn-sm shadow-sm"><i class="fas fa-edit"></i></a>
+                                    <form asp-action="DeleteDangKy" asp-route-id="@item.Id" method="post" style="display:inline;" onsubmit="confirmDelete(event, this);">
+                                        <button type="submit" class="btn btn-danger btn-sm shadow-sm"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="6" class="text-center py-3">Chưa có dữ liệu</td></tr>
                     }
                 </tbody>
             </table>

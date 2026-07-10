@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using VKITActivityManager.Models;
-using System.IO;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using System.Linq; // Thêm thư viện này để dùng LINQ GroupBy
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Linq; // Thêm thư viện này để dùng LINQ GroupBy
+using System.Text;
+using VKITActivityManager.Models;
 
 namespace VKITActivityManager.Controllers
 {
@@ -77,6 +78,7 @@ namespace VKITActivityManager.Controllers
                 .ToListAsync();
 
             ViewBag.DanhSachCauHoi = await _context.CauHoiThuongGaps.OrderByDescending(x => x.Id).ToListAsync();
+            ViewBag.DanhSachDangKy = _context.DangKyTuVans.OrderByDescending(x => x.NgayDangKy).ToList();
             return View(data);
         }
 
@@ -895,6 +897,107 @@ namespace VKITActivityManager.Controllers
             }
             TempData["SuccessMsg"] = "Đã xóa hoạt động thành công!";
             return RedirectToAction(nameof(IndexHDNB));
+        }
+
+
+        public IActionResult ExportToExcel()
+        {
+            // Lấy danh sách đăng ký
+            var list = _context.DangKyTuVans.OrderByDescending(x => x.NgayDangKy).ToList();
+            var builder = new StringBuilder();
+
+            // Dòng tiêu đề cột
+            builder.AppendLine("ID,Họ tên,Ngày sinh,Email,Tỉnh thành,Ngành,SĐT,SĐT Phụ huynh,Địa chỉ,Ngày đăng ký");
+
+            foreach (var item in list)
+            {
+                // 1. Format Ngày tháng gọn gàng
+                string ngaySinh = item.NgaySinh?.ToString("dd/MM/yyyy") ?? "";
+                string ngayDK = item.NgayDangKy.ToString("dd/MM/yyyy HH:mm");
+
+                // 2. FIX LỖI SỐ ĐIỆN THOẠI: Ép Excel hiểu đây là văn bản (Text) bằng cách bọc trong ="..."
+                string sdt = $"=\"{item.SoDienThoai}\"";
+                string sdtPhuHuynh = string.IsNullOrEmpty(item.SoDienThoaiPhuHuynh) ? "" : $"=\"{item.SoDienThoaiPhuHuynh}\"";
+
+                // 3. FIX LỖI DẤU PHẨY TRONG DỮ LIỆU: Bọc các chuỗi văn bản trong dấu nháy kép "..."
+                // Đề phòng trường hợp người dùng nhập địa chỉ có dấu phẩy (Ví dụ: Quận 1, TP.HCM) làm vỡ cấu trúc CSV
+                string hoTen = $"\"{item.HoTen}\"";
+                string email = $"\"{item.Email}\"";
+                string tinhThanh = $"\"{item.TinhThanh}\"";
+                string nganh = $"\"{item.NganhQuanTam}\"";
+                string diaChi = $"\"{item.DiaChi ?? ""}\"";
+
+                // Gắn vào dòng
+                builder.AppendLine($"{item.Id},{hoTen},{ngaySinh},{email},{tinhThanh},{nganh},{sdt},{sdtPhuHuynh},{diaChi},{ngayDK}");
+            }
+
+            // 4. FIX LỖI FONT TIẾNG VIỆT: Thêm cờ BOM (Byte Order Mark) chuẩn của UTF-8 vào đầu file
+            byte[] buffer = Encoding.UTF8.GetBytes(builder.ToString());
+            byte[] preamble = Encoding.UTF8.GetPreamble(); // Lấy mã BOM của UTF-8
+
+            // Gộp mã BOM và nội dung file lại với nhau
+            byte[] finalBuffer = new byte[preamble.Length + buffer.Length];
+            Buffer.BlockCopy(preamble, 0, finalBuffer, 0, preamble.Length);
+            Buffer.BlockCopy(buffer, 0, finalBuffer, preamble.Length, buffer.Length);
+
+            // Trả về file đã được fix lỗi hoàn toàn
+            return File(finalBuffer, "text/csv", "DanhSachDangKy.csv");
+        }
+        // =========================================================================
+        // QUẢN LÝ ĐĂNG KÝ TƯ VẤN (SỬA VÀ XÓA)
+        // =========================================================================
+
+        [HttpGet]
+        public async Task<IActionResult> EditDangKy(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var dangKy = await _context.DangKyTuVans.FindAsync(id);
+            if (dangKy == null) return NotFound();
+
+            return View(dangKy);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDangKy(int id, DangKyTuVan model)
+        {
+            if (id != model.Id) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(model);
+                    await _context.SaveChangesAsync();
+
+                    TempData["SuccessMsg"] = "Cập nhật thông tin đăng ký thành công!";
+                    TempData["ActiveTab"] = "dktv"; // Mở lại đúng tab Đăng ký TV
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.DangKyTuVans.Any(e => e.Id == id)) return NotFound();
+                    else throw;
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteDangKy(int id)
+        {
+            var dangKy = await _context.DangKyTuVans.FindAsync(id);
+            if (dangKy != null)
+            {
+                _context.DangKyTuVans.Remove(dangKy);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMsg"] = "Đã xóa bản ghi đăng ký tư vấn!";
+            }
+
+            TempData["ActiveTab"] = "dktv"; // Mở lại đúng tab Đăng ký TV
+            return RedirectToAction(nameof(Index));
         }
     }
 }

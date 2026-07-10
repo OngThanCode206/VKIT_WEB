@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<VKITActivityManager.Models.HoatDong>
 @{
-    ViewData["Title"] = "Trang chủ - VKIT";
+    ViewData["Title"] = "Trang chủ";
     var banners = Model.Where(x => x.PhanLoai == 3).OrderByDescending(x => x.NgayTao).ToList();
     var camNhans = Model.Where(x => x.PhanLoai == 5).OrderByDescending(x => x.NgayTao).ToList();
     var baoChis = Model.Where(x => x.PhanLoai == 6).OrderByDescending(x => x.NgayTao).ToList();
@@ -23,30 +23,36 @@
 }
 
 <style>
+    /* THÊM OVERFLOW-ANCHOR ĐỂ CHỐNG GIẬT DỌC TRÊN MOBILE */
+    .hdnb-scroll-area,
+    .vd-scroll-area,
+    .hb-scroll-area,
+    #videoScrollArea {
+        overflow-anchor: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
     .vlu-hero-carousel {
-        width: 100vw;
+        width: 100%;
         position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #f8fafc; /* Nền xám nhạt tinh tế nếu ảnh không đủ tỷ lệ */
+        background-color: #f8fafc;
         overflow: hidden;
     }
 
     .vlu-banner-img {
         width: 100%;
-        max-height: 85vh; /* FIX: Khống chế chiều cao không vượt quá 85% màn hình PC */
+        max-height: 85vh;
         height: auto;
-        object-fit: contain; /* FIX: Ép hiển thị trọn vẹn 100% hình ảnh gốc, không cắt xén */
+        object-fit: contain;
         margin: 0 auto;
         display: block;
         filter: brightness(0.98) contrast(1.02);
     }
 
-    /* Mobile: Tinh chỉnh lại cho vừa vặn */
     @@media (max-width: 991px) {
         .vlu-banner-img {
-            width: 100vw;
-            max-height: none; /* Trả về tự do trên điện thoại */
+            width: 100%;
+            max-height: none;
             height: auto;
             object-fit: contain;
         }
@@ -782,24 +788,25 @@
                 return firstCard ? (firstCard.offsetWidth + 24) : 400;
             }
 
+            // Tối ưu JS chặn giật layout
             function slideNext() {
                 const halfWidth = scrollArea.scrollWidth / 2;
                 if (scrollArea.scrollLeft >= halfWidth) {
-                    scrollArea.scrollTo({ left: scrollArea.scrollLeft - halfWidth, behavior: 'auto' });
+                    scrollArea.scrollLeft = scrollArea.scrollLeft - halfWidth;
                 }
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     scrollArea.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-                }, 10);
+                });
             }
 
             function slidePrev() {
                 const halfWidth = scrollArea.scrollWidth / 2;
                 if (scrollArea.scrollLeft <= 0) {
-                    scrollArea.scrollTo({ left: halfWidth, behavior: 'auto' });
+                    scrollArea.scrollLeft = halfWidth;
                 }
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     scrollArea.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-                }, 10);
+                });
             }
 
             btnNext.addEventListener('click', () => { slideNext(); resetTimer(); });
@@ -915,7 +922,7 @@
         color: #1e293b;
         line-height: 1.5;
         margin: 0;
-        text-wrap: pretty; /* THUỘC TÍNH MỚI: Tự động dàn đều chữ, không rớt 1 chữ xuống cuối */
+        text-wrap: pretty;
     }
 
     /* ---- GIAO DIỆN TRÊN MÁY TÍNH (PC & LAPTOP) ---- */
@@ -948,7 +955,7 @@
 
         .k-radial-node {
             position: absolute;
-            width: 380px; /* TĂNG CHIỀU RỘNG TỪ 280 LÊN 300 ĐỂ CHỮ ĐƯỢC THOẢI MÁI HƠN */
+            width: 380px;
             transform: translateY(-50%);
         }
 
@@ -1060,13 +1067,9 @@
 </section>
 
 @{
-    // 1. LẤY TOÀN BỘ DANH SÁCH HỌC PHÍ
     var allHocPhi = ViewBag.DanhSachHocPhi as List<VKITActivityManager.Models.HocPhi> ?? new List<VKITActivityManager.Models.HocPhi>();
-
-    // 2. GOM NHÓM LẠI THEO NGÀNH VÀ THỜI GIAN HỌC
     var groups = allHocPhi.GroupBy(x => new { x.NganhDaoTao, x.ThoiGian }).ToList();
 
-    // 3. HÀM TỰ ĐỘNG NHẬN DIỆN ICON THEO TÊN NGÀNH
     string GetIconTheoNganh(string nganh)
     {
         if (string.IsNullOrEmpty(nganh)) return "fas fa-graduation-cap";
@@ -1084,7 +1087,6 @@
         return "fas fa-graduation-cap";
     }
 
-    // 4. HÀM CHỨC NĂNG: GOM NHÓM KỸ THUẬT 1 MÀU - CỬ NHÂN 1 MÀU
     string GetMauTheoNganh(string nganh)
     {
         string mauCuNhan = "#0D9488";
@@ -1108,7 +1110,7 @@
 
 <div class="tuition-section">
     <h2 class="fw-bold text-center tuition-title mb-5">
-        HỌC PHÍ NĂM 2026 VÀ <br /> ĐƯỢC TÍNH THEO CHƯƠNG TRÌNH ĐÀO TẠO CHUẨN VIỆT HÀN
+        HỌC PHÍ CHƯƠNG TRÌNH <br /> VIỆT - HÀN NĂM 2026 <br />
     </h2>
 
     @if (groups.Any())
@@ -1218,7 +1220,7 @@
     /* CSS CHO PHẦN HỌC BỔNG NẰM NGANG VÀ CÓ THỂ CUỘN */
     .hb-slider-wrapper {
         position: relative;
-        padding: 0 40px; /* Chừa chỗ cho 2 nút mũi tên */
+        padding: 0 40px;
     }
 
     .hb-scroll-area {
@@ -1228,7 +1230,7 @@
         scroll-behavior: smooth;
         display: flex;
         gap: 30px;
-        padding-bottom: 20px; /* Khoảng trống cho shadow */
+        padding-bottom: 20px;
     }
 
         .hb-scroll-area::-webkit-scrollbar {
@@ -1236,7 +1238,7 @@
         }
 
     .k-duo-scholarship-box {
-        width: 550px; /* Khung cứng để các học bổng nằm ngang */
+        width: 550px;
         flex-shrink: 0;
         background: #ffffff;
         border-radius: 24px;
@@ -1250,7 +1252,7 @@
 
     @@media (max-width: 768px) {
         .k-duo-scholarship-box {
-            width: 85vw; /* Trên mobile sẽ tự động co giãn bằng 85% màn hình */
+            width: 85vw;
         }
     }
 
@@ -1323,7 +1325,7 @@
 
     /* ==== CSS CHO SLIDER DANH SÁCH VINH DANH ==== */
     .vd-card-item {
-        width: 320px; /* Đã tăng chiều rộng một chút để các list học bổng rộng rãi hơn */
+        width: 320px;
     }
 
     @@media (max-width: 768px) {
@@ -1355,7 +1357,6 @@
                     {
                         var dsSinhVienRaw = (List<VKITActivityManager.Models.SinhVienHocBong>)ViewBag.DanhSachSinhVienVinhDanh;
 
-                        // GOM NHÓM NGAY TẠI VIEW: Gộp các học bổng có cùng Mã Sinh Viên (MaSV)
                         var dsSinhVienGộp = dsSinhVienRaw
                             .GroupBy(x => new { x.MaSV, x.TenSinhVien, x.Lop, x.HinhAnh })
                             .Select(g => new
@@ -1364,7 +1365,6 @@
                                 TenSinhVien = g.Key.TenSinhVien,
                                 Lop = g.Key.Lop,
                                 HinhAnh = g.Key.HinhAnh,
-                                // Gom toàn bộ tên học bổng của sinh viên này thành danh sách danh sách chuỗi riêng biệt
                                 DanhSachTenHocBong = g.Where(x => x.LoaiHocBong != null && !string.IsNullOrEmpty(x.LoaiHocBong.TenHocBong))
                                                       .Select(x => x.LoaiHocBong.TenHocBong)
                                                       .ToList()
@@ -1422,7 +1422,6 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-        // 1. Logic cho Slider CÁC LOẠI HỌC BỔNG
         const scrollAreaHB = document.getElementById('hbScrollArea');
         const btnPrevHB = document.getElementById('btnPrevHB');
         const btnNextHB = document.getElementById('btnNextHB');
@@ -1430,7 +1429,7 @@
         if (scrollAreaHB && btnPrevHB && btnNextHB) {
             btnNextHB.addEventListener('click', () => {
                 const firstCard = scrollAreaHB.querySelector('.k-duo-scholarship-box');
-                const scrollAmount = firstCard ? firstCard.offsetWidth + 30 : 580; // 30 là khoảng cách gap
+                const scrollAmount = firstCard ? firstCard.offsetWidth + 30 : 580;
                 scrollAreaHB.scrollBy({ left: scrollAmount, behavior: 'smooth' });
             });
 
@@ -1440,7 +1439,6 @@
                 scrollAreaHB.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             });
 
-            // Vô hiệu hóa nút nếu trượt hết cỡ
             scrollAreaHB.addEventListener('scroll', function () {
                 btnPrevHB.disabled = scrollAreaHB.scrollLeft <= 0;
                 btnNextHB.disabled = scrollAreaHB.scrollLeft >= (scrollAreaHB.scrollWidth - scrollAreaHB.clientWidth - 2);
@@ -1448,15 +1446,12 @@
             scrollAreaHB.dispatchEvent(new Event('scroll'));
         }
 
-
-        // 2. Logic cho Slider DANH SÁCH VINH DANH LỚN
         const scrollAreaVD = document.getElementById('vdScrollArea');
         const btnPrevVD = document.getElementById('btnPrevVD');
         const btnNextVD = document.getElementById('btnNextVD');
 
         if (scrollAreaVD && btnPrevVD && btnNextVD) {
             let autoPlayTimerVD;
-            // Nhân đôi dữ liệu để trượt lặp vòng vô tận mượt mà
             const originalHTMLVD = scrollAreaVD.innerHTML;
             scrollAreaVD.innerHTML += originalHTMLVD;
 
@@ -1465,31 +1460,32 @@
                 return firstCard ? (firstCard.offsetWidth + 24) : 300;
             }
 
+            // Tối ưu JS chặn giật layout cho Vinh Danh Slider
             function slideNextVD() {
                 const halfWidth = scrollAreaVD.scrollWidth / 2;
                 if (scrollAreaVD.scrollLeft >= halfWidth) {
-                    scrollAreaVD.scrollTo({ left: scrollAreaVD.scrollLeft - halfWidth, behavior: 'auto' });
+                    scrollAreaVD.scrollLeft = scrollAreaVD.scrollLeft - halfWidth;
                 }
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     scrollAreaVD.scrollBy({ left: getScrollAmountVD(), behavior: 'smooth' });
-                }, 10);
+                });
             }
 
             function slidePrevVD() {
                 const halfWidth = scrollAreaVD.scrollWidth / 2;
                 if (scrollAreaVD.scrollLeft <= 0) {
-                    scrollAreaVD.scrollTo({ left: halfWidth, behavior: 'auto' });
+                    scrollAreaVD.scrollLeft = halfWidth;
                 }
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     scrollAreaVD.scrollBy({ left: -getScrollAmountVD(), behavior: 'smooth' });
-                }, 10);
+                });
             }
 
             btnNextVD.addEventListener('click', () => { slideNextVD(); resetTimerVD(); });
             btnPrevVD.addEventListener('click', () => { slidePrevVD(); resetTimerVD(); });
 
             function startTimerVD() {
-                autoPlayTimerVD = setInterval(slideNextVD, 2500); // 2.5s lướt 1 lần
+                autoPlayTimerVD = setInterval(slideNextVD, 2500);
             }
 
             function resetTimerVD() {
@@ -1502,7 +1498,6 @@
             startTimerVD();
         }
 
-        // 3. Xử lý các slider hệ thống cũ
         var pressEl = document.querySelector('#pressSlider');
         if (pressEl) {
             var pCarousel = new bootstrap.Carousel(pressEl, {

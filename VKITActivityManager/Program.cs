@@ -38,6 +38,8 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Limits.MaxRequestBodySize = 524288000; // 200 MB
 });
+// Đăng ký EmailService
+builder.Services.AddTransient<EmailService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

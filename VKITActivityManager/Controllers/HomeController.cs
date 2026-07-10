@@ -196,5 +196,61 @@ namespace VKITActivityManager.Controllers
                 return Json(new { success = false, answer = "Lỗi hệ thống: " + ex.Message });
             }
         }
+        [HttpPost]
+        [IgnoreAntiforgeryToken]
+        public IActionResult SubmitDangKy(DangKyTuVan model, [FromServices] EmailService emailService)
+        {
+            // 1. Kiểm tra không được bỏ trống các trường (dựa vào cấu hình [Required] ở Model)
+            if (!ModelState.IsValid)
+            {
+                // Lấy thông báo lỗi đầu tiên để trả về cho người dùng
+                var firstError = ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage;
+                return Json(new { success = false, message = firstError ?? "Vui lòng nhập đầy đủ thông tin hợp lệ." });
+            }
+
+            try
+            {
+                // 2. Ràng buộc: Kiểm tra trùng Số Điện Thoại
+                bool isPhoneExist = _context.DangKyTuVans.Any(x => x.SoDienThoai == model.SoDienThoai);
+                if (isPhoneExist)
+                {
+                    return Json(new { success = false, message = "Số điện thoại này đã được đăng ký. Vui lòng sử dụng số khác!" });
+                }
+
+                // 3. Ràng buộc: Kiểm tra trùng Email
+                bool isEmailExist = _context.DangKyTuVans.Any(x => x.Email == model.Email);
+                if (isEmailExist)
+                {
+                    return Json(new { success = false, message = "Email này đã được đăng ký. Vui lòng sử dụng email khác!" });
+                }
+
+                // 4. Nếu qua hết các bài kiểm tra -> Lưu vào Database
+                _context.DangKyTuVans.Add(model);
+                _context.SaveChanges();
+
+                // 5. Gửi mail thông báo
+                try
+                {
+                    string body = $"<h3>Có đăng ký tư vấn mới!</h3>" +
+                                  $"<p>Họ tên: {model.HoTen}</p>" +
+                                  $"<p>SĐT: {model.SoDienThoai}</p>" +
+                                  $"<p>Email: {model.Email}</p>" +
+                                  $"<p>Tỉnh/Thành phố: {model.TinhThanh}</p>" + // <-- ĐÃ THÊM THÔNG TIN TỈNH THÀNH Ở ĐÂY
+                                  $"<p>Ngành: {model.NganhQuanTam}</p>";
+
+                    emailService.SendEmail("Thông báo đăng ký tư vấn mới", body);
+                }
+                catch (Exception mailEx)
+                {
+                    return Json(new { success = true, message = "Đăng ký thành công! (Chú ý: Mail nội bộ chưa được gửi do lỗi SMTP)" });
+                }
+
+                return Json(new { success = true, message = "Đăng ký thành công! Chuyên gia của VKIT sẽ sớm liên hệ với bạn." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi lưu cơ sở dữ liệu: " + ex.Message });
+            }
+        }
     }
 }
