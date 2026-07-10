@@ -9,10 +9,10 @@ namespace VKITActivityManager.Models
 
         [Required(ErrorMessage = "Vui lòng nhập tên ưu điểm")]
         [StringLength(200)]
-        public string TenUuDiem { get; set; }
+        public string? TenUuDiem { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập nội dung/mô tả")]
-        public string NoiDung { get; set; }
+        public string? NoiDung { get; set; }
 
         // Màu nền hoặc màu viền của thẻ
         public string? MauNen { get; set; }

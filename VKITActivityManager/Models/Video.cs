@@ -10,10 +10,10 @@ namespace VKITActivityManager.Models
 
         [Required(ErrorMessage = "Vui lòng nhập mô tả ngắn hoặc tiêu đề video")]
         [StringLength(250)]
-        public string MoTaNgan { get; set; }
+        public string? MoTaNgan { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập link Youtube")]
-        public string DuongDanVideo { get; set; }
+        public string? DuongDanVideo { get; set; }
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 

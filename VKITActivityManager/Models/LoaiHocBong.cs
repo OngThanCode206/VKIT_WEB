@@ -8,10 +8,10 @@ namespace VKITActivityManager.Models
     public class LoaiHocBong
     {
         [Key] public int Id { get; set; }
-        public string TenHocBong { get; set; }
+        public string? TenHocBong { get; set; }
         public string? MoTa { get; set; }
         public int SoSuat { get; set; }
-        public string MauNen { get; set; }
+        public string? MauNen { get; set; }
         public ICollection<SinhVienHocBong>? SinhVienHocBongs { get; set; }
     }
 }

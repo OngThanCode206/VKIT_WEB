@@ -23,63 +23,56 @@
 }
 
 <style>
-    .vlu-banner-img {
-        width: 100%;
-        aspect-ratio: 21 / 9;
-        object-fit: contain;
-        background-color: #ffffff;
-        object-position: center center;
-        display: block;
-        filter: brightness(0.92) contrast(1.02);
-        transition: transform 8s ease;
-    }
-
-    /* Mobile: Giữ toàn bộ ảnh */
-    @@media (max-width: 991px) {
-        .vlu-banner-img {
-            aspect-ratio: 16 / 9;
-            object-fit: contain;
-        }
-        /*     .vlu-banner-img {
-            width: 100%;
-            aspect-ratio: 21 / 9;
-            object-fit: cover;
-            object-position: center center;
-
-            display: block;
-            transition: transform 8s ease;
-        } */
-    }
-
-    /* Các phần khác giữ nguyên như cũ */
     .vlu-hero-carousel {
-        width: 100%;
+        width: 100vw;
         position: relative;
-        background-color: #ffffff;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #f8fafc; /* Nền xám nhạt tinh tế nếu ảnh không đủ tỷ lệ */
         overflow: hidden;
     }
-    /* ... các thành phần indicator giữ nguyên ... */
+
+    .vlu-banner-img {
+        width: 100%;
+        max-height: 85vh; /* FIX: Khống chế chiều cao không vượt quá 85% màn hình PC */
+        height: auto;
+        object-fit: contain; /* FIX: Ép hiển thị trọn vẹn 100% hình ảnh gốc, không cắt xén */
+        margin: 0 auto;
+        display: block;
+        filter: brightness(0.98) contrast(1.02);
+    }
+
+    /* Mobile: Tinh chỉnh lại cho vừa vặn */
+    @@media (max-width: 991px) {
+        .vlu-banner-img {
+            width: 100vw;
+            max-height: none; /* Trả về tự do trên điện thoại */
+            height: auto;
+            object-fit: contain;
+        }
+    }
+
     /* CẢM NHẬN SINH VIÊN */
     .testimonial-section {
-        background-color: #ffffff; /*#f8f9fa;*/
-        border-radius: 24px; /*30px;*/
-        padding: 80px 40px; /*60px 30px;*/
+        background-color: #ffffff;
+        border-radius: 24px;
+        padding: 80px 40px;
         margin-top: 60px;
         margin-bottom: 50px;
-        border: 1px solid rgba(0, 0, 0, 0.02); /* Viền mờ như không viền */
+        border: 1px solid rgba(0, 0, 0, 0.02);
     }
 
     .testimonial-title {
-        color: #0A2540; /*#c62828;*/
-        font-size: 2.25rem; /*2rem;*/
-        font-weight: 700; /*bold;*/
+        color: #0A2540;
+        font-size: 2.25rem;
+        font-weight: 700;
         text-align: center;
-        text-transform: none; /* Người Hàn chuộng chữ viết thường tự nhiên, thanh lịch */ /*uppercase;*/
-        letter-spacing: -0.03em; /*Thêm để tạo cảm giác*/
-        margin-bottom: 60px; /*50px;*/
+        text-transform: none;
+        letter-spacing: -0.03em;
+        margin-bottom: 60px;
         position: relative;
     }
-        /* Thêm dấu gạch nhỏ tinh tế dưới tiêu đề */
+
         .testimonial-title::after {
             content: '';
             position: absolute;
@@ -88,22 +81,22 @@
             transform: translateX(-50%);
             width: 40px;
             height: 3px;
-            background: #00D4B2; /* Điểm nhấn xanh ngọc */
+            background: #00D4B2;
             border-radius: 2px;
         }
 
     .testimonial-img-wrapper {
-        width: 150px; /*180px;*/
-        height: 150px; /*180px;*/
+        width: 150px;
+        height: 150px;
         border-radius: 50%;
-        border: 1px solid #E2E8F0; /* Bỏ viền đỏ dày, thay bằng viền mảnh màu xám nhẹ */ /*4px solid #800000;*/
-        padding: 6px; /*5px;*/
-        background: #ffffff; /*white;*/
+        border: 1px solid #E2E8F0;
+        padding: 6px;
+        background: #ffffff;
         flex-shrink: 0;
-        margin-right: 30px; /*25px;*/
-        box-shadow: 0 10px 30px rgba(10, 37, 64, 0.06); /* Đổ bóng mịn màng */ /*0 8px 15px rgba(0,0,0,0.1);*/
+        margin-right: 30px;
+        box-shadow: 0 10px 30px rgba(10, 37, 64, 0.06);
     }
-    /* giữ nguyên */
+
     .testimonial-img {
         width: 100%;
         height: 100%;
@@ -112,13 +105,13 @@
     }
 
     .testimonial-name {
-        color: #0A2540; /* Tên sinh viên chuyển sang Navy đậm */ /*#d35400;*/
-        font-size: 1.35rem; /*1.4rem;*/
-        font-weight: 700; /*bold;*/
+        color: #0A2540;
+        font-size: 1.35rem;
+        font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: 6px; /*5px;*/
+        margin-bottom: 6px;
     }
-        /* giữ nguyên */
+
         .testimonial-name p, .testimonial-role p {
             display: inline;
             margin: 0;
@@ -126,39 +119,39 @@
         }
 
     .testimonial-role {
-        color: #64748B; /*#666;*/
-        font-style: normal; /*italic;*/
-        font-size: 0.9rem; /*0.95rem;*/
-        font-weight: 500; /*thêm */
-        margin-bottom: 20px; /*15px;*/
-        opacity: 0.8; /*thêm */
+        color: #64748B;
+        font-style: normal;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+        opacity: 0.8;
     }
 
     .testimonial-content {
-        color: #475569; /* Màu chữ tối vừa phải, đọc lâu không mỏi mắt */ /*#333;*/
-        font-size: 1.05rem; /*1rem;*/
-        line-height: 1.8; /*1.7;*/
-        text-align: left; /*justify;*/
-        font-weight: 400; /*thêm */
+        color: #475569;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        text-align: left;
+        font-weight: 400;
     }
 
     .testimonial-nav-btn {
-        background-color: #ffffff; /*#e65100;*/
-        border: 1px solid #E2E8F0; /*none;*/
-        color: #0A2540; /*white;*/
+        background-color: #ffffff;
+        border: 1px solid #E2E8F0;
+        color: #0A2540;
         border-radius: 50%;
-        width: 48px; /*45px;*/
-        height: 48px; /*45px;*/
+        width: 48px;
+        height: 48px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.04); /*Thêm*/
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); /*0.3s;*/
+        box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
         .testimonial-nav-btn:hover {
-            background-color: #0A2540; /*#c62828;*/
-            color: #ffffff; /*Thêm*/
+            background-color: #0A2540;
+            color: #ffffff;
             border-color: #0A2540;
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(10, 37, 64, 0.15);
@@ -166,24 +159,24 @@
 
     /* BÁO CHÍ */
     .press-section {
-        background-color: #ffffff; /*#f8f9fa;*/
-        border-radius: 24px; /*30px;*/
-        padding: 80px 20px; /*60px 20px;*/
-        margin: 60px 0; /*50px 0;*/
-        border: 1px solid rgba(0, 0, 0, 0.02); /* Viền mờ như không viền */
+        background-color: #ffffff;
+        border-radius: 24px;
+        padding: 80px 20px;
+        margin: 60px 0;
+        border: 1px solid rgba(0, 0, 0, 0.02);
     }
 
     .press-title {
-        color: #0A2540; /* Đổi sang màu Xanh Navy học thuật chủ đạo */ /*#c62828;*/
-        font-size: 2.25rem; /*2rem;*/
-        font-weight: 700; /*bold;*/
+        color: #0A2540;
+        font-size: 2.25rem;
+        font-weight: 700;
         text-align: center;
-        text-transform: none; /* Bỏ viết hoa toàn bộ để tạo sự sang trọng nhẹ nhàng */ /*uppercase;*/
-        letter-spacing: -0.03em; /* Thêm chút kerning để tạo cảm giác tinh tế hơn */
-        margin-bottom: 60px; /*50px;*/
-        position: relative; /* Thêm để tạo hiệu ứng gạch chân */
+        text-transform: none;
+        letter-spacing: -0.03em;
+        margin-bottom: 60px;
+        position: relative;
     }
-        /* Thanh gạch dưới tiêu đề đồng bộ với các phần trên */
+
         .press-title::after {
             content: '';
             position: absolute;
@@ -192,38 +185,37 @@
             transform: translateX(-50%);
             width: 40px;
             height: 3px;
-            background: #00D4B2; /* Điểm nhấn xanh ngọc mượt mà */
+            background: #00D4B2;
             border-radius: 2px;
         }
 
     .press-card {
-        background: #ffffff; /*#fff;*/
-        border-radius: 16px; /*15px;*/
+        background: #ffffff;
+        border-radius: 16px;
         overflow: hidden;
-        /* Sử dụng cubic-bezier giúp hiệu ứng hover trượt cực kỳ mượt và sang */
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /*0.3s;*/
-        border: 1px solid rgba(0, 0, 0, 0.04); /*1px solid #eee;*/
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 1px solid rgba(0, 0, 0, 0.04);
         height: 100%;
-        box-shadow: 0 4px 20px rgba(10, 37, 64, 0.02); /* Đổ bóng siêu mờ */ /*0 5px 15px rgba(0,0,0,0.05);*/
+        box-shadow: 0 4px 20px rgba(10, 37, 64, 0.02);
         display: flex;
         flex-direction: column;
     }
-        /* Hiệu ứng tương tác khi di chuột vào thẻ */
+
         .press-card:hover {
-            transform: translateY(-6px); /*(-10px)*/
-            box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08); /*0 15px 30px rgba(0,0,0,0.1);*/
-            border-color: rgba(0, 212, 178, 0.3); /*#c62828;*/
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08);
+            border-color: rgba(0, 212, 178, 0.3);
         }
 
     .press-img-container {
-        height: 380px; /*500px;*/
+        height: 380px;
         width: 100%;
         overflow: hidden;
-        background: #ffffff; /*#fff;*/
+        background: #ffffff;
         display: flex;
         align-items: center;
         justify-content: center;
-        position: relative; /*Thêm */
+        position: relative;
     }
 
     .press-img {
@@ -231,17 +223,16 @@
         height: 100%;
         object-fit: cover;
         object-position: top center;
-        border-bottom: 1px solid #F1F5F9; /*1px solid #f0f0f0;*/
-        /* Chuẩn bị hiệu ứng phóng to ảnh mượt mà */
+        border-bottom: 1px solid #F1F5F9;
         transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    /* Khi hover vào card, ảnh bên trong tự động zoom nhẹ quý phái */
+
     .press-card:hover .press-img {
         transform: scale(1.04);
     }
 
     .press-name {
-        font-size: 1.15rem; /* Thu nhỏ chữ tiêu đề báo một chút để tăng sự tinh tế */ /*1.3rem;*/
+        font-size: 1.15rem;
         font-weight: 600;
         color: #1E293B;
         padding: 24px 20px;
@@ -250,36 +241,36 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        line-height: 1.5; /* Thêm để tạo cảm giác thoáng đãng hơn */
-        transition: color 0.3s ease; /*thêm*/
+        line-height: 1.5;
+        transition: color 0.3s ease;
     }
-    /*thêm*/
+
     .press-card:hover .press-name {
         color: #0A2540;
     }
-    /* Nút điều hướng mũi tên qua lại của Slider báo chí */
+
     .press-control {
         width: 48px;
         height: 48px;
         background: #ffffff;
-        border: 1px solid #E2E8F0; /*thêm*/
-        color: #0A2540; /*thêm*/
+        border: 1px solid #E2E8F0;
+        color: #0A2540;
         border-radius: 50%;
         top: 50%;
         transform: translateY(-50%);
         opacity: 1;
-        display: inline-flex; /*thêm*/
-        align-items: center; /*thêm*/
-        justify-content: center; /*thêm*/
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05); /*thêm*/
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); /*thêm*/
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
         .press-control:hover {
             background: #ffffff;
-            color: #ffffff; /*thêm*/
-            border-color: #ffffff; /*thêm*/
-            box-shadow: 0 8px 20px rgba(10, 37, 64, 0.15); /*thêm*/
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 8px 20px rgba(10, 37, 64, 0.15);
         }
 
     /* VIDEO CSS */
@@ -288,7 +279,7 @@
         border-radius: 24px;
         box-shadow: 0 20px 50px rgba(10, 37, 64, 0.04);
         padding: 40px;
-        border: 1px solid rgba(0, 0, 0, 0.02); /*thêm*/
+        border: 1px solid rgba(0, 0, 0, 0.02);
     }
 
     .video-player-wrapper {
@@ -322,30 +313,26 @@
         overflow-y: auto;
         padding-right: 12px;
     }
-        /*Thêm*/
+
         .video-content-scroll::-webkit-scrollbar {
             width: 6px;
         }
-        /*Thêm*/
-        /* Định dạng phần nền của đường ray cuộn */
+
         .video-content-scroll::-webkit-scrollbar-track {
-            background: #F1F5F9; /* Màu xám siêu nhạt */
+            background: #F1F5F9;
             border-radius: 10px;
         }
-        /*Thêm*/
-        /* Định dạng cục chạy cuộn (Thumb) */
+
         .video-content-scroll::-webkit-scrollbar-thumb {
-            background: #CBD5E1; /* Màu xám Slate mờ */
+            background: #CBD5E1;
             border-radius: 10px;
             transition: background 0.3s ease;
         }
-            /*Thêm*/
-            /* Hiệu ứng khi di chuột vào thanh cuộn sẽ đậm lên một chút */
+
             .video-content-scroll::-webkit-scrollbar-thumb:hover {
                 background: #94A3B8;
             }
 
-    /* TIN TỨC, HỌC BỔNG, ƯU ĐIỂM, ĐÀO TẠO, HỌC PHÍ... */
     .news-card {
         border: 1px solid rgba(0, 0, 0, 0.04);
         border-radius: 16px;
@@ -356,23 +343,23 @@
         .news-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08) !important;
-            border-color: rgba(0, 212, 178, 0.3); /* Viền ánh xanh ngọc mờ đồng bộ */
+            border-color: rgba(0, 212, 178, 0.3);
         }
 
     .training-section {
         background-color: #ffffff;
         border-radius: 24px;
         padding: 80px 40px;
-        border: 1px solid rgba(0, 0, 0, 0.01); /*Thêm*/
+        border: 1px solid rgba(0, 0, 0, 0.01);
     }
 
     .training-title {
         color: #0A2540;
         font-size: 2.25rem;
-        font-weight: 700; /*Thêm*/
+        font-weight: 700;
         line-height: 1.35;
-        letter-spacing: -0.03em; /*thêm*/
-        margin-bottom: 2.5rem; /*thêm*/
+        letter-spacing: -0.03em;
+        margin-bottom: 2.5rem;
     }
 
     .category-title {
@@ -381,10 +368,9 @@
         color: #0A2540;
         letter-spacing: -0.01em;
         position: relative;
-        padding-left: 14px; /* Tạo khoảng trống để chèn vạch đứng K-Style */
+        padding-left: 14px;
     }
-        /*Thêm*/
-        /* K-Layout Bar: Thêm vạch đứng màu xanh ngọc tinh tế bên cạnh tên Khối ngành */
+
         .category-title::before {
             content: '';
             position: absolute;
@@ -393,7 +379,7 @@
             transform: translateY(-50%);
             width: 3.5px;
             height: 16px;
-            background-color: #ffffff; /* Màu điểm nhấn xanh ngọc phẳng */
+            background-color: #ffffff;
             border-radius: 2px;
         }
 
@@ -408,24 +394,21 @@
         }
 
         .faculty-list a {
-            color: #475569; /* Đổi sang màu xám Slate dịu mắt, không bị gắt */
+            color: #475569;
             text-decoration: none;
             font-size: 0.95rem;
             font-weight: 500;
             display: inline-block;
-            /* Tạo hiệu ứng trượt chữ và đổi màu mượt mà */
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
             .faculty-list a:hover {
                 color: #0A2540;
                 text-decoration: none;
-                /*Thêm*/
                 transform: translateX(4px);
                 font-weight: 600;
             }
-    /* CSS TÙY CHỈNH CHO TAB HỌC PHÍ TRÔNG HIỆN ĐẠI HƠN */
-    /*thêm*/
+
     .tuition-section {
         background: linear-gradient(to bottom, #ffffff, #ffffff);
         padding: 80px 0;
@@ -433,7 +416,7 @@
     }
 
     .tuition-title {
-        color: #0A2540; /* Navy đậm uy tín */
+        color: #0A2540;
         font-size: 2rem;
         font-weight: 800;
         letter-spacing: -0.03em;
@@ -482,109 +465,253 @@
         overflow: hidden;
         box-shadow: 0 12px 40px rgba(10, 37, 64, 0.02);
         background: #ffffff;
-        /*Thêm*/
-        .tuition-table {
-            margin-bottom: 0;
+    }
+
+    .tuition-table {
+        margin-bottom: 0;
+        background-color: #ffffff;
+    }
+
+        .tuition-table thead {
             background-color: #ffffff;
+            color: #ffffff;
         }
 
-            .tuition-table thead {
-                background-color: #ffffff;
-                color: #ffffff;
+        .tuition-table th, .tuition-table td {
+            padding: 18px 20px;
+            border: 1px solid #E2E8F0;
+            vertical-align: middle;
+        }
+</style>
+
+<div id="vluHeroCarousel" class="carousel slide vlu-hero-carousel" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="false">
+    <div class="carousel-indicators mb-4">
+        @for (int i = 0; i < banners.Count; i++)
+        {
+            <button type="button" data-bs-target="#vluHeroCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
+        }
+    </div>
+    <div class="carousel-inner">
+        @if (banners.Any())
+        {
+            for (int i = 0; i < banners.Count; i++)
+            {
+                <div class="carousel-item @(i == 0 ? "active" : "")"><img src="@banners[i].DuongDanAnh" class="vlu-banner-img" alt="Banner VKIT"></div>
             }
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#vluHeroCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+    <button class="carousel-control-next" type="button" data-bs-target="#vluHeroCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+</div>
 
-            .tuition-table th, .tuition-table td {
-                padding: 18px 20px;
-                border: 1px solid #E2E8F0;
-                vertical-align: middle;
-            }
-        /* 2. CẤU TRÚC THẺ ƯU ĐIỂM (ADVANTAGES SECTION) */
-        .advantages-section {
-            background: linear-gradient(to bottom, #ffffff, #ffffff);
-            padding: 80px 0;
-            border-radius: 30px;
-            margin: 60px 0;
-            box-shadow: 0 10px 35px rgba(15,23,42,.06);
+
+@if (!string.IsNullOrEmpty(firstVideoId))
+{
+    <div class="container my-5 pt-2">
+        <div class="video-main-container bg-white p-4 p-md-5 rounded-4 shadow-sm">
+
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="video-player-wrapper position-relative overflow-hidden rounded-4 shadow-sm" style="padding-top: 56.25%; background: #000;">
+                        <iframe class="position-absolute top-0 start-0 w-100 h-100 border-0"
+                                src="https://www.youtube.com/embed/@firstVideoId?rel=0&autoplay=1&mute=1"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    @if (videoLon != null)
+                    {
+                        <h3 class="fw-bold mt-4 text-center" style="color: #1a237e; text-transform: uppercase;">@videoLon.MoTaNgan</h3>
+                    }
+                </div>
+            </div>
+
+            <hr class="mb-5 text-muted" style="opacity: 0.15;" />
+
+            <div class="d-flex align-items-center justify-content-between mb-4 mt-2">
+                <h4 class="fw-bold m-0" style="color: #0A2540;">
+                    <i class="fab fa-youtube text-danger me-2"></i> GÓC VIDEO VKIT
+                </h4>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center video-nav-btn shadow-sm" id="btnPrevVideo" style="width: 40px; height: 40px;">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center video-nav-btn shadow-sm" id="btnNextVideo" style="width: 40px; height: 40px;">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="position-relative overflow-hidden">
+                <div class="d-flex gap-4 pb-2" id="videoScrollArea" style="overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none;">
+                    @foreach (var v in videoNhoList)
+                    {
+                        string yId = LấyIdYoutube(v.DuongDanVideo);
+                        if (!string.IsNullOrEmpty(yId))
+                        {
+                            <div class="flex-shrink-0" style="width: 300px;">
+                                <div class="position-relative rounded-4 shadow-sm overflow-hidden bg-dark mb-3 video-small-item"
+                                     style="padding-top: 56.25%; cursor: pointer;" id="vid-container-@yId" onclick="playSmallVideo('@yId')">
+
+                                    <img src="https://img.youtube.com/vi/@yId/mqdefault.jpg" class="position-absolute top-0 start-0 w-100 h-100 img-thumbnail-vid" style="object-fit: cover; transition: transform 0.3s ease;">
+
+                                    <div class="position-absolute top-50 start-50 translate-middle text-white d-flex align-items-center justify-content-center play-btn-overlay"
+                                         style="background: rgba(10, 37, 64, 0.8); width: 50px; height: 50px; border-radius: 50%; transition: all 0.3s;">
+                                        <i class="fas fa-play ms-1"></i>
+                                    </div>
+                                </div>
+
+                                <h6 class="fw-bold text-dark mb-1" style="line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">@v.MoTaNgan</h6>
+
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        .video-small-item:hover .img-thumbnail-vid {
+            transform: scale(1.05);
         }
 
-        .section-badge {
-            display: inline-flex;
-            align-items: center;
-            background: #ffffff;
-            color: #2563EB;
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.04);
+        .video-small-item:hover .play-btn-overlay {
+            background: #e53935 !important;
+            transform: translate(-50%, -50%) scale(1.15);
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
+        #videoScrollArea::-webkit-scrollbar {
+            display: none;
+        }
+
+        .video-nav-btn {
+            border-color: #E2E8F0;
             color: #0A2540;
-            letter-spacing: -0.03em;
-            position: relative;
-            display: inline-block;
+            background: #fff;
+            transition: all 0.3s ease;
         }
 
-        .section-subtitle {
-            max-width: 650px;
-            margin: 0 auto;
-            color: #64748B;
-            font-size: 1rem;
-            line-height: 1.6;
-            font-weight: 400;
+            .video-nav-btn:hover {
+                background-color: #0A2540;
+                color: #ffffff;
+                border-color: #0A2540;
+            }
+
+            .video-nav-btn:disabled {
+                opacity: 0.4;
+                cursor: not-allowed;
+                background: #f8f9fa;
+                color: #adb5bd;
+                border-color: #e9ecef;
+            }
+    </style>
+
+    <script>
+        function playSmallVideo(videoId) {
+            var container = document.getElementById('vid-container-' + videoId);
+            if (container) {
+                container.innerHTML = '<iframe class="position-absolute top-0 start-0 w-100 h-100 border-0" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const scrollArea = document.getElementById('videoScrollArea');
+            const btnPrev = document.getElementById('btnPrevVideo');
+            const btnNext = document.getElementById('btnNextVideo');
+
+            if (scrollArea && btnPrev && btnNext) {
+                const scrollAmount = 324;
+
+                btnNext.addEventListener('click', function () {
+                    scrollArea.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
+
+                btnPrev.addEventListener('click', function () {
+                    scrollArea.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+
+                scrollArea.addEventListener('scroll', function () {
+                    btnPrev.disabled = scrollArea.scrollLeft <= 0;
+                    btnNext.disabled = scrollArea.scrollLeft >= (scrollArea.scrollWidth - scrollArea.clientWidth - 2);
+                });
+
+                scrollArea.dispatchEvent(new Event('scroll'));
+            }
+        });
+    </script>
+}
+
+<div class="container my-5 pt-4">
+    <div class="text-center mb-5">
+        <span class="section-badge"><i class="fas fa-fire text-danger me-1"></i> SỰ KIỆN & HOẠT ĐỘNG</span>
+        <h2 class="k-main-title">Hoạt Động Nổi Bật</h2>
+        <p class="section-subtitle">Những khoảnh khắc đáng nhớ và sự kiện tiêu biểu nhất của sinh viên Viện Công nghệ Việt - Hàn.</p>
+    </div>
+
+    @if (ViewBag.DanhSachHoatDongNoiBat != null)
+    {
+        var listHDNB = ((List<VKITActivityManager.Models.HoatDongNoiBat>)ViewBag.DanhSachHoatDongNoiBat).Take(10).ToList();
+
+        <div class="position-relative hdnb-slider-wrapper py-3 px-md-4">
+            <button id="btnPrevHDNB" class="btn btn-light rounded-circle shadow position-absolute top-50 translate-middle-y z-3" style="width: 45px; height: 45px; left: -15px;"><i class="fas fa-chevron-left"></i></button>
+
+            <div class="d-flex gap-4 pb-3 hdnb-scroll-area" id="hdnbScrollArea" style="overflow-x: auto; scrollbar-width: none;">
+                @foreach (var item in listHDNB)
+                {
+                    <div class="flex-shrink-0 hdnb-card-item">
+                        <div class="advantage-card h-100" style="cursor: pointer;" data-img="@item.DuongDanAnh" data-caption="@item.MoTa" onclick="openLightbox(this)">
+                            <div class="position-relative overflow-hidden mb-3" style="padding-top: 60%; border-radius: 12px;">
+                                <img src="@item.DuongDanAnh" class="position-absolute top-0 start-0 w-100 h-100 hdnb-img" style="object-fit: cover; transition: 0.5s;" alt="Hoạt động">
+                            </div>
+
+                            <h5 class="advantage-title">@item.MoTa</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <button id="btnNextHDNB" class="btn btn-light rounded-circle shadow position-absolute top-50 translate-middle-y z-3" style="width: 45px; height: 45px; right: -15px;"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-header border-0 pb-0 justify-content-end" style="z-index: 10;">
+                <button type="button" class="btn-close btn-close-white fs-5" data-bs-dismiss="modal" aria-label="Close" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px;"></button>
+            </div>
+            <div class="modal-body text-center pt-0 position-relative">
+                <img id="lightboxImage" src="" class="img-fluid rounded-3 shadow-lg mb-3" style="max-height: 85vh; object-fit: contain;">
+                <h5 id="lightboxCaption" class="text-white fw-bold p-3 rounded-3 mx-auto" style="background: rgba(10, 37, 64, 0.85); display: inline-block; max-width: 90%;"></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hdnb-card-item {
+        width: calc(50% - 12px);
+    }
+
+    @@media (max-width: 768px) {
+        .hdnb-card-item {
+            width: 100%;
         }
     }
 
-    .advantages-section {
-        background: linear-gradient(to bottom, #ffffff, #ffffff);
-        padding: 80px 0;
-        width: 100%;
+    .hdnb-scroll-area::-webkit-scrollbar {
+        display: none;
     }
 
-    /* Badge */
-    .section-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: #ffffff;
-        color: #2563EB;
-        padding: 8px 18px;
-        border-radius: 30px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    /* Tiêu đề */
-    .section-title {
-        font-size: 2.8rem;
-        font-weight: 800;
-        color: #0A2540;
-        letter-spacing: -0.03em;
-    }
-
-    /* Mô tả */
-    .section-subtitle {
-        max-width: 650px;
-        margin: 0 auto;
-        color: #64748B;
-        font-size: 1rem;
-        line-height: 1.8;
-    }
-
-    /* Card */
     .advantage-card {
         background: #ffffff;
         border-radius: 20px;
-        padding: 35px 28px;
+        padding: 20px;
         border: 1px solid rgba(226,232,240,.7);
-        overflow: hidden;
         box-shadow: 0 10px 30px rgba(148,163,184,.08);
         transition: all .35s ease;
         display: flex;
@@ -596,1077 +723,958 @@
             box-shadow: 0 20px 40px rgba(10,37,64,.1);
         }
 
-    /* Icon */
-    .advantage-icon {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px;
-        margin-bottom: 20px;
-    }
-
-    /* Tiêu đề card */
     .advantage-title {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         font-weight: 700;
         color: #0A2540;
-        margin-bottom: 12px;
-        position: relative;
-        padding-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-        .advantage-title::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 25px;
-            height: 2px;
-            background: #ffffff;
-            transition: .3s;
+    .hdnb-scroll-area {
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .hdnb-card {
+        transition: all 0.4s ease;
+        border: 1px solid rgba(226, 232, 240, 0.6);
+    }
+
+        .hdnb-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(10,37,64,0.1) !important;
+            border-color: rgba(37, 99, 235, 0.3);
         }
 
-    .advantage-card:hover .advantage-title::after {
-        width: 45px;
-        background: var(--hover-color);
+            .hdnb-card:hover .hdnb-img {
+                transform: scale(1.08);
+            }
+
+            .hdnb-card:hover .hdnb-zoom-icon {
+                opacity: 1 !important;
+                transform: translate(-50%, -50%) scale(1.1) !important;
+            }
+</style>
+
+<script>
+    function openLightbox(element) {
+        document.getElementById('lightboxImage').src = element.getAttribute('data-img');
+        document.getElementById('lightboxCaption').innerText = element.getAttribute('data-caption');
+        new bootstrap.Modal(document.getElementById('lightboxModal')).show();
     }
 
-    /* Nội dung */
-    .advantage-text {
-        color: #475569;
-        line-height: 1.7;
-        font-size: .95rem;
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const scrollArea = document.getElementById('hdnbScrollArea');
+        const btnPrev = document.getElementById('btnPrevHDNB');
+        const btnNext = document.getElementById('btnNextHDNB');
 
-    .section-badge {
-        display: inline-flex;
-        align-items: center;
-        background: #ffffff; /* Xanh pastel siêu nhạt */
-        color: #3B82F6;
-        padding: 6px 16px;
-        border-radius: 30px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin-bottom: 20px; /* Đẩy tiêu đề xuống không cho dính vào nhau */
-    }
+        if (scrollArea && btnPrev && btnNext) {
+            let autoPlayTimer;
+            const originalHTML = scrollArea.innerHTML;
+            scrollArea.innerHTML += originalHTML;
 
-    .section-title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #1E293B; /* Xanh đen sẫm chuẩn gốc */
-        margin-bottom: 15px;
-        display: block; /* Ép xuống dòng */
-    }
+            function getScrollAmount() {
+                const firstCard = scrollArea.querySelector('.hdnb-card-item');
+                return firstCard ? (firstCard.offsetWidth + 24) : 400;
+            }
 
-    .section-subtitle {
-        max-width: 650px;
-        margin: 0 auto 40px auto; /* Tăng khoảng cách với các thẻ ở dưới */
-        color: #64748B;
-        font-size: 1rem;
-        line-height: 1.6;
-    }
+            function slideNext() {
+                const halfWidth = scrollArea.scrollWidth / 2;
+                if (scrollArea.scrollLeft >= halfWidth) {
+                    scrollArea.scrollTo({ left: scrollArea.scrollLeft - halfWidth, behavior: 'auto' });
+                }
+                setTimeout(() => {
+                    scrollArea.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+                }, 10);
+            }
 
-    /* 2. Thiết lập bộ đếm số tự động cho thẻ */
-    .advantages-section {
-        background: linear-gradient(to bottom, #ffffff, #ffffff);
-        padding: 80px 0;
-        border-radius: 40px;
-        margin: 60px 0;
-        box-shadow: 0 10px 35px rgba(15,23,42,.06);
-    }
+            function slidePrev() {
+                const halfWidth = scrollArea.scrollWidth / 2;
+                if (scrollArea.scrollLeft <= 0) {
+                    scrollArea.scrollTo({ left: halfWidth, behavior: 'auto' });
+                }
+                setTimeout(() => {
+                    scrollArea.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+                }, 10);
+            }
 
-    .advantage-card {
-        background: #ffffff;
-        border-radius: 20px;
-        padding: 35px 28px;
-        text-align: left; /* Trả về căn trái đúng ảnh gốc */
-        border: 1px solid #F1F5F9;
+            btnNext.addEventListener('click', () => { slideNext(); resetTimer(); });
+            btnPrev.addEventListener('click', () => { slidePrev(); resetTimer(); });
+
+            function startTimer() {
+                autoPlayTimer = setInterval(slideNext, 2000);
+            }
+
+            function resetTimer() {
+                clearInterval(autoPlayTimer);
+                startTimer();
+            }
+
+            scrollArea.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
+            scrollArea.addEventListener('mouseleave', startTimer);
+            startTimer();
+        }
+    });
+</script>
+
+<style>
+    .vkit-advantages-container {
         position: relative;
-        overflow: hidden;
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 40px 15px;
+    }
+
+    /* ---- GIAO DIỆN TRÊN ĐIỆN THOẠI (MOBILE) ---- */
+    .k-radial-center-area {
+        position: relative;
+        width: 260px;
+        height: 260px;
+        margin: 0 auto 40px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+    }
+
+    .k-radial-dotted-ring {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+        border: 2.5px dashed #cbd5e1;
+        border-radius: 50%;
+        animation: spinRing 40s linear infinite;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .k-radial-main-img {
+        width: 100%;
         height: 100%;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+        border: 8px solid #ffffff;
+        box-sizing: border-box;
+        box-shadow: 0 15px 40px rgba(10, 37, 64, 0.12);
+        position: relative;
+        z-index: 2;
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .k-adv-radial-layout {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        row-gap: 30px;
+    }
+
+    .k-radial-node {
         display: flex;
         flex-direction: column;
-        counter-increment: card-counter; /* Tự động tăng số đếm (1, 2, 3...) */
-        z-index: 1;
+        align-items: center;
+        text-align: center;
+        text-decoration: none !important;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-        /* Tự động in số thứ tự 01, 02 siêu to chìm ở góc phải */
-        .advantage-card::before {
-            content: "0" counter(card-counter); /* Thêm số 0 đằng trước */
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 4rem; /* Cỡ chữ to khổng lồ */
-            font-weight: 800;
-            color: #F8FAFC; /* Màu xám siêu nhạt tàng hình */
-            z-index: -1; /* Ép chìm xuống dưới chữ */
-            line-height: 1;
-            display: block;
-            background: transparent; /* Xóa dải màu đỏ gắt ở phiên bản trước */
-            height: auto;
-            width: auto;
-        }
-
-        .advantage-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08);
-            border-color: rgba(67, 56, 202, 0.2); /* Viền ánh tím nhẹ khi hover */
-        }
-
-    /* 3. Sửa lại màu Icon sang tone Tím/Xanh chuẩn ảnh gốc */
-    .advantage-icon {
-        width: 60px;
-        height: 60px;
+    .k-radial-icon-box {
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
-        margin-bottom: 24px;
-        background-color: #EEF2FF !important; /* Tím pastel dịu mắt */
-        color: #4F46E5 !important; /* Icon tím/xanh đậm */
-        transition: all 0.3s ease;
-        box-shadow: none;
-    }
-
-    /* Luân phiên đổi màu nền icon thành Hồng pastel nhẹ để giống ảnh gốc nhất */
-    .advantage-card:nth-child(even) .advantage-icon {
-        background-color: #FFF1F2 !important;
-        color: #E11D48 !important;
-    }
-
-    .advantage-title {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #1E293B;
+        color: #ffffff;
+        font-size: 1.5rem;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         margin-bottom: 12px;
-        position: relative;
-        padding-bottom: 8px;
-        min-height: auto;
+        transition: transform 0.3s ease;
     }
 
-        /* Gạch dưới tiêu đề */
-        .advantage-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 24px;
-            height: 2px;
-            background-color: #E2E8F0;
-            transition: all 0.3s ease;
+    .k-radial-node:hover .k-radial-icon-box {
+        transform: scale(1.1) translateY(-5px);
+    }
+
+    /* ---- FIX CHỮ BỊ RỚT DÒNG CHO ƯU ĐIỂM ---- */
+    .k-radial-text-box {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1e293b;
+        line-height: 1.5;
+        margin: 0;
+        text-wrap: pretty; /* THUỘC TÍNH MỚI: Tự động dàn đều chữ, không rớt 1 chữ xuống cuối */
+    }
+
+    /* ---- GIAO DIỆN TRÊN MÁY TÍNH (PC & LAPTOP) ---- */
+    @@media (min-width: 992px) {
+        .vkit-advantages-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            padding: 20px;
         }
 
-    .advantage-card:hover .advantage-title::after {
-        background-color: #4F46E5; /* Khi hover gạch dưới chuyển màu tím */
-        width: 40px;
+        .k-radial-center-area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            margin: 0;
+        }
+
+        .k-adv-radial-layout {
+            display: block;
+            width: 100%;
+            max-width: 1100px;
+            height: 550px;
+            position: relative;
+        }
+
+        .k-radial-node {
+            position: absolute;
+            width: 380px; /* TĂNG CHIỀU RỘNG TỪ 280 LÊN 300 ĐỂ CHỮ ĐƯỢC THOẢI MÁI HƠN */
+            transform: translateY(-50%);
+        }
+
+        .k-radial-icon-box {
+            width: 80px;
+            height: 80px;
+            font-size: 1.75rem;
+            margin-bottom: 15px;
+        }
+
+        .k-radial-text-box {
+            font-size: 0.9rem;
+            max-width: 100%;
+        }
+
+        .k-radial-node.node-left {
+            right: calc(50% + 200px);
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .k-radial-node.node-right {
+            left: calc(50% + 200px);
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .k-radial-node.pos-top {
+            top: 12%;
+        }
+
+        .k-radial-node.pos-mid {
+            top: 50%;
+        }
+
+        .k-radial-node.pos-bot {
+            top: 88%;
+        }
+
+        .k-radial-node.node-left.pos-top {
+            right: calc(50% + 140px);
+        }
+
+        .k-radial-node.node-right.pos-top {
+            left: calc(50% + 140px);
+        }
+
+        .k-radial-node.node-left.pos-bot {
+            right: calc(50% + 140px);
+        }
+
+        .k-radial-node.node-right.pos-bot {
+            left: calc(50% + 140px);
+        }
     }
 
-    .advantage-text {
-        color: #475569;
-        font-size: 0.95rem;
+    @@keyframes spinRing {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<section class="k-advantages-section py-5 bg-white">
+    <div class="container-fluid max-w-1350">
+        <div class="text-center mb-5">
+            <span class="section-badge">
+                <i class="fas fa-star"></i> VKIT ADVANTAGES
+            </span>
+            <h2 class="k-main-title">ƯU ĐIỂM CHƯƠNG TRÌNH</h2>
+            <p class="section-subtitle">Chương trình đào tạo chuẩn quốc tế, gắn liền doanh nghiệp và cơ hội phát triển toàn diện cho sinh viên.</p>
+        </div>
+
+        @if (ViewBag.DanhSachUuDiem != null)
+        {
+            var listUuDiem = (List<VKITActivityManager.Models.UuDiem>)ViewBag.DanhSachUuDiem;
+
+            <div class="vkit-advantages-container">
+                <div class="k-radial-center-area">
+                    <div class="k-radial-dotted-ring"></div>
+                    <img src="~/images/hoatdong/cogai1.jpg" alt="VKIT Center" class="k-radial-main-img" />
+                </div>
+
+                <div class="k-adv-radial-layout">
+                    @for (int i = 0; i < listUuDiem.Count; i++)
+                    {
+                        var item = listUuDiem[i];
+                        string bgColor = string.IsNullOrEmpty(item.MauNen) ? "#3B82F6" : item.MauNen;
+                        string icon = string.IsNullOrEmpty(item.Icon) ? "fas fa-check" : item.Icon;
+
+                        string sideClass = (i % 2 == 0) ? "node-left" : "node-right";
+                        string posClass = "pos-mid";
+                        if (i == 0 || i == 1) posClass = "pos-top";
+                        if (i >= 4) posClass = "pos-bot";
+
+                        <a asp-action="ChiTietUuDiem" asp-route-id="@item.Id" class="k-radial-node @sideClass @posClass">
+                            <div class="k-radial-icon-box" style="background-color: @bgColor;">
+                                <i class="@icon"></i>
+                            </div>
+                            <div class="k-radial-text-box">
+                                @Html.Raw(item.NoiDung)
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+@{
+    // 1. LẤY TOÀN BỘ DANH SÁCH HỌC PHÍ
+    var allHocPhi = ViewBag.DanhSachHocPhi as List<VKITActivityManager.Models.HocPhi> ?? new List<VKITActivityManager.Models.HocPhi>();
+
+    // 2. GOM NHÓM LẠI THEO NGÀNH VÀ THỜI GIAN HỌC
+    var groups = allHocPhi.GroupBy(x => new { x.NganhDaoTao, x.ThoiGian }).ToList();
+
+    // 3. HÀM TỰ ĐỘNG NHẬN DIỆN ICON THEO TÊN NGÀNH
+    string GetIconTheoNganh(string nganh)
+    {
+        if (string.IsNullOrEmpty(nganh)) return "fas fa-graduation-cap";
+        var n = nganh.ToLower();
+        if (n.Contains("ô tô điện")) return "fas fa-charging-station";
+        if (n.Contains("ô tô")) return "fas fa-car";
+        if (n.Contains("thông tin")) return "fas fa-laptop-code";
+        if (n.Contains("marketing")) return "fas fa-bullhorn";
+        if (n.Contains("logistics") || n.Contains("chuỗi")) return "fas fa-truck-fast";
+        if (n.Contains("công chúng")) return "fas fa-users-rays";
+        if (n.Contains("kinh doanh")) return "fas fa-briefcase";
+        if (n.Contains("tài chính") || n.Contains("ngân hàng")) return "fas fa-coins";
+        if (n.Contains("du lịch") || n.Contains("khách sạn")) return "fas fa-plane-departure";
+        if (n.Contains("ngôn ngữ")) return "fas fa-language";
+        return "fas fa-graduation-cap";
+    }
+
+    // 4. HÀM CHỨC NĂNG: GOM NHÓM KỸ THUẬT 1 MÀU - CỬ NHÂN 1 MÀU
+    string GetMauTheoNganh(string nganh)
+    {
+        string mauCuNhan = "#0D9488";
+        string mauKyThuat = "#2563EB";
+
+        if (string.IsNullOrEmpty(nganh)) return mauCuNhan;
+
+        var n = nganh.ToLower();
+        if (n.Contains("kỹ thuật") ||
+            n.Contains("công nghệ") ||
+            n.Contains("ô tô") ||
+            n.Contains("điện") ||
+            n.Contains("tin học"))
+        {
+            return mauKyThuat;
+        }
+
+        return mauCuNhan;
+    }
+}
+
+<div class="tuition-section">
+    <h2 class="fw-bold text-center tuition-title mb-5">
+        HỌC PHÍ NĂM 2026 VÀ <br /> ĐƯỢC TÍNH THEO CHƯƠNG TRÌNH ĐÀO TẠO CHUẨN VIỆT HÀN
+    </h2>
+
+    @if (groups.Any())
+    {
+        <div class="accordion shadow-sm" id="accordionHocPhi" style="border-radius: 12px; overflow: hidden;">
+            @{
+                int idx = 0;
+            }
+            @foreach (var group in groups)
+            {
+                var collapseId = "collapse_" + idx;
+                var headingId = "heading_" + idx;
+                var items = group.ToList();
+
+                string currentIcon = GetIconTheoNganh(group.Key.NganhDaoTao);
+                string currentColor = GetMauTheoNganh(group.Key.NganhDaoTao);
+
+                <div class="accordion-item border-0 border-bottom">
+
+                    <h2 class="accordion-header" id="@headingId">
+                        <button class="accordion-button collapsed fw-bold py-3" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId" style="font-size: 1.1rem; color: @currentColor; background-color: #f8fafc;">
+                            <div class="d-flex align-items-center justify-content-between flex-grow-1 me-3">
+                                <span class="text-start">
+                                    <i class="@currentIcon me-3 fs-5"></i>@group.Key.NganhDaoTao
+                                </span>
+                                <span class="badge px-3 py-2 text-white shadow-sm flex-shrink-0" style="font-size: 0.8rem; font-weight: 500; background-color: @currentColor; border-radius: 6px;">
+                                    Thời gian học: @group.Key.ThoiGian
+                                </span>
+                            </div>
+                        </button>
+                    </h2>
+
+                    <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@headingId" data-bs-parent="#accordionHocPhi">
+                        <div class="accordion-body p-0 bg-white">
+
+                            <div class="table-responsive d-none d-md-block">
+                                <table class="table table-bordered text-center align-middle mb-0" style="border-color: #F1F5F9;">
+                                    <thead style="background-color: @currentColor; color: white;">
+                                        <tr>
+                                            <th style="min-width: 250px;" class="py-3 border-0">Học phí </th>
+                                            <th style="min-width: 140px;" class="py-3 border-0">Học bổng 25%<br />(VNĐ)</th>
+                                            <th style="min-width: 180px;" class="py-3 border-0">Học bổng 50%<br />(VNĐ)</th>
+                                            <th style="min-width: 180px;" class="py-3 border-0">Học bổng 75%<br />(VNĐ)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in items)
+                                        {
+                                            <tr class="@(item.LaDongPhu ? "bg-light" : "")" style="transition: background-color 0.2s ease;">
+                                                <td class="fw-bold py-3 px-3 text-start" style="color: @currentColor; border-color: #F1F5F9;">@item.DonViApDung</td>
+                                                <td class="text-primary fw-bold py-3" style="border-color: #F1F5F9;">@item.MucHocPhi</td>
+                                                <td class="text-danger fw-bold py-3" style="border-color: #F1F5F9;">@item.HocPhiGiam25</td>
+                                                <td class="text-danger fw-bold py-3" style="border-color: #F1F5F9;">@item.HocPhiGiam50</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="d-block d-md-none p-3 bg-light">
+                                <div class="tuition-mobile-card shadow-sm" style="border: 2px solid @currentColor; border-radius: 12px; overflow: hidden; background-color: #fff;">
+
+                                    @for (int i = 0; i < items.Count; i++)
+                                    {
+                                        var item = items[i];
+
+                                        <div class="text-white" style="background-color: @currentColor; padding: 10px 15px; font-weight: 600; text-align: center; font-size: 0.95rem;">
+                                            @item.DonViApDung
+                                        </div>
+
+                                        <div class="d-flex justify-content-between p-3" style="background-color: @(item.LaDongPhu ? "#f8f9fa" : "#ffffff"); border-bottom: 1px solid #f1f5f9;">
+
+                                            <div class="w-50" style="border-right: 1px dashed #dee2e6; padding-right: 15px;">
+                                                <p class="mb-2 text-dark fw-bold" style="font-size: 0.9rem;">Học bổng 25%</p>
+                                                <p class="mb-2" style="color: #0d6efd; font-size: 0.9rem;">Học bổng 50%</p>
+                                                <p class="mb-0" style="color: #0d6efd; font-size: 0.9rem;">Học bổng 75%</p>
+                                            </div>
+
+                                            <div class="w-50 text-end" style="padding-left: 15px;">
+                                                <p class="mb-2 text-dark fw-bold" style="font-size: 0.9rem;">@item.MucHocPhi</p>
+                                                <p class="mb-2 text-danger fw-bold" style="font-size: 0.9rem;">@item.HocPhiGiam25</p>
+                                                <p class="mb-0 text-danger fw-bold" style="font-size: 0.9rem;">@item.HocPhiGiam50</p>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                idx++;
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5 text-muted fst-italic card shadow-sm border-0">
+            Chưa có thông tin học phí các ngành đào tạo.
+        </div>
+    }
+</div>
+
+<style>
+    /* CSS CHO PHẦN HỌC BỔNG NẰM NGANG VÀ CÓ THỂ CUỘN */
+    .hb-slider-wrapper {
+        position: relative;
+        padding: 0 40px; /* Chừa chỗ cho 2 nút mũi tên */
+    }
+
+    .hb-scroll-area {
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+        display: flex;
+        gap: 30px;
+        padding-bottom: 20px; /* Khoảng trống cho shadow */
+    }
+
+        .hb-scroll-area::-webkit-scrollbar {
+            display: none;
+        }
+
+    .k-duo-scholarship-box {
+        width: 550px; /* Khung cứng để các học bổng nằm ngang */
+        flex-shrink: 0;
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.04);
+        border: 1px solid #f1f5f9;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+    }
+
+    @@media (max-width: 768px) {
+        .k-duo-scholarship-box {
+            width: 85vw; /* Trên mobile sẽ tự động co giãn bằng 85% màn hình */
+        }
+    }
+
+    .k-duo-scholarship-box:hover {
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+        border-color: #e2e8f0;
+        transform: translateY(-5px);
+    }
+
+    .k-duo-inner-info {
+        padding: 35px 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        position: relative;
+    }
+
+        .k-duo-inner-info::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            bottom: 15%;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #e2e8f0, transparent);
+        }
+
+    @@media (max-width: 768px) {
+        .k-duo-inner-info {
+            grid-template-columns: 1fr;
+        }
+
+            .k-duo-inner-info::after {
+                display: none;
+            }
+    }
+
+    .k-hb-item-pane {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .k-hb-badge-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 12px;
+        border-radius: 30px;
+        color: #ffffff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        align-self: flex-start;
+    }
+
+    .k-hb-title-lbl {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.4;
+        margin-bottom: 12px;
+    }
+
+    .k-hb-desc-lbl {
+        font-size: 0.85rem;
+        color: #64748b;
         line-height: 1.6;
         margin: 0;
     }
 
-    /*Thêm*/
-
-    .advantages-section {
-        position: relative;
-        padding: 80px 0;
-        background-color: #F8FAFC; /* Màu nền nhạt cho toàn khu vực */
-        z-index: 1;
-        overflow: hidden; /* Giúp cành hoa không bị tràn ra ngoài khung web */
+    /* ==== CSS CHO SLIDER DANH SÁCH VINH DANH ==== */
+    .vd-card-item {
+        width: 320px; /* Đã tăng chiều rộng một chút để các list học bổng rộng rãi hơn */
     }
 
-        /* Lớp phủ chứa cành hoa đào */
-        .advantages-section::before {
-            content: "";
-            position: absolute;
-            top: -10px; /* Sát mép trên (có thể chỉnh âm để giấu bớt cành góc) */
-            left: -10px; /* Sát mép trái */
-            width: 400px; /* Độ rộng hiển thị của cành hoa, tăng giảm tùy ý */
-            height: 400px;
-            background-image: url('/images/phongnen/hoa_anh_dao.png');
-            background-size: contain;
-            background-position: left top; /* Canh sát góc trái trên cùng */
-            background-repeat: no-repeat;
-            /* Vì hoa nằm ở góc thoáng, bạn có thể để rõ nét một chút cho đẹp */
-            opacity: 0.85;
-            z-index: -1; /* Nằm dưới các ô nội dung để không che chữ */
-            pointer-events: none; /* Tránh việc người dùng vô tình click nhầm vào ảnh */
+    @@media (max-width: 768px) {
+        .vd-card-item {
+            width: 280px;
         }
-
-    /* Thanh vách ngăn bông hoa ở Tiêu đề phụ (Giữ lại cho đẹp giống bản gốc) */
-    .section-subtitle {
-        position: relative;
-        padding-bottom: 30px;
     }
 
-        .section-subtitle::after {
-            content: "✿";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            color: #93C5FD;
-        }
-
-        .section-subtitle::before {
-            content: "";
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 1px;
-            background-color: #E2E8F0;
-            z-index: -1;
-        }
-
+    .vd-scroll-area::-webkit-scrollbar {
+        display: none;
+    }
 </style>
 
-    <div id="vluHeroCarousel" class="carousel slide vlu-hero-carousel" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="false">
-        <div class="carousel-indicators mb-4">
-            @for (int i = 0; i < banners.Count; i++)
-            {
-                <button type="button" data-bs-target="#vluHeroCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
-            }
-        </div>
-        <div class="carousel-inner">
-            @if (banners.Any())
-            {
-                for (int i = 0; i < banners.Count; i++)
-                {
-                    <div class="carousel-item @(i == 0 ? "active" : "")"><img src="@banners[i].DuongDanAnh" class="vlu-banner-img" alt="Banner VKIT"></div>
-                }
-            }
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#vluHeroCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-        <button class="carousel-control-next" type="button" data-bs-target="#vluHeroCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-    </div>
+<div class="vkit-scholarship-section py-5 my-4 bg-light">
+    <div class="container-fluid max-w-1350 px-4">
 
+        <div class="mt-5 pt-3">
+            <div class="d-flex align-items-center mb-4">
+                <h3 class="fw-bold m-0" style="color: #0f172a;"><i class="fas fa-medal text-warning me-2"></i> DANH SÁCH SINH VIÊN NHẬN HỌC BỔNG TIÊU BIỂU</h3>
+                <div class="ms-auto d-none d-md-block" style="height: 1px; flex-grow: 1; background: linear-gradient(90deg, #e2e8f0, transparent); margin-left: 20px;"></div>
+            </div>
 
-    @if (!string.IsNullOrEmpty(firstVideoId))
-    {
-        <div class="container my-5 pt-2">
-            <div class="video-main-container bg-white p-4 p-md-5 rounded-4 shadow-sm">
+            <div class="position-relative vd-slider-wrapper py-2" style="padding: 0 40px;">
+                <button id="btnPrevVD" class="btn btn-light rounded-circle shadow position-absolute top-50 translate-middle-y z-3" style="width: 45px; height: 45px; left: 0px;"><i class="fas fa-chevron-left"></i></button>
 
-                <div class="row mb-5">
-                    <div class="col-12">
-                        <div class="video-player-wrapper position-relative overflow-hidden rounded-4 shadow-sm" style="padding-top: 56.25%; background: #000;">
-                            <iframe class="position-absolute top-0 start-0 w-100 h-100 border-0"
-                                    src="https://www.youtube.com/embed/@firstVideoId?rel=0&autoplay=1&mute=1"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
-                        @if (videoLon != null)
-                        {
-                            <h3 class="fw-bold mt-4 text-center" style="color: #1a237e; text-transform: uppercase;">@videoLon.MoTaNgan</h3>
-                        }
-                    </div>
-                </div>
+                <div class="d-flex gap-4 pb-3 vd-scroll-area" id="vdScrollArea" style="overflow-x: auto; scrollbar-width: none;">
 
-                <hr class="mb-5 text-muted" style="opacity: 0.15;" />
+                    @if (ViewBag.DanhSachSinhVienVinhDanh != null)
+                    {
+                        var dsSinhVienRaw = (List<VKITActivityManager.Models.SinhVienHocBong>)ViewBag.DanhSachSinhVienVinhDanh;
 
-                <!-- 2. GÓC VIDEO VKIT (CÁC VIDEO NHỎ NẰM NGANG Ở DƯỚI) -->
-                <div class="d-flex align-items-center justify-content-between mb-4 mt-2">
-                    <h4 class="fw-bold m-0" style="color: #0A2540;">
-                        <i class="fab fa-youtube text-danger me-2"></i> GÓC VIDEO VKIT
-                    </h4>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center video-nav-btn shadow-sm" id="btnPrevVideo" style="width: 40px; height: 40px;">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center video-nav-btn shadow-sm" id="btnNextVideo" style="width: 40px; height: 40px;">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="position-relative overflow-hidden">
-                    <div class="d-flex gap-4 pb-2" id="videoScrollArea" style="overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none;">
-                        @foreach (var v in videoNhoList)
-                        {
-                            string yId = LấyIdYoutube(v.DuongDanVideo);
-                            if (!string.IsNullOrEmpty(yId))
+                        // GOM NHÓM NGAY TẠI VIEW: Gộp các học bổng có cùng Mã Sinh Viên (MaSV)
+                        var dsSinhVienGộp = dsSinhVienRaw
+                            .GroupBy(x => new { x.MaSV, x.TenSinhVien, x.Lop, x.HinhAnh })
+                            .Select(g => new
                             {
-                                <div class="flex-shrink-0" style="width: 300px;">
-                                    <div class="position-relative rounded-4 shadow-sm overflow-hidden bg-dark mb-3 video-small-item"
-                                         style="padding-top: 56.25%; cursor: pointer;" id="vid-container-@yId" onclick="playSmallVideo('@yId')">
+                                MaSV = g.Key.MaSV,
+                                TenSinhVien = g.Key.TenSinhVien,
+                                Lop = g.Key.Lop,
+                                HinhAnh = g.Key.HinhAnh,
+                                // Gom toàn bộ tên học bổng của sinh viên này thành danh sách danh sách chuỗi riêng biệt
+                                DanhSachTenHocBong = g.Where(x => x.LoaiHocBong != null && !string.IsNullOrEmpty(x.LoaiHocBong.TenHocBong))
+                                                      .Select(x => x.LoaiHocBong.TenHocBong)
+                                                      .ToList()
+                            }).ToList();
 
-                                        <img src="https://img.youtube.com/vi/@yId/mqdefault.jpg" class="position-absolute top-0 start-0 w-100 h-100 img-thumbnail-vid" style="object-fit: cover; transition: transform 0.3s ease;">
+                        foreach (var sv in dsSinhVienGộp)
+                        {
+                            <div class="flex-shrink-0 vd-card-item">
+                                <div class="advantage-card h-100 p-4 text-center d-flex flex-column align-items-center bg-white shadow-sm" style="border-radius: 20px; border: none;">
 
-                                        <div class="position-absolute top-50 start-50 translate-middle text-white d-flex align-items-center justify-content-center play-btn-overlay"
-                                             style="background: rgba(10, 37, 64, 0.8); width: 50px; height: 50px; border-radius: 50%; transition: all 0.3s;">
-                                            <i class="fas fa-play ms-1"></i>
-                                        </div>
+                                    <div class="position-relative overflow-hidden mb-3 mx-auto" style="width: 140px; height: 140px; border-radius: 50%; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                                        <img src="@(string.IsNullOrEmpty(sv.HinhAnh) ? "/images/default-avatar.png" : sv.HinhAnh)" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" alt="@sv.TenSinhVien">
                                     </div>
 
-                                    <h6 class="fw-bold text-dark mb-1" style="line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">@v.MoTaNgan</h6>
-                                    <small class="text-muted"><i class="far fa-clock"></i> @v.NgayTao.ToString("dd/MM/yyyy")</small>
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
+                                    <h4 class="fw-bolder mb-2" style="color: #1e293b; font-size: 1.3rem;">@sv.TenSinhVien</h4>
 
-            </div>
-        </div>
-
-        <!-- SCRIPT & CSS CHO VIDEO NHỎ -->
-        <style>
-            /* Hiệu ứng rê chuột video nhỏ */
-            .video-small-item:hover .img-thumbnail-vid {
-                transform: scale(1.05);
-            }
-
-            .video-small-item:hover .play-btn-overlay {
-                background: #e53935 !important;
-                transform: translate(-50%, -50%) scale(1.15);
-            }
-
-            /* Ẩn thanh cuộn mặc định của trình duyệt */
-            #videoScrollArea::-webkit-scrollbar {
-                display: none;
-            }
-
-            /* CSS cho nút bấm trượt video */
-            .video-nav-btn {
-                border-color: #E2E8F0;
-                color: #0A2540;
-                background: #fff;
-                transition: all 0.3s ease;
-            }
-
-                .video-nav-btn:hover {
-                    background-color: #0A2540;
-                    color: #ffffff;
-                    border-color: #0A2540;
-                }
-
-                .video-nav-btn:disabled {
-                    opacity: 0.4;
-                    cursor: not-allowed;
-                    background: #f8f9fa;
-                    color: #adb5bd;
-                    border-color: #e9ecef;
-                }
-        </style>
-
-        <script>
-            // Hàm chuyển ảnh thành Iframe khi click
-            // Hàm chuyển ảnh thành Iframe khi click (Đã khắc phục lỗi 153 của YouTube)
-            function playSmallVideo(videoId) {
-                var container = document.getElementById('vid-container-' + videoId);
-                if (container) {
-                    container.innerHTML = '<iframe class="position-absolute top-0 start-0 w-100 h-100 border-0" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
-                }
-            }
-
-            // Script xử lý trượt ngang khi bấm nút
-            document.addEventListener("DOMContentLoaded", function () {
-                const scrollArea = document.getElementById('videoScrollArea');
-                const btnPrev = document.getElementById('btnPrevVideo');
-                const btnNext = document.getElementById('btnNextVideo');
-
-                if (scrollArea && btnPrev && btnNext) {
-                    // Khoảng cách trượt mỗi lần bấm = Chiều rộng 1 video (300px) + Khoảng cách gap (24px)
-                    const scrollAmount = 324;
-
-                    btnNext.addEventListener('click', function () {
-                        scrollArea.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                    });
-
-                    btnPrev.addEventListener('click', function () {
-                        scrollArea.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                    });
-
-                    // Tự động vô hiệu hóa (làm mờ) nút bấm nếu đã trượt kịch kim
-                    scrollArea.addEventListener('scroll', function () {
-                        btnPrev.disabled = scrollArea.scrollLeft <= 0;
-                        // Trừ hao 2px tránh lỗi làm tròn số của trình duyệt
-                        btnNext.disabled = scrollArea.scrollLeft >= (scrollArea.scrollWidth - scrollArea.clientWidth - 2);
-                    });
-
-                    // Chạy check 1 lần ngay khi vừa load web
-                    scrollArea.dispatchEvent(new Event('scroll'));
-                }
-            });
-        </script>
-
-    }
-    <div class="container my-5 pt-4">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-fire text-danger me-1"></i> SỰ KIỆN & HOẠT ĐỘNG</span>
-            <h2 class="section-title mt-3">Hoạt Động Nổi Bật</h2>
-            <p class="section-subtitle">Những khoảnh khắc đáng nhớ và sự kiện tiêu biểu nhất của sinh viên Viện Công nghệ Việt - Hàn.</p>
-        </div>
-
-        @if (ViewBag.DanhSachHoatDongNoiBat != null)
-        {
-            var listHDNB = ((List<VKITActivityManager.Models.HoatDongNoiBat>)ViewBag.DanhSachHoatDongNoiBat).Take(10).ToList();
-
-            <div class="position-relative hdnb-slider-wrapper py-3 px-md-4">
-                <button id="btnPrevHDNB" class="btn btn-light rounded-circle shadow position-absolute top-50 translate-middle-y z-3" style="width: 45px; height: 45px; left: -15px;"><i class="fas fa-chevron-left"></i></button>
-
-                <div class="d-flex gap-4 pb-3 hdnb-scroll-area" id="hdnbScrollArea" style="overflow-x: auto; scrollbar-width: none;">
-                    @foreach (var item in listHDNB)
-                    {
-                        <div class="flex-shrink-0 hdnb-card-item">
-                            <div class="advantage-card h-100" style="cursor: pointer;" data-img="@item.DuongDanAnh" data-caption="@item.MoTa" onclick="openLightbox(this)">
-                                <div class="position-relative overflow-hidden mb-3" style="padding-top: 60%; border-radius: 12px;">
-                                    <img src="@item.DuongDanAnh" class="position-absolute top-0 start-0 w-100 h-100 hdnb-img" style="object-fit: cover; transition: 0.5s;" alt="Hoạt động">
-                                </div>
-                                <p class="small mb-2 fw-bold text-primary"><i class="far fa-calendar-alt me-1"></i> @item.NgayTao.ToString("dd/MM/yyyy")</p>
-                                <h5 class="advantage-title">@item.MoTa</h5>
-                            </div>
-                        </div>
-                    }
-                </div>
-
-                <button id="btnNextHDNB" class="btn btn-light rounded-circle shadow position-absolute top-50 translate-middle-y z-3" style="width: 45px; height: 45px; right: -15px;"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        }
-    </div>
-    <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content bg-transparent border-0">
-                <div class="modal-header border-0 pb-0 justify-content-end" style="z-index: 10;">
-                    <button type="button" class="btn-close btn-close-white fs-5" data-bs-dismiss="modal" aria-label="Close" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px;"></button>
-                </div>
-                <div class="modal-body text-center pt-0 position-relative">
-                    <img id="lightboxImage" src="" class="img-fluid rounded-3 shadow-lg mb-3" style="max-height: 85vh; object-fit: contain;">
-                    <h5 id="lightboxCaption" class="text-white fw-bold p-3 rounded-3 mx-auto" style="background: rgba(10, 37, 64, 0.85); display: inline-block; max-width: 90%;"></h5>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <style>
-        /* QUAN TRỌNG: Chia khung hiển thị đúng 2 thẻ trên màn hình PC */
-        .hdnb-card-item {
-            width: calc(50% - 12px); /* Lấy 50% trừ đi một nửa khoảng cách gap (24px/2) */
-        }
-
-        /* Khi xem trên điện thoại thì tự động chuyển về 1 thẻ to */
-        @@media (max-width: 768px) {
-            .hdnb-card-item {
-                width: 100%;
-            }
-        }
-
-        /* Ẩn thanh cuộn xấu xí */
-        .hdnb-scroll-area::-webkit-scrollbar {
-            display: none;
-        }
-        /* Tận dụng lại class advantage-card để đồng bộ giao diện */
-        .advantage-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(226,232,240,.7);
-            box-shadow: 0 10px 30px rgba(148,163,184,.08);
-            transition: all .35s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-            .advantage-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 20px 40px rgba(10,37,64,.1);
-            }
-
-        .advantage-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #0A2540;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .hdnb-scroll-area {
-            overflow-x: auto;
-            /* Xóa dòng scroll-behavior: smooth ở đây để JS toàn quyền điều khiển */
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Hiệu ứng thẻ */
-        .hdnb-card {
-            transition: all 0.4s ease;
-            border: 1px solid rgba(226, 232, 240, 0.6);
-        }
-
-            .hdnb-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 15px 30px rgba(10,37,64,0.1) !important;
-                border-color: rgba(37, 99, 235, 0.3);
-            }
-
-                .hdnb-card:hover .hdnb-img {
-                    transform: scale(1.08);
-                }
-
-                .hdnb-card:hover .hdnb-zoom-icon {
-                    opacity: 1 !important;
-                    transform: translate(-50%, -50%) scale(1.1) !important;
-                }
-    </style>
-
-    <script>
-        // Hàm mở ảnh to
-        function openLightbox(element) {
-            document.getElementById('lightboxImage').src = element.getAttribute('data-img');
-            document.getElementById('lightboxCaption').innerText = element.getAttribute('data-caption');
-            new bootstrap.Modal(document.getElementById('lightboxModal')).show();
-        }
-
-        // Logic Slider lặp vô tận (Infinite Carousel)
-        document.addEventListener("DOMContentLoaded", function () {
-            const scrollArea = document.getElementById('hdnbScrollArea');
-            const btnPrev = document.getElementById('btnPrevHDNB');
-            const btnNext = document.getElementById('btnNextHDNB');
-
-            if (scrollArea && btnPrev && btnNext) {
-                let autoPlayTimer;
-
-                // THỦ THUẬT: Nhân đôi toàn bộ danh sách thẻ để tạo ảo giác cuộn dài vô tận
-                const originalHTML = scrollArea.innerHTML;
-                scrollArea.innerHTML += originalHTML;
-
-                // Lấy khoảng cách mỗi lần lướt (Bằng độ rộng 1 thẻ + 24px khoảng cách)
-                function getScrollAmount() {
-                    const firstCard = scrollArea.querySelector('.hdnb-card-item');
-                    return firstCard ? (firstCard.offsetWidth + 24) : 400;
-                }
-
-                // Hàm lướt qua phải (Tiến tới)
-                function slideNext() {
-                    const halfWidth = scrollArea.scrollWidth / 2; // Chiều dài của danh sách gốc
-
-                    // Nếu đã cuộn qua hết phần gốc, âm thầm "dịch chuyển tức thời" về vị trí tương ứng ở phần copy
-                    if (scrollArea.scrollLeft >= halfWidth) {
-                        scrollArea.scrollTo({ left: scrollArea.scrollLeft - halfWidth, behavior: 'auto' }); // auto = không mượt, giật ngay lập tức
-                    }
-
-                    // Đợi 10 mili-giây để trình duyệt xử lý xong cú dịch chuyển, sau đó cuộn mượt mà lên thẻ tiếp theo
-                    setTimeout(() => {
-                        scrollArea.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-                    }, 10);
-                }
-
-                // Hàm lướt qua trái (Lùi lại)
-                function slidePrev() {
-                    const halfWidth = scrollArea.scrollWidth / 2;
-
-                    // Nếu đang ở sát lề trái mà bấm lùi, âm thầm "dịch chuyển tức thời" tới giữa danh sách
-                    if (scrollArea.scrollLeft <= 0) {
-                        scrollArea.scrollTo({ left: halfWidth, behavior: 'auto' });
-                    }
-
-                    setTimeout(() => {
-                        scrollArea.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-                    }, 10);
-                }
-
-                // Gắn sự kiện cho 2 nút bấm
-                btnNext.addEventListener('click', () => { slideNext(); resetTimer(); });
-                btnPrev.addEventListener('click', () => { slidePrev(); resetTimer(); });
-
-                // Hẹn giờ tự động trượt sang phải (2000ms = 2 giây)
-                function startTimer() {
-                    autoPlayTimer = setInterval(slideNext, 2000);
-                }
-
-                function resetTimer() {
-                    clearInterval(autoPlayTimer);
-                    startTimer();
-                }
-
-                // Dừng cuộn khi rê chuột vào, tiếp tục khi rút chuột ra
-                scrollArea.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
-                scrollArea.addEventListener('mouseleave', startTimer);
-
-                // Khởi động!
-                startTimer();
-            }
-        });
-    </script>
-
-    <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content bg-transparent border-0">
-                <div class="modal-header border-0 pb-0 justify-content-end" style="z-index: 10;">
-                    <button type="button" class="btn-close btn-close-white fs-5" data-bs-dismiss="modal" aria-label="Close" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px;"></button>
-                </div>
-                <div class="modal-body text-center pt-0 position-relative">
-                    <img id="lightboxImage" src="" class="img-fluid rounded-3 shadow-lg mb-3" style="max-height: 85vh; object-fit: contain;">
-                    <h5 id="lightboxCaption" class="text-white fw-bold p-3 rounded-3 mx-auto" style="background: rgba(10, 37, 64, 0.85); display: inline-block; max-width: 90%;"></h5>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content bg-transparent border-0">
-                <div class="modal-header border-0 pb-0 justify-content-end" style="z-index: 10;">
-                    <button type="button" class="btn-close btn-close-white fs-5" data-bs-dismiss="modal" aria-label="Close" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px;"></button>
-                </div>
-                <div class="modal-body text-center pt-0 position-relative">
-                    <img id="lightboxImage" src="" class="img-fluid rounded-3 shadow-lg mb-3" style="max-height: 85vh; object-fit: contain;">
-                    <h5 id="lightboxCaption" class="text-white fw-bold p-3 rounded-3 mx-auto" style="background: rgba(10, 37, 64, 0.85); display: inline-block; max-width: 90%;"></h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <section class="advantages-section py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <span class="section-badge">
-                    <i class="fas fa-star"></i> VKIT ADVANTAGES
-                </span>
-                <h2 class="section-title mt-3"> Ưu Điểm Chương Trình </h2>
-                <p class="section-subtitle"> Chương trình đào tạo chuẩn quốc tế, gắn liền doanh nghiệp và cơ hội phát triển toàn diện cho sinh viên. </p>
-            </div>
-
-            <div class="row g-4">
-                @if (ViewBag.DanhSachUuDiem != null)
-                {
-                    var listUuDiem = (List<VKITActivityManager.Models.UuDiem>)ViewBag.DanhSachUuDiem;
-                    foreach (var item in listUuDiem)
-                    {
-                        string iconColor = string.IsNullOrEmpty(item.MauNen) ? "#c62828" : item.MauNen;
-
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <!-- Click vào thẻ sẽ chuyển hướng sang trang Chi Tiết -->
-                            <a asp-action="ChiTietUuDiem" asp-route-id="@item.Id" class="text-decoration-none text-dark d-block h-100">
-                                <div class="advantage-card h-100" style="--hover-color: @iconColor;">
-                                    <div class="advantage-icon" style="color: @iconColor; background-color: @(iconColor)1A;">
-                                        <i class="@(string.IsNullOrEmpty(item.Icon) ? "fas fa-star" : item.Icon)"></i>
+                                    <div class="badge mb-4 py-2 px-4 rounded-pill" style="background-color: #eef2ff; color: #4f46e5; font-size: 0.95rem; font-weight: 700;">
+                                        Ngành: @sv.Lop
                                     </div>
-                                    <h4 class="advantage-title">@item.TenUuDiem</h4>
-                                    <p class="advantage-text">@item.NoiDung</p>
-                                </div>
-                            </a>
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-    </section>
-    @{
-        // 1. LẤY TOÀN BỘ DANH SÁCH HỌC PHÍ
-        var allHocPhi = ViewBag.DanhSachHocPhi as List<VKITActivityManager.Models.HocPhi> ?? new List<VKITActivityManager.Models.HocPhi>();
 
-        // 2. GOM NHÓM LẠI THEO NGÀNH VÀ THỜI GIAN HỌC
-        var groups = allHocPhi.GroupBy(x => new { x.NganhDaoTao, x.ThoiGian }).ToList();
-
-        // 3. HÀM TỰ ĐỘNG NHẬN DIỆN ICON THEO TÊN NGÀNH
-        string GetIconTheoNganh(string nganh)
-        {
-            if (string.IsNullOrEmpty(nganh)) return "fas fa-graduation-cap";
-            var n = nganh.ToLower();
-            if (n.Contains("ô tô điện")) return "fas fa-charging-station";
-            if (n.Contains("ô tô")) return "fas fa-car";
-            if (n.Contains("thông tin")) return "fas fa-laptop-code";
-            if (n.Contains("marketing")) return "fas fa-bullhorn";
-            if (n.Contains("logistics") || n.Contains("chuỗi")) return "fas fa-truck-fast";
-            if (n.Contains("công chúng")) return "fas fa-users-rays";
-            if (n.Contains("kinh doanh")) return "fas fa-briefcase";
-            if (n.Contains("tài chính") || n.Contains("ngân hàng")) return "fas fa-coins";
-            if (n.Contains("du lịch") || n.Contains("khách sạn")) return "fas fa-plane-departure";
-            if (n.Contains("ngôn ngữ")) return "fas fa-language";
-            return "fas fa-graduation-cap";
-        }
-
-        // 4. HÀM CHỨC NĂNG: GOM NHÓM KỸ THUẬT 1 MÀU - CỬ NHÂN 1 MÀU
-        string GetMauTheoNganh(string nganh)
-        {
-            // Màu Khối Cử nhân (Xanh ngọc) - Dùng làm mặc định
-            string mauCuNhan = "#0D9488";
-
-            // Màu Khối Kỹ Thuật (Xanh dương)
-            string mauKyThuat = "#2563EB";
-
-            if (string.IsNullOrEmpty(nganh)) return mauCuNhan;
-
-            var n = nganh.ToLower();
-            // Kiểm tra xem có phải khối Kỹ thuật không
-            if (n.Contains("kỹ thuật") ||
-                n.Contains("công nghệ") ||
-                n.Contains("ô tô") ||
-                n.Contains("điện") ||
-                n.Contains("tin học"))
-            {
-                return mauKyThuat;
-            }
-
-            // Nếu không thuộc nhóm kỹ thuật thì trả về màu Cử nhân
-            return mauCuNhan;
-        }
-    }
-
-    <div class="tuition-section">
-        <h2 class="fw-bold text-center tuition-title mb-5">
-            HỌC PHÍ NĂM 2026 VÀ <br /> ĐƯỢC TÍNH THEO CHƯƠNG TRÌNH ĐÀO TẠO CHUẨN VIỆT HÀN
-        </h2>
-
-        @if (groups.Any())
-        {
-            <div class="accordion shadow-sm" id="accordionHocPhi" style="border-radius: 12px; overflow: hidden;">
-                @{
-                    int idx = 0;
-                }
-                @foreach (var group in groups)
-                {
-                    var collapseId = "collapse_" + idx;
-                    var headingId = "heading_" + idx;
-                    var items = group.ToList();
-
-                    string currentIcon = GetIconTheoNganh(group.Key.NganhDaoTao);
-
-                    // GỌI HÀM CHỨC NĂNG Ở ĐÂY (Hết báo lỗi)
-                    string currentColor = GetMauTheoNganh(group.Key.NganhDaoTao);
-
-                    <div class="accordion-item border-0 border-bottom">
-
-                        <h2 class="accordion-header" id="@headingId">
-                            <button class="accordion-button collapsed fw-bold py-3" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId" style="font-size: 1.1rem; color: @currentColor; background-color: #f8fafc;">
-                                <div class="d-flex align-items-center justify-content-between flex-grow-1 me-3">
-                                    <span class="text-start">
-                                        <i class="@currentIcon me-3 fs-5"></i>@group.Key.NganhDaoTao
-                                    </span>
-                                    <span class="badge px-3 py-2 text-white shadow-sm flex-shrink-0" style="font-size: 0.8rem; font-weight: 500; background-color: @currentColor; border-radius: 6px;">
-                                        Thời gian học: @group.Key.ThoiGian
-                                    </span>
-                                </div>
-                            </button>
-                        </h2>
-
-                        <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@headingId" data-bs-parent="#accordionHocPhi">
-                            <div class="accordion-body p-0 bg-white">
-
-                                <!-- BẢNG PC -->
-                                <div class="table-responsive d-none d-md-block">
-                                    <table class="table table-bordered text-center align-middle mb-0" style="border-color: #F1F5F9;">
-                                        <thead style="background-color: @currentColor; color: white;">
-                                            <tr>
-                                                <th style="min-width: 250px;" class="py-3 border-0">Đơn vị áp dụng</th>
-                                                <th style="min-width: 140px;" class="py-3 border-0">Học phí<br />(VNĐ)</th>
-                                                <th style="min-width: 180px;" class="py-3 border-0">Học phí sau học bổng 25%<br />(VNĐ)</th>
-                                                <th style="min-width: 180px;" class="py-3 border-0">Học phí sau học bổng 50%<br />(VNĐ)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var item in items)
+                                    <div class="d-flex flex-column gap-2 w-100 text-center mt-1">
+                                        @if (sv.DanhSachTenHocBong != null && sv.DanhSachTenHocBong.Any())
+                                        {
+                                            foreach (var tenHB in sv.DanhSachTenHocBong)
                                             {
-                                                <tr class="@(item.LaDongPhu ? "bg-light" : "")" style="transition: background-color 0.2s ease;">
-                                                    <td class="fw-bold py-3 px-3 text-start" style="color: @currentColor; border-color: #F1F5F9;">@item.DonViApDung</td>
-                                                    <td class="text-primary fw-bold py-3" style="border-color: #F1F5F9;">@item.MucHocPhi</td>
-                                                    <td class="text-danger fw-bold py-3" style="border-color: #F1F5F9;">@item.HocPhiGiam25</td>
-                                                    <td class="text-danger fw-bold py-3" style="border-color: #F1F5F9;">@item.HocPhiGiam50</td>
-                                                </tr>
+                                                var subList = tenHB.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                                foreach (var hb in subList)
+                                                {
+                                                    <div class="text-secondary text-uppercase fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px; border-bottom: 1px dashed #f1f5f9; padding-bottom: 8px;">
+                                                        @hb.Trim()
+                                                    </div>
+                                                }
                                             }
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <!-- DẠNG THẺ MOBILE -->
-                                <div class="d-block d-md-none p-3 bg-light">
-                                    <div class="tuition-mobile-card shadow-sm" style="border: 2px solid @currentColor; border-radius: 12px; overflow: hidden; background-color: #fff;">
-
-                                        @for (int i = 0; i < items.Count; i++)
-                                        {
-                                            var item = items[i];
-
-                                            <div class="text-white" style="background-color: @currentColor; padding: 10px 15px; font-weight: 600; text-align: center; font-size: 0.95rem;">
-                                                @item.DonViApDung
-                                            </div>
-
-                                            <div class="d-flex justify-content-between p-3" style="background-color: @(item.LaDongPhu ? "#f8f9fa" : "#ffffff"); border-bottom: 1px solid #f1f5f9;">
-
-                                                <div class="w-50" style="border-right: 1px dashed #dee2e6; padding-right: 15px;">
-                                                    <p class="mb-2 text-dark fw-bold" style="font-size: 0.9rem;">Học phí gốc</p>
-                                                    <p class="mb-2" style="color: #0d6efd; font-size: 0.9rem;">Học bổng 25%</p>
-                                                    <p class="mb-0" style="color: #0d6efd; font-size: 0.9rem;">Học bổng 50%</p>
-                                                </div>
-
-                                                <div class="w-50 text-end" style="padding-left: 15px;">
-                                                    <p class="mb-2 text-dark fw-bold" style="font-size: 0.9rem;">@item.MucHocPhi</p>
-                                                    <p class="mb-2 text-danger fw-bold" style="font-size: 0.9rem;">@item.HocPhiGiam25</p>
-                                                    <p class="mb-0 text-danger fw-bold" style="font-size: 0.9rem;">@item.HocPhiGiam50</p>
-                                                </div>
-                                            </div>
                                         }
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    idx++;
-                }
-            </div>
-        }
-        else
-        {
-            <div class="text-center py-5 text-muted fst-italic card shadow-sm border-0">
-                Chưa có thông tin học phí các ngành đào tạo.
-            </div>
-        }
-    </div>
-
-    <div class="vkit-scholarship-section py-5 my-4">
-        <div class="container">
-            <div class="d-flex align-items-center justify-content-between mb-5 position-relative">
-                <div class="title-wrapper">
-                    <span class="text-uppercase fw-bold text-primary tracking-wider small d-block mb-1" style="letter-spacing: 2px; color: #4f46e5 !important;">VKIT SCHOLARSHIP FUND</span>
-                    <h2 class="fw-black m-0" style="color: #0f172a; font-weight: 800; font-size: 2rem;">
-                        Các Loại Học Bổng Hiện Hành Năm 2025
-                    </h2>
-                </div>
-                <div class="title-line d-none d-md-block flex-grow-1 mx-4" style="height: 1px; background: linear-gradient(90deg, #e2e8f0, transparent);"></div>
-            </div>
-
-            <div class="row g-4 justify-content-center">
-                @if (ViewBag.DanhSachLoaiHocBong != null)
-                {
-                    var dsLoaiHB = (List<VKITActivityManager.Models.LoaiHocBong>)ViewBag.DanhSachLoaiHocBong;
-                    foreach (var item in dsLoaiHB)
-                    {
-                        string cardColor = !string.IsNullOrEmpty(item.MauNen) ? item.MauNen : "#4a72d4";
-
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="card h-100 border-0 kor-scholarship-card position-relative"
-                                 style="--hb-color: @cardColor;"
-                                 onclick="window.location.href='@Url.Action("DanhSachSinhVienHocBong", "Home", new { id = item.Id })'">
-
-                                <div class="card-color-bar" style="background: linear-gradient(135deg, var(--hb-color), #ffffff);"></div>
-
-                                <div class="card-body p-4 d-flex flex-column justify-content-between position-relative z-1">
-                                    <div>
-                                        <div class="d-flex align-items-center justify-content-between mb-4">
-                                            <div class="kor-badge" style="background-color: var(--hb-color);">
-                                                <i class="fas fa-award me-1"></i>
-                                                @(item.SoSuat < 10 ? "0" + item.SoSuat : item.SoSuat.ToString()) SUẤT
-                                            </div>
-                                        </div>
-
-                                        <h4 class="card-title fw-bold text-dark mb-3 kor-card-title">@item.TenHocBong</h4>
-                                        <div class="w-25 my-3" style="height: 2px; background-color: var(--hb-color); opacity: 0.3;"></div>
-
-                                        @if (!string.IsNullOrEmpty(item.MoTa))
+                                        else
                                         {
-                                            <p class="card-text text-muted small kor-card-desc mb-4">@item.MoTa</p>
+                                            <div class="text-muted small fst-italic">Đang cập nhật</div>
                                         }
                                     </div>
 
-                                    <div class="pt-2">
-                                        <div class="btn w-100 fw-bold d-flex align-items-center justify-content-center kor-btn-submit"
-                                             style="--btn-color: var(--hb-color);">
-                                            <span>Xem danh sách vinh danh</span>
-                                            <i class="fas fa-arrow-right ms-2 kor-arrow"></i>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
-                }
+
+                </div>
+
+                <button id="btnNextVD" class="btn btn-light rounded-circle shadow position-absolute top-50 translate-middle-y z-3" style="width: 45px; height: 45px; right: 0px;"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
-    </div>
 
-    @if (camNhans.Count > 0)
-    {
-        <div class="testimonial-section shadow-sm">
-            <h2 class="testimonial-title">CẢM NHẬN CỦA SINH VIÊN VỀ CHƯƠNG TRÌNH VIỆT - HÀN</h2>
-            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner px-md-4">
-                    @for (int i = 0; i < camNhans.Count; i += 2)
-                    {
-                        <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <div class="row g-4 justify-content-center align-items-center">
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // 1. Logic cho Slider CÁC LOẠI HỌC BỔNG
+        const scrollAreaHB = document.getElementById('hbScrollArea');
+        const btnPrevHB = document.getElementById('btnPrevHB');
+        const btnNextHB = document.getElementById('btnNextHB');
+
+        if (scrollAreaHB && btnPrevHB && btnNextHB) {
+            btnNextHB.addEventListener('click', () => {
+                const firstCard = scrollAreaHB.querySelector('.k-duo-scholarship-box');
+                const scrollAmount = firstCard ? firstCard.offsetWidth + 30 : 580; // 30 là khoảng cách gap
+                scrollAreaHB.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+
+            btnPrevHB.addEventListener('click', () => {
+                const firstCard = scrollAreaHB.querySelector('.k-duo-scholarship-box');
+                const scrollAmount = firstCard ? firstCard.offsetWidth + 30 : 580;
+                scrollAreaHB.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+
+            // Vô hiệu hóa nút nếu trượt hết cỡ
+            scrollAreaHB.addEventListener('scroll', function () {
+                btnPrevHB.disabled = scrollAreaHB.scrollLeft <= 0;
+                btnNextHB.disabled = scrollAreaHB.scrollLeft >= (scrollAreaHB.scrollWidth - scrollAreaHB.clientWidth - 2);
+            });
+            scrollAreaHB.dispatchEvent(new Event('scroll'));
+        }
+
+
+        // 2. Logic cho Slider DANH SÁCH VINH DANH LỚN
+        const scrollAreaVD = document.getElementById('vdScrollArea');
+        const btnPrevVD = document.getElementById('btnPrevVD');
+        const btnNextVD = document.getElementById('btnNextVD');
+
+        if (scrollAreaVD && btnPrevVD && btnNextVD) {
+            let autoPlayTimerVD;
+            // Nhân đôi dữ liệu để trượt lặp vòng vô tận mượt mà
+            const originalHTMLVD = scrollAreaVD.innerHTML;
+            scrollAreaVD.innerHTML += originalHTMLVD;
+
+            function getScrollAmountVD() {
+                const firstCard = scrollAreaVD.querySelector('.vd-card-item');
+                return firstCard ? (firstCard.offsetWidth + 24) : 300;
+            }
+
+            function slideNextVD() {
+                const halfWidth = scrollAreaVD.scrollWidth / 2;
+                if (scrollAreaVD.scrollLeft >= halfWidth) {
+                    scrollAreaVD.scrollTo({ left: scrollAreaVD.scrollLeft - halfWidth, behavior: 'auto' });
+                }
+                setTimeout(() => {
+                    scrollAreaVD.scrollBy({ left: getScrollAmountVD(), behavior: 'smooth' });
+                }, 10);
+            }
+
+            function slidePrevVD() {
+                const halfWidth = scrollAreaVD.scrollWidth / 2;
+                if (scrollAreaVD.scrollLeft <= 0) {
+                    scrollAreaVD.scrollTo({ left: halfWidth, behavior: 'auto' });
+                }
+                setTimeout(() => {
+                    scrollAreaVD.scrollBy({ left: -getScrollAmountVD(), behavior: 'smooth' });
+                }, 10);
+            }
+
+            btnNextVD.addEventListener('click', () => { slideNextVD(); resetTimerVD(); });
+            btnPrevVD.addEventListener('click', () => { slidePrevVD(); resetTimerVD(); });
+
+            function startTimerVD() {
+                autoPlayTimerVD = setInterval(slideNextVD, 2500); // 2.5s lướt 1 lần
+            }
+
+            function resetTimerVD() {
+                clearInterval(autoPlayTimerVD);
+                startTimerVD();
+            }
+
+            scrollAreaVD.addEventListener('mouseenter', () => clearInterval(autoPlayTimerVD));
+            scrollAreaVD.addEventListener('mouseleave', startTimerVD);
+            startTimerVD();
+        }
+
+        // 3. Xử lý các slider hệ thống cũ
+        var pressEl = document.querySelector('#pressSlider');
+        if (pressEl) {
+            var pCarousel = new bootstrap.Carousel(pressEl, {
+                interval: 3500,
+                wrap: true,
+                pause: 'hover'
+            });
+            pCarousel.cycle();
+        }
+
+        var testimonialEl = document.querySelector('#testimonialCarousel');
+        if (testimonialEl) {
+            var tCarousel = new bootstrap.Carousel(testimonialEl, {
+                interval: 3000,
+                wrap: true
+            });
+            tCarousel.cycle();
+        }
+    });
+</script>
+
+@if (camNhans.Count > 0)
+{
+    <div class="testimonial-section shadow-sm">
+        <h2 class="testimonial-title">CẢM NHẬN CỦA SINH VIÊN VỀ CHƯƠNG TRÌNH VIỆT - HÀN</h2>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner px-md-4">
+                @for (int i = 0; i < camNhans.Count; i += 2)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="row g-4 justify-content-center align-items-center">
+                            <div class="col-12 col-md-6">
+                                <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start px-3">
+                                    <div class="testimonial-img-wrapper mb-3 mb-sm-0">
+                                        <img src="@camNhans[i].DuongDanAnh" class="testimonial-img" alt="Avatar">
+                                    </div>
+                                    <div class="flex-grow-1 text-center text-sm-start">
+                                        <div class="testimonial-name">@Html.Raw(camNhans[i].TieuDe)</div>
+                                        <div class="testimonial-role">@Html.Raw(camNhans[i].TieuDe2)</div>
+                                        <div class="testimonial-content">@Html.Raw(camNhans[i].NoiDung)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (i + 1 < camNhans.Count)
+                            {
                                 <div class="col-12 col-md-6">
                                     <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start px-3">
                                         <div class="testimonial-img-wrapper mb-3 mb-sm-0">
-                                            <img src="@camNhans[i].DuongDanAnh" class="testimonial-img" alt="Avatar">
+                                            <img src="@camNhans[i + 1].DuongDanAnh" class="testimonial-img" alt="Avatar">
                                         </div>
                                         <div class="flex-grow-1 text-center text-sm-start">
-                                            <div class="testimonial-name">@Html.Raw(camNhans[i].TieuDe)</div>
-                                            <div class="testimonial-role">@Html.Raw(camNhans[i].TieuDe2)</div>
-                                            <div class="testimonial-content">@Html.Raw(camNhans[i].NoiDung)</div>
+                                            <div class="testimonial-name">@Html.Raw(camNhans[i + 1].TieuDe)</div>
+                                            <div class="testimonial-role">@Html.Raw(camNhans[i + 1].TieuDe2)</div>
+                                            <div class="testimonial-content">@Html.Raw(camNhans[i + 1].NoiDung)</div>
                                         </div>
                                     </div>
                                 </div>
-                                @if (i + 1 < camNhans.Count)
-                                {
-                                    <div class="col-12 col-md-6">
-                                        <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start px-3">
-                                            <div class="testimonial-img-wrapper mb-3 mb-sm-0">
-                                                <img src="@camNhans[i + 1].DuongDanAnh" class="testimonial-img" alt="Avatar">
-                                            </div>
-                                            <div class="flex-grow-1 text-center text-sm-start">
-                                                <div class="testimonial-name">@Html.Raw(camNhans[i + 1].TieuDe)</div>
-                                                <div class="testimonial-role">@Html.Raw(camNhans[i + 1].TieuDe2)</div>
-                                                <div class="testimonial-content">@Html.Raw(camNhans[i + 1].NoiDung)</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
+                            }
                         </div>
-                    }
-                </div>
-                @if (camNhans.Count > 2)
-                {
-                    <div class="d-flex justify-content-center mt-5 gap-3">
-                        <button class="testimonial-nav-btn shadow" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev"><i class="fas fa-chevron-left"></i></button>
-                        <button class="testimonial-nav-btn shadow" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 }
             </div>
-        </div>
-    }
-
-    @if (baoChis.Any())
-    {
-        <div class="press-section shadow-sm position-relative">
-            <h2 class="press-title">BÁO CHÍ NÓI VỀ VIỆN CÔNG NGHỆ VIỆT - HÀN</h2>
-
-            <div id="pressSlider" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner px-md-5">
-                    @for (int i = 0; i < baoChis.Count; i += 2)
-                    {
-                        <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <div class="row g-4 justify-content-center">
-                                @for (int j = i; j < i + 2 && j < baoChis.Count; j++)
-                                {
-                                    var rawLink = baoChis[j].TieuDe2 ?? "";
-                                    var cleanLink = System.Text.RegularExpressions.Regex.Replace(rawLink, "<.*?>", string.Empty).Trim();
-
-                                    <div class="col-12 col-md-6">
-                                        <a href="@cleanLink" target="_blank" class="text-decoration-none">
-                                            <div class="card press-card">
-                                                <div class="press-img-container">
-                                                    <img src="@baoChis[j].DuongDanAnh" class="press-img" alt="Báo chí">
-                                                </div>
-                                                <div class="press-name">
-                                                    @Html.Raw(baoChis[j].TieuDe.Replace("<p>", "").Replace("</p>", ""))
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    }
+            @if (camNhans.Count > 2)
+            {
+                <div class="d-flex justify-content-center mt-5 gap-3">
+                    <button class="testimonial-nav-btn shadow" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="testimonial-nav-btn shadow" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next"><i class="fas fa-chevron-right"></i></button>
                 </div>
-
-                @if (baoChis.Count > 2)
-                {
-                    <button class="carousel-control-prev press-control" type="button" data-bs-target="#pressSlider" data-bs-slide="prev" style="left: 0px;">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next press-control" type="button" data-bs-target="#pressSlider" data-bs-slide="next" style="right: 0px;">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
-                }
-            </div>
-        </div>
-    }
-
-    <div class="container my-5">
-        <div class="card border-0 shadow-sm p-5" style="border-radius: 20px; background-color: #ffffff;">
-            <div class="row g-4">
-
-                <div class="col-12 col-lg-4 pe-lg-4">
-                    <h2 class="fw-bold text-dark-blue mb-3" style="font-size: 2rem; color: #1a237e;">
-                        Các Ngành &<br />Khối đào tạo
-                    </h2>
-                    <p class="text-muted" style="line-height: 1.6; text-align: justify;">
-                        VKIT hiện có nhiều khối ngành đào tạo với các chuyên ngành công nghệ và ngôn ngữ khác nhau,
-                        trong đó bao gồm nhiều ngành nghề đang được xã hội quan tâm nhất. Chương trình học được thiết kế
-                        theo chuẩn quốc tế.
-                    </p>
-                </div>
-
-                <div class="col-12 col-lg-8">
-                    <div class="row g-4">
-
-                        <div class="col-12 col-md-4">
-                            <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: #1a237e;">
-                                <i class="fa-solid fa-robot" style="color: rgb(171, 46, 26);"></i> Khối ngành kỹ thuật
-                            </h5>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Công nghệ Thông tin</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Công nghệ Kỹ thuật Ô tô</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Công nghệ Ô Tô Điện</div>
-                        </div>
-
-                        <div class="col-12 col-md-4">
-                            <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: #1a237e;">
-                                <i class="fas fa-chart-line text-danger me-2"></i> Khối ngành Kinh tế
-                            </h5>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Quản trị Kinh doanh</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Kinh doanh Quốc tế</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Marketing</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Digital Marketing</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Logistics & QLCCU</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Tài chính - Ngân hàng</div>
-                        </div>
-
-                        <div class="col-12 col-md-4">
-                            <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: #1a237e;">
-                                <i class="fas fa-globe text-danger me-2"></i> Khối ngành Xã hội
-                            </h5>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Quan hệ Công chúng</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Quản trị Khách sạn</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Quản trị Du lịch & Lữ hành</div>
-                            <div class="text-secondary py-1" style="font-size: 0.95rem;">Ngôn ngữ Hàn Quốc</div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
+            }
         </div>
     </div>
+}
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var pressEl = document.querySelector('#pressSlider');
-            if (pressEl) {
-                var pCarousel = new bootstrap.Carousel(pressEl, {
-                    interval: 3500,
-                    wrap: true,
-                    pause: 'hover'
-                });
-                pCarousel.cycle();
-            }
+@if (baoChis.Any())
+{
+    <div class="press-section shadow-sm position-relative">
+        <h2 class="press-title">BÁO CHÍ NÓI VỀ VIỆN CÔNG NGHỆ VIỆT - HÀN</h2>
 
-            var testimonialEl = document.querySelector('#testimonialCarousel');
-            if (testimonialEl) {
-                var tCarousel = new bootstrap.Carousel(testimonialEl, {
-                    interval: 3000,
-                    wrap: true
-                });
-                tCarousel.cycle();
+        <div id="pressSlider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner px-md-5">
+                @for (int i = 0; i < baoChis.Count; i += 2)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="row g-4 justify-content-center">
+                            @for (int j = i; j < i + 2 && j < baoChis.Count; j++)
+                            {
+                                var rawLink = baoChis[j].TieuDe2 ?? "";
+                                var cleanLink = System.Text.RegularExpressions.Regex.Replace(rawLink, "<.*?>", string.Empty).Trim();
+
+                                <div class="col-12 col-md-6">
+                                    <a href="@cleanLink" target="_blank" class="text-decoration-none">
+                                        <div class="card press-card">
+                                            <div class="press-img-container">
+                                                <img src="@baoChis[j].DuongDanAnh" class="press-img" alt="Báo chí">
+                                            </div>
+                                            <div class="press-name">
+                                                @Html.Raw(baoChis[j].TieuDe.Replace("<p>", "").Replace("</p>", ""))
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (baoChis.Count > 2)
+            {
+                <button class="carousel-control-prev press-control" type="button" data-bs-target="#pressSlider" data-bs-slide="prev" style="left: 0px;">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next press-control" type="button" data-bs-target="#pressSlider" data-bs-slide="next" style="right: 0px;">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
             }
-        });
-    </script>
+        </div>
+    </div>
+}
+
+<div class="container my-5">
+    <div class="card border-0 shadow-sm p-5" style="border-radius: 20px; background-color: #ffffff;">
+        <div class="row g-4">
+
+            <div class="col-12 col-lg-4 pe-lg-4">
+                <h2 class="fw-bold text-dark-blue mb-3" style="font-size: 2rem; color: #1a237e;">
+                    Các Ngành &<br />Khối đào tạo
+                </h2>
+                <p class="text-muted" style="line-height: 1.6; text-align: justify;">
+                    VKIT hiện có nhiều khối ngành đào tạo với các chuyên ngành công nghệ và ngôn ngữ khác nhau,
+                    trong đó bao gồm nhiều ngành nghề đang được xã hội quan tâm nhất. Chương trình học được thiết kế
+                    theo chuẩn quốc tế.
+                </p>
+            </div>
+
+            <div class="col-12 col-lg-8">
+                <div class="row g-4">
+
+                    <div class="col-12 col-md-4">
+                        <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: #1a237e;">
+                            <i class="fa-solid fa-robot" style="color: rgb(171, 46, 26);"></i> Khối ngành kỹ thuật
+                        </h5>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Công nghệ Thông tin</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Công nghệ Kỹ thuật Ô tô</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Công nghệ Ô Tô Điện</div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: #1a237e;">
+                            <i class="fas fa-chart-line text-danger me-2"></i> Khối ngành Kinh tế
+                        </h5>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Quản trị Kinh doanh</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Kinh doanh Quốc tế</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Marketing</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Digital Marketing</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Logistics & QLCCU</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Tài chính - Ngân hàng</div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: #1a237e;">
+                            <i class="fas fa-globe text-danger me-2"></i> Khối ngành Xã hội
+                        </h5>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Quan hệ Công chúng</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Quản trị Khách sạn</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Quản trị Du lịch & Lữ hành</div>
+                        <div class="text-secondary py-1" style="font-size: 0.95rem;">Ngôn ngữ Hàn Quốc</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

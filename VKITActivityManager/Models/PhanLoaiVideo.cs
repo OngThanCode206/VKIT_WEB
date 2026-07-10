@@ -10,7 +10,7 @@ namespace VKITActivityManager.Models
 
         [Required(ErrorMessage = "Vui lòng nhập tên phân loại video")]
         [StringLength(100)]
-        public string TenPhanLoai { get; set; }
+        public string? TenPhanLoai { get; set; }
         // VD: 1 = "Video giới thiệu lớn", 2 = "Video danh sách ngang"
 
         // Mối quan hệ 1-Nhiều: 1 Loại video sẽ có nhiều Video

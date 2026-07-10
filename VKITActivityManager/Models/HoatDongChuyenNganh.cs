@@ -10,9 +10,9 @@ namespace VKITActivityManager.Models
         [Key]
         public int Id { get; set; }
         public int ChuyenNganhId { get; set; }
-        public string TieuDe { get; set; }
-        public string TieuDePhu { get; set; }
-        public string NoiDung { get; set; }
+        public string? TieuDe { get; set; }
+        public string? TieuDePhu { get; set; }
+        public string? NoiDung { get; set; }
         public string? DuongDanAnh { get; set; }
         public DateTime NgayTao { get; set; } = DateTime.Now;
 

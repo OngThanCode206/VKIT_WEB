@@ -12,7 +12,7 @@ namespace VKITActivityManager.Models
         public string? MoTaNgan { get; set; }
 
         [Required(ErrorMessage = "Vui lòng chọn hoặc nhập đường dẫn ảnh")]
-        public string DuongDanAnh { get; set; }
+        public string? DuongDanAnh { get; set; }
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 

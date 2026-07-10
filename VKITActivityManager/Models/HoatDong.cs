@@ -15,7 +15,7 @@ namespace VKITActivityManager.Models
 
         [Required(ErrorMessage = "Vui lòng nhập tiêu đề!")]
         [Column("TieuDe")]
-        public string TieuDe { get; set; }
+        public string? TieuDe { get; set; }
 
         [Column("TieuDe2")]
         public string? TieuDe2 { get; set; }
@@ -25,7 +25,7 @@ namespace VKITActivityManager.Models
 
         [Required(ErrorMessage = "Vui lòng nhập nội dung chi tiết!")]
         [Column("NoiDung")]
-        public string NoiDung { get; set; }
+        public string? NoiDung { get; set; }
 
         [Column("DuongDanAnh")]
         public string? DuongDanAnh { get; set; }

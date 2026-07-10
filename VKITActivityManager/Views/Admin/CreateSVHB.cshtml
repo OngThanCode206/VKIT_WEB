@@ -4,39 +4,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Nhúng CSS Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    /* Tùy chỉnh Select2 Bootstrap 5 Theme */
+    .select2-container .select2-selection--multiple {
+        min-height: 40px;
+        border: 1px solid #0d6efd; /* Viền primary */
+        border-radius: 0.375rem;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #4f46e5; /* Màu nền nhãn học bổng */
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        padding: 3px 10px;
+        margin-top: 6px;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: #ffffff;
+        margin-right: 8px;
+        font-weight: normal;
+    }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #ffcccc;
+            background: none;
+        }
+</style>
+
 <div class="container my-4">
     <h4 class="fw-bold text-success mb-4"><i class="fas fa-plus-circle"></i> THÊM SINH VIÊN NHẬN HỌC BỔNG</h4>
 
     <form asp-action="CreateSVHB" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
         <div class="row mb-3">
-            <div class="col-md-12 mb-3">
-                <label class="fw-bold">Thuộc Loại Học Bổng Nào? <span class="text-danger">*</span></label>
-                <select asp-for="LoaiHocBongId" class="form-select border-primary fw-bold text-primary" asp-items="ViewBag.LoaiHocBongId"></select>
+            <div class="col-md-12 mb-4">
+                <label class="fw-bold mb-2">Thuộc Loại Học Bổng Nào? (Có thể chọn nhiều) <span class="text-danger">*</span></label>
+                <!-- Thêm multiple="multiple" và đổi name thành LoaiHocBongIds để Controller nhận dạng mảng -->
+                <select name="LoaiHocBongIds" class="form-control select2-multiple fw-bold" multiple="multiple" asp-items="ViewBag.LoaiHocBongId" required></select>
             </div>
 
             <div class="col-md-4">
-                <label class="fw-bold">Mã Sinh Viên</label>
+                <label class="fw-bold mb-2">Mã Sinh Viên</label>
                 <input asp-for="MaSV" class="form-control" placeholder="Ví dụ: 22110..." />
             </div>
             <div class="col-md-4">
-                <label class="fw-bold">Họ và Tên <span class="text-danger">*</span></label>
+                <label class="fw-bold mb-2">Họ và Tên <span class="text-danger">*</span></label>
                 <input asp-for="TenSinhVien" class="form-control" required />
             </div>
             <div class="col-md-4">
-                <label class="fw-bold">Lớp</label>
+                <label class="fw-bold mb-2">Lớp</label>
                 <input asp-for="Lop" class="form-control" placeholder="Ví dụ: 22DTH..." />
             </div>
         </div>
 
         <div class="mb-4">
-            <label class="fw-bold">Ảnh Avatar Sinh Viên</label>
-            <input type="file" name="fileAnh" class="form-control" accept="images/*" />
+            <label class="fw-bold mb-2">Ảnh Avatar Sinh Viên</label>
+            <input type="file" name="fileAnh" class="form-control" accept="image/*" />
         </div>
 
         <div>
-            <button type="submit" class="btn btn-success fw-bold"><i class="fas fa-save"></i> Lưu thông tin</button>
-            <a href="/Admin" class="btn btn-secondary">Hủy</a>
+            <button type="submit" class="btn btn-success fw-bold px-4"><i class="fas fa-save me-2"></i> Lưu thông tin</button>
+            <a href="/Admin" class="btn btn-secondary px-4">Hủy</a>
         </div>
     </form>
-    <div asp-validation-summary="All" class="text-danger mb-3 fw-bold"></div>
+    <div asp-validation-summary="All" class="text-danger mt-3 fw-bold"></div>
 </div>
+
+<!-- Nhúng JS jQuery và Select2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('.select2-multiple').select2({
+    placeholder: "--- Nhấp để chọn một hoặc nhiều học bổng ---",
+    allowClear: true,
+    width: '100%'
+    });
+    });
+</script>

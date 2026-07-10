@@ -6,8 +6,8 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Runtime.InteropServices;
+using System.Linq; // Thêm thư viện này để dùng LINQ GroupBy
+using Microsoft.Extensions.Configuration;
 
 namespace VKITActivityManager.Controllers
 {
@@ -37,10 +37,30 @@ namespace VKITActivityManager.Controllers
                 .OrderByDescending(x => x.NgayTao)
                 .ToListAsync();
 
-            ViewBag.DanhSachSVHB = await _context.SinhVienHocBongs
+            // ========================================================
+            // CẬP NHẬT: Gom nhóm Sinh viên học bổng để hiển thị 1 dòng
+            // ========================================================
+            var rawSVHB = await _context.SinhVienHocBongs
                 .Include(s => s.LoaiHocBong)
                 .OrderByDescending(s => s.NgayNhan)
                 .ToListAsync();
+
+            ViewBag.DanhSachSVHB = rawSVHB
+                .GroupBy(s => new { s.MaSV, s.TenSinhVien, s.Lop, s.HinhAnh })
+                .Select(g => new SinhVienHocBong
+                {
+                    Id = g.First().Id, // Lấy ID đầu tiên để làm mốc Edit/Delete
+                    MaSV = g.Key.MaSV,
+                    TenSinhVien = g.Key.TenSinhVien,
+                    Lop = g.Key.Lop,
+                    HinhAnh = g.Key.HinhAnh,
+                    NgayNhan = g.First().NgayNhan,
+                    LoaiHocBong = new LoaiHocBong
+                    {
+                        // Nối tên các học bổng lại bằng dấu phẩy
+                        TenHocBong = string.Join(",", g.Where(x => x.LoaiHocBong != null).Select(x => x.LoaiHocBong.TenHocBong))
+                    }
+                }).ToList();
 
             ViewBag.DanhSachLoaiHB = await _context.LoaiHocBongs.OrderByDescending(x => x.Id).ToListAsync();
 
@@ -55,6 +75,7 @@ namespace VKITActivityManager.Controllers
                 .Include(v => v.PhanLoaiVideo)
                 .OrderByDescending(v => v.NgayTao)
                 .ToListAsync();
+
             ViewBag.DanhSachCauHoi = await _context.CauHoiThuongGaps.OrderByDescending(x => x.Id).ToListAsync();
             return View(data);
         }
@@ -134,7 +155,7 @@ namespace VKITActivityManager.Controllers
                 if (hoatDongDb == null) return NotFound();
 
                 hoatDongDb.TieuDe = hoatDong.TieuDe;
-                //... (Giữ nguyên các bản cập nhật nếu có)
+                // Cập nhật thêm các trường khác nếu có
 
                 await _context.SaveChangesAsync();
                 TempData["SuccessMsg"] = "Cập nhật dữ liệu hoàn tất!";
@@ -316,7 +337,9 @@ namespace VKITActivityManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ======================= QUẢN LÝ SV HỌC BỔNG =======================
+        // =========================================================================
+        // QUẢN LÝ SV HỌC BỔNG (ĐÃ SỬA LỖI SQL)
+        // =========================================================================
         public IActionResult CreateSVHB()
         {
             ViewBag.LoaiHocBongId = new SelectList(_context.LoaiHocBongs, "Id", "TenHocBong");
@@ -326,11 +349,22 @@ namespace VKITActivityManager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequestSizeLimit(1073741824)]
-        public async Task<IActionResult> CreateSVHB(SinhVienHocBong sv, IFormFile? fileAnh)
+        public async Task<IActionResult> CreateSVHB(SinhVienHocBong sv, List<int> LoaiHocBongIds, IFormFile? fileAnh)
         {
             ModelState.Remove("LoaiHocBong");
+            ModelState.Remove("LoaiHocBongId"); // Bỏ qua Validate cột cũ vì ta xử lý List riêng
+
             if (ModelState.IsValid)
             {
+                if (LoaiHocBongIds == null || !LoaiHocBongIds.Any())
+                {
+                    ModelState.AddModelError("", "Vui lòng chọn ít nhất 1 loại học bổng.");
+                    ViewBag.LoaiHocBongId = new SelectList(_context.LoaiHocBongs, "Id", "TenHocBong");
+                    return View(sv);
+                }
+
+                string imageUrl = "/images/default-avatar.png";
+
                 if (fileAnh != null && fileAnh.Length > 0)
                 {
                     string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "sinhvienhocbong");
@@ -338,16 +372,31 @@ namespace VKITActivityManager.Controllers
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileAnh.FileName);
                     string filePath = Path.Combine(uploadFolder, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create)) { await fileAnh.CopyToAsync(stream); }
-                    sv.HinhAnh = "/images/sinhvienhocbong/" + fileName;
+                    imageUrl = "/images/sinhvienhocbong/" + fileName;
                 }
-                sv.NgayNhan = DateTime.Now;
-                _context.SinhVienHocBongs.Add(sv);
+
+                // Chạy vòng lặp tạo ra nhiều bản ghi tương ứng với số học bổng được chọn
+                foreach (var id in LoaiHocBongIds)
+                {
+                    var newSv = new SinhVienHocBong
+                    {
+                        MaSV = sv.MaSV,
+                        TenSinhVien = sv.TenSinhVien,
+                        Lop = sv.Lop,
+                        HinhAnh = imageUrl,
+                        NgayNhan = DateTime.Now,
+                        LoaiHocBongId = id // Gán ID chuẩn để SQL không báo lỗi FK
+                    };
+                    _context.SinhVienHocBongs.Add(newSv);
+                }
+
                 await _context.SaveChangesAsync();
                 TempData["SuccessMsg"] = "Thêm sinh viên thành công!";
                 TempData["ActiveTab"] = "svhocbong";
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.LoaiHocBongId = new SelectList(_context.LoaiHocBongs, "Id", "TenHocBong", sv.LoaiHocBongId);
+
+            ViewBag.LoaiHocBongId = new SelectList(_context.LoaiHocBongs, "Id", "TenHocBong");
             return View(sv);
         }
 
@@ -357,28 +406,43 @@ namespace VKITActivityManager.Controllers
             if (id == null) return NotFound();
             var sv = await _context.SinhVienHocBongs.FindAsync(id);
             if (sv == null) return NotFound();
-            ViewBag.LoaiHocBongId = new SelectList(_context.LoaiHocBongs, "Id", "TenHocBong", sv.LoaiHocBongId);
+
+            // Tìm tất cả học bổng sinh viên này đang sở hữu để gán vào giao diện Edit
+            var selectedIds = await _context.SinhVienHocBongs
+                .Where(x => x.MaSV == sv.MaSV)
+                .Select(x => x.LoaiHocBongId)
+                .ToListAsync();
+
+            ViewBag.LoaiHocBongId = new MultiSelectList(_context.LoaiHocBongs, "Id", "TenHocBong", selectedIds);
             return View(sv);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequestSizeLimit(1073741824)]
-        public async Task<IActionResult> EditSVHB(int id, SinhVienHocBong sv, IFormFile? fileAnh)
+        public async Task<IActionResult> EditSVHB(int id, SinhVienHocBong sv, List<int> LoaiHocBongIds, IFormFile? fileAnh)
         {
-            if (id != sv.Id) return NotFound();
             ModelState.Remove("LoaiHocBong");
+            ModelState.Remove("LoaiHocBongId");
             ModelState.Remove("HinhAnh");
 
             if (ModelState.IsValid)
             {
-                var data = await _context.SinhVienHocBongs.FindAsync(id);
-                if (data == null) return NotFound();
-                data.MaSV = sv.MaSV;
-                data.TenSinhVien = sv.TenSinhVien;
-                data.Lop = sv.Lop;
-                data.LoaiHocBongId = sv.LoaiHocBongId;
+                if (LoaiHocBongIds == null || !LoaiHocBongIds.Any())
+                {
+                    ModelState.AddModelError("", "Vui lòng chọn ít nhất 1 loại học bổng.");
+                    ViewBag.LoaiHocBongId = new MultiSelectList(_context.LoaiHocBongs, "Id", "TenHocBong", LoaiHocBongIds);
+                    return View(sv);
+                }
 
+                // 1. Tìm sinh viên cũ để giữ lại hình ảnh và ngày nhận
+                var dataCu = await _context.SinhVienHocBongs.FindAsync(id);
+                if (dataCu == null) return NotFound();
+
+                string maSVCu = dataCu.MaSV;
+                string imageUrl = dataCu.HinhAnh;
+
+                // 2. Xử lý ảnh mới
                 if (fileAnh != null && fileAnh.Length > 0)
                 {
                     string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "sinhvienhocbong");
@@ -386,14 +450,35 @@ namespace VKITActivityManager.Controllers
                     string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileAnh.FileName);
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create)) { await fileAnh.CopyToAsync(fileStream); }
-                    data.HinhAnh = "/images/sinhvienhocbong/" + uniqueFileName;
+                    imageUrl = "/images/sinhvienhocbong/" + uniqueFileName;
                 }
+
+                // 3. Xóa các bản ghi cũ của sinh viên này
+                var allOldRecords = _context.SinhVienHocBongs.Where(x => x.MaSV == maSVCu);
+                _context.SinhVienHocBongs.RemoveRange(allOldRecords);
+
+                // 4. Thêm lại các bản ghi mới
+                foreach (var hbId in LoaiHocBongIds)
+                {
+                    var newSv = new SinhVienHocBong
+                    {
+                        MaSV = sv.MaSV,
+                        TenSinhVien = sv.TenSinhVien,
+                        Lop = sv.Lop,
+                        HinhAnh = imageUrl,
+                        NgayNhan = dataCu.NgayNhan,
+                        LoaiHocBongId = hbId
+                    };
+                    _context.SinhVienHocBongs.Add(newSv);
+                }
+
                 await _context.SaveChangesAsync();
                 TempData["SuccessMsg"] = "Cập nhật sinh viên thành công!";
                 TempData["ActiveTab"] = "svhocbong";
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.LoaiHocBongId = new SelectList(_context.LoaiHocBongs, "Id", "TenHocBong", sv.LoaiHocBongId);
+
+            ViewBag.LoaiHocBongId = new MultiSelectList(_context.LoaiHocBongs, "Id", "TenHocBong", LoaiHocBongIds);
             return View(sv);
         }
 
@@ -401,7 +486,13 @@ namespace VKITActivityManager.Controllers
         public async Task<IActionResult> DeleteSVHB(int id)
         {
             var sv = await _context.SinhVienHocBongs.FindAsync(id);
-            if (sv != null) { _context.SinhVienHocBongs.Remove(sv); await _context.SaveChangesAsync(); }
+            if (sv != null)
+            {
+                // Quét sạch tất cả dòng có cùng Mã Sinh Viên
+                var allRecords = _context.SinhVienHocBongs.Where(x => x.MaSV == sv.MaSV);
+                _context.SinhVienHocBongs.RemoveRange(allRecords);
+                await _context.SaveChangesAsync();
+            }
             TempData["ActiveTab"] = "svhocbong";
             return RedirectToAction(nameof(Index));
         }
@@ -619,6 +710,7 @@ namespace VKITActivityManager.Controllers
             TempData["ActiveTab"] = "uudiem";
             return RedirectToAction(nameof(Index));
         }
+
         // =========================================================================
         // QUẢN LÝ Q&A CHATBOX
         // =========================================================================
@@ -627,15 +719,11 @@ namespace VKITActivityManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCauHoi(CauHoiThuongGap model) // Đã đổi tên biến thành "model"
+        public async Task<IActionResult> CreateCauHoi(CauHoiThuongGap model)
         {
-            // 1. Xóa sạch mọi bắt lỗi ngầm mặc định của hệ thống
             ModelState.Clear();
-
-            // 2. Tự gán các giá trị bắt buộc
             model.NgayTao = DateTime.Now;
 
-            // 3. Tự kiểm tra thủ công
             if (string.IsNullOrEmpty(model.CauHoi)) ModelState.AddModelError("CauHoi", "Không được để trống câu hỏi.");
             if (string.IsNullOrEmpty(model.TraLoi)) ModelState.AddModelError("TraLoi", "Không được để trống nội dung trả lời.");
 
@@ -660,14 +748,12 @@ namespace VKITActivityManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditCauHoi(int id, CauHoiThuongGap model) // Đã đổi tên biến thành "model"
+        public async Task<IActionResult> EditCauHoi(int id, CauHoiThuongGap model)
         {
             if (id != model.Id) return NotFound();
 
-            // 1. Xóa sạch mọi bắt lỗi ngầm mặc định của hệ thống
             ModelState.Clear();
 
-            // 2. Tự kiểm tra thủ công
             if (string.IsNullOrEmpty(model.CauHoi)) ModelState.AddModelError("CauHoi", "Không được để trống câu hỏi.");
             if (string.IsNullOrEmpty(model.TraLoi)) ModelState.AddModelError("TraLoi", "Không được để trống nội dung trả lời.");
 
@@ -681,6 +767,7 @@ namespace VKITActivityManager.Controllers
             }
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteCauHoi(int id)
         {
@@ -689,11 +776,10 @@ namespace VKITActivityManager.Controllers
             TempData["ActiveTab"] = "chatbox";
             return RedirectToAction(nameof(Index));
         }
+
         // ==========================================================
         // QUẢN LÝ HOẠT ĐỘNG NỔI BẬT
         // ==========================================================
-
-        // 1. DANH SÁCH
         public async Task<IActionResult> IndexHDNB()
         {
             var danhSach = await _context.HoatDongNoiBats
@@ -702,13 +788,11 @@ namespace VKITActivityManager.Controllers
             return View(danhSach);
         }
 
-        // 2. TẠO MỚI (GET)
         public IActionResult CreateHDNB()
         {
             return View();
         }
 
-        // 3. TẠO MỚI (POST) - Có xử lý upload ảnh
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequestSizeLimit(1073741824)]
@@ -720,11 +804,9 @@ namespace VKITActivityManager.Controllers
             {
                 if (fileTaiLen != null && fileTaiLen.Length > 0)
                 {
-                    // Lấy thư mục wwwroot/images/hoatdong
                     var thuMucUpload = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "hoatdong");
                     if (!Directory.Exists(thuMucUpload)) Directory.CreateDirectory(thuMucUpload);
 
-                    // Tạo tên file ngẫu nhiên tránh trùng lặp
                     var tenFile = Guid.NewGuid().ToString() + Path.GetExtension(fileTaiLen.FileName);
                     var duongDanLuu = Path.Combine(thuMucUpload, tenFile);
 
@@ -736,7 +818,7 @@ namespace VKITActivityManager.Controllers
                 }
                 else
                 {
-                    model.DuongDanAnh = "/images/hoatdong/default.jpg"; // Ảnh mặc định nếu không chọn
+                    model.DuongDanAnh = "/images/hoatdong/default.jpg";
                 }
 
                 model.NgayTao = DateTime.Now;
@@ -747,7 +829,6 @@ namespace VKITActivityManager.Controllers
             return View(model);
         }
 
-        // 4. CẬP NHẬT (GET)
         public async Task<IActionResult> EditHDNB(int? id)
         {
             if (id == null) return NotFound();
@@ -756,7 +837,6 @@ namespace VKITActivityManager.Controllers
             return View(item);
         }
 
-        // 5. CẬP NHẬT (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequestSizeLimit(1073741824)]
@@ -786,10 +866,10 @@ namespace VKITActivityManager.Controllers
                     }
                     else
                     {
-                        model.DuongDanAnh = itemCu.DuongDanAnh; // Giữ nguyên ảnh cũ nếu không chọn ảnh mới
+                        model.DuongDanAnh = itemCu.DuongDanAnh;
                     }
 
-                    model.NgayTao = itemCu.NgayTao; // Giữ nguyên ngày tạo gốc
+                    model.NgayTao = itemCu.NgayTao;
                     _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
@@ -804,7 +884,6 @@ namespace VKITActivityManager.Controllers
             return View(model);
         }
 
-        // 6. XÓA (POST)
         [HttpPost]
         public async Task<IActionResult> DeleteHDNB(int id)
         {

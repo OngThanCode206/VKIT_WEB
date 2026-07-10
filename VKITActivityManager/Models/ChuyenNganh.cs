@@ -9,7 +9,7 @@ namespace VKITActivityManager.Models
     {
         [Key]
         public int Id { get; set; }
-        public string TenNganh { get; set; }
+        public string? TenNganh { get; set; }
         public ICollection<HoatDongChuyenNganh> HoatDongChuyenNganhs { get; set; }
     }
 }

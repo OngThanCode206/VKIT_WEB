@@ -9,9 +9,9 @@ namespace VKITActivityManager.Models
     {
         [Key] public int Id { get; set; }
         public int LoaiHocBongId { get; set; }
-        public string MaSV { get; set; }
-        public string TenSinhVien { get; set; }
-        public string Lop { get; set; }
+        public string? MaSV { get; set; }
+        public string? TenSinhVien { get; set; }
+        public string? Lop { get; set; }
         public string? HinhAnh { get; set; }
         public DateTime NgayNhan { get; set; } = DateTime.Now;
 

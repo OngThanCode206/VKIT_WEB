@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VKITActivityManager.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace VKITActivityManager.Controllers
 {

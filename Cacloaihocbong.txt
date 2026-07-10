@@ -1,0 +1,50 @@
+  <div class="text-center mb-5">
+            <span class="text-uppercase fw-bold text-primary tracking-wider small d-block mb-1" style="letter-spacing: 2px; color: #4f46e5 !important;">VKIT SCHOLARSHIP FUND</span>
+            <h2 class="fw-black m-0" style="color: #0f172a; font-weight: 800; font-size: 2.5rem;">
+                Các Loại Học Bổng Hiện Hành Năm 2025
+            </h2>
+        </div>
+        
+        <div class="position-relative hb-slider-wrapper mb-5">
+            <button id="btnPrevHB" class="btn btn-light rounded-circle shadow position-absolute top-50 translate-middle-y z-3" style="width: 45px; height: 45px; left: 0px;"><i class="fas fa-chevron-left"></i></button>
+
+            <div class="d-flex hb-scroll-area" id="hbScrollArea">
+                @if (ViewBag.DanhSachLoaiHocBong != null)
+                {
+                    var dsLoaiHB = (List<VKITActivityManager.Models.LoaiHocBong>)ViewBag.DanhSachLoaiHocBong;
+
+                    // Gom nhóm 2 học bổng vào 1 khung
+                    for (int i = 0; i < dsLoaiHB.Count; i += 2)
+                    {
+                        var item1 = dsLoaiHB[i];
+                        string cardColor1 = !string.IsNullOrEmpty(item1.MauNen) ? item1.MauNen : "#38bdf8";
+
+                        <div class="k-duo-scholarship-box">
+                            <div class="k-duo-inner-info h-100">
+
+                                <div class="k-hb-item-pane">
+                                    <div class="k-hb-badge-tag" style="background-color: @cardColor1;">
+                                        <i class="fas fa-award me-1"></i> @(item1.SoSuat < 10 ? "0" + item1.SoSuat : item1.SoSuat.ToString()) SUẤT
+                                    </div>
+                                    <h4 class="k-hb-title-lbl">@item1.TenHocBong</h4>
+                                    <p class="k-hb-desc-lbl">@item1.MoTa</p>
+                                </div>
+
+                                @if (i + 1 < dsLoaiHB.Count)
+                                {
+                                    var item2 = dsLoaiHB[i + 1];
+                                    string cardColor2 = !string.IsNullOrEmpty(item2.MauNen) ? item2.MauNen : "#6366f1";
+
+                                    <div class="k-hb-item-pane">
+                                        <div class="k-hb-badge-tag" style="background-color: @cardColor2;">
+                                            <i class="fas fa-award me-1"></i> @(item2.SoSuat < 10 ? "0" + item2.SoSuat : item2.SoSuat.ToString()) SUẤT
+                                        </div>
+                                        <h4 class="k-hb-title-lbl">@item2.TenHocBong</h4>
+                                        <p class="k-hb-desc-lbl">@item2.MoTa</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
