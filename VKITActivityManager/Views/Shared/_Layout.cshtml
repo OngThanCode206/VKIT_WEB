@@ -463,11 +463,12 @@
     const danhSachNganh = [
     { id: 1, name: "Công nghệ thông tin" }, { id: 2, name: "Công nghệ kỹ thuật ô tô" },
     { id: 3, name: "Quản trị kinh doanh" }, { id: 4, name: "Thiết kế đồ họa" },
-    { id: 5, name: "CÔNG NGHỆ Ô TÔ ĐIỆN" }, { id: 6, name: "Tài chính – Ngân hàng" },
+    { id: 5, name: " CÔNG NGHỆ Ô TÔ ĐIỆN" }, { id: 6, name: "Tài chính – Ngân hàng" },
     { id: 7, name: "Ngôn ngữ Hàn Quốc" }, { id: 8, name: "Logistics & Quản lý chuỗi cung ứng" },
-    { id: 9, name: "DIGITAL MARKETING" }
+    { id: 9, name: " DIGITAL MARKETING" }
     ];
 
+    // --- CÁC HÀM GIAO DIỆN (GIỮ NGUYÊN) ---
     chatBtn.addEventListener('click', function () {
     chatWindow.classList.toggle('d-none');
     chatWindow.classList.toggle('d-flex');
@@ -500,6 +501,7 @@
     const found = localDbData.find(x => x.phanLoai === nganh.id);
     setTimeout(() => {
     appendMessage(found ? found.traLoi : "Thông tin ngành này đang cập nhật.", "bot");
+    if (!found) appendQRCodeBox();
     showBackToMenuOption();
     }, 400);
     });
@@ -516,6 +518,7 @@
     });
     }
 
+    // --- HÀM CHAT AI MỚI (THAY THẾ LOGIC CŨ) ---
     function handleUserTextInput() {
     const query = chatInput.value.trim();
     if (!query) return;
@@ -534,7 +537,11 @@
     .then(res => res.json())
     .then(data => {
     document.getElementById(typingId).parentElement.parentElement.remove();
+    if (data.success) {
     appendMessage(data.answer, "bot");
+    } else {
+    appendMessage(data.answer, "bot");
+    }
     showBackToMenuOption();
     })
     .catch(() => {
@@ -543,18 +550,18 @@
     });
     }
 
+    // --- CÁC HÀM TIỆN ÍCH (GIỮ NGUYÊN) ---
+    function appendQRCodeBox() { /* ... Giữ nguyên nội dung hàm cũ ... */ }
     function createOptionButton(text, clickEvent) {
     let btn = document.createElement('button');
     btn.className = 'btn btn-outline-primary text-start shadow-sm py-2 px-3 fw-bold bg-white mb-2';
     btn.style.borderRadius = '12px'; btn.innerHTML = text; btn.onclick = clickEvent;
     optionsArea.appendChild(btn);
     }
-
     function showBackToMenuOption() {
     optionsArea.innerHTML = '';
     createOptionButton("🏠 Quay lại menu chính", showInitialMenu);
     }
-
     function appendMessage(text, sender) {
     const history = document.getElementById('chat-history');
     const msgDiv = document.createElement('div');

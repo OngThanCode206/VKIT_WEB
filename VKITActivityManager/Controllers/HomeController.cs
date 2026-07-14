@@ -154,8 +154,7 @@ namespace VKITActivityManager.Controllers
 
                 // 2. CẤU HÌNH MODEL TẠI ĐÂY (Sử dụng dòng 2.0 mới nhất thay cho bản 1.5 đã đóng)
                 string modelName = "gemini-3.1-flash-lite";
-                string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/{modelName}:generateContent?key={apiKey}";
-
+                string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/{modelName}:generateContent";
                 // 3. Lấy dữ liệu làm kiến thức cho AI
                 var danhSachKienThuc = await _context.CauHoiThuongGaps.ToListAsync();
                 string kienThucHocThuat = "";
@@ -164,11 +163,34 @@ namespace VKITActivityManager.Controllers
                     kienThucHocThuat += $"- Câu hỏi: {item.CauHoi} \n- Trả lời: {item.TraLoi}\n\n";
                 }
 
-                string prompt = $@"Bạn là trợ lý ảo tư vấn tuyển sinh VKIT. Hãy trả lời câu hỏi dựa trên dữ liệu sau: {kienThucHocThuat}. Câu hỏi của sinh viên: ""{userQuestion}""";
-
+                string prompt = $@"Bạn là trợ lý ảo tư vấn tuyển sinh nhiệt tình, thân thiện của trường VKIT. Hãy tư vấn cho sinh viên dựa trên dữ liệu sau: {kienThucHocThuat}
+                                YÊU CẦU TRẢ LỜI:
+                                1. Giọng điệu: Thân thiện, gần gũi, xưng hô 'mình/VKIT - bạn' hoặc 'chúng mình - bạn'. Luôn có một câu chào ngắn gọn, ấm áp ở đầu.
+                                2. Nội dung: Cung cấp đầy đủ thông tin trọng tâm mà sinh viên hỏi. Kết thúc bằng một câu hỏi mở nhẹ nhàng (Ví dụ: 'Bạn có muốn mình tư vấn thêm về điều kiện xét tuyển không?').
+                                3. Định dạng: Tuyệt đối KHÔNG dùng ký tự Markdown (như **, #, *). Sử dụng dấu gạch ngang (-) và xuống dòng để liệt kê các ý cho dễ đọc.
+                                4. Độ dài: Trình bày mạch lạc trong khoảng 4-6 câu (tối đa 150-180 từ). Đủ ý nhưng không miên man.
+                                5. Học thêm các qua các câu hỏi của sinh viên để trả lời chính xác hơn. Nếu không biết, hãy trả lời : xin lỗi, mình chưa có thông tin về vấn đề này. Bạn có thể liên hệ trực tiếp với phonfg tuyển sinh của VKIT để được hỗ trợ nhanh nhất. https://www.facebook.com/VKITHUTECH?locale=vi_VN
+                                6. Khi sinh viên hỏi các câu vi phạm pháp luật thì hãy khuyên nhũ và nhẹ nhàng giải thích, đưa ra các lập luận khiến cho sinh viên hiểu hơn về pháp luật.
+                                --- VÍ DỤ MẪU ĐỂ BẠN HỌC THEO ---
+                            Khách: Học phí công nghệ thông tin đắt không shop?
+                            VKIT AI: Chào bạn! Ngành Công nghệ thông tin tại VKIT có mức học phí rất hợp lý, cụ thể là 19.800.000đ/đợt (4 năm/15 đợt) bạn nhé. Đặc biệt, trường đang có các mức học bổng từ 25%, 50% đến 75% cho tân sinh viên đó. 
+                            Bạn có muốn mình hướng dẫn cách đăng ký xét học bổng không?
+                            ----------------------------------
+                                Câu hỏi của sinh viên: ""{userQuestion}""";
                 using (var client = new HttpClient())
                 {
-                    var requestBody = new { contents = new[] { new { parts = new[] { new { text = prompt } } } } };
+
+                    client.DefaultRequestHeaders.Add("x-goog-api-key", apiKey);
+                    var requestBody = new
+                    {
+                        contents = new[] { new { parts = new[] { new { text = prompt } } } },
+                        generationConfig = new
+                        {
+                            maxOutputTokens = 400,
+                            temperature = 0.4
+                        }
+                    };
+
                     var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
                     var response = await client.PostAsync(apiUrl, content);
 
@@ -195,7 +217,7 @@ namespace VKITActivityManager.Controllers
             {
                 return Json(new { success = false, answer = "Lỗi hệ thống: " + ex.Message });
             }
-        }
+            }
         [HttpPost]
         [IgnoreAntiforgeryToken]
         public IActionResult SubmitDangKy(DangKyTuVan model, [FromServices] EmailService emailService)
